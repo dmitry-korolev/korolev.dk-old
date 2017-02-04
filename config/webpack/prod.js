@@ -13,7 +13,7 @@ const config = {
 
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
-        modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/redux'],
+        modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/state'],
     },
 
     entry: {
@@ -159,13 +159,13 @@ const copySync = (src, dest, overwrite) => {
     }
     const data = fs.readFileSync(src);
     fs.writeFileSync(dest, data);
-}
+};
 
 const createIfDoesntExist = dest => {
     if (!fs.existsSync(dest)) {
         fs.mkdirSync(dest);
     }
-}
+};
 
 createIfDoesntExist('./build');
 createIfDoesntExist('./build/public');

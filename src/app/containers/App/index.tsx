@@ -1,16 +1,18 @@
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
-
+import { asyncConnect } from 'redux-connect';
+import { getHeadlines, headlinesSet } from 'state/modules/headlines';
 import { SiteHeader } from 'components';
-import { getHeadlines, headlinesSet } from 'redux/modules/headlines';
 
-const { connect } = require('react-redux');
-const { asyncConnect } = require('redux-connect');
-const appConfig = require('../../../../config/main');
+// Models
+import { IApplication } from 'models/appication';
+
+// Styles
 const s = require('./style.css');
 
 interface IProps {
     headline: string;
+    application: IApplication;
     location: {
         pathname: string;
     };
@@ -20,10 +22,14 @@ interface IProps {
 @asyncConnect(
     [{
         promise: ({ store: { dispatch } }) => dispatch(getHeadlines())
-    }]
-)
-@connect(
-    ({ headlines }) => ({ headline: headlines.current }),
+    }],
+    ({
+        headlines,
+        application
+    }) => ({
+        headline: headlines.current,
+        application
+    }),
     (dispatch) => ({ changeHeadline: () => dispatch(headlinesSet()) })
 )
 class App extends React.PureComponent<IProps, any> {
@@ -34,13 +40,26 @@ class App extends React.PureComponent<IProps, any> {
     }
 
     public render() {
-        const { headline, children } = this.props;
+        const {
+            headline,
+            children,
+            application: {
+                title,
+                titleTemplate,
+                head: {
+                    meta,
+                    link
+                }
+            }
+        } = this.props;
 
         return (
             <div className={ s.appContainer }>
                 <Helmet
-                    { ...appConfig.app }
-                    { ...appConfig.app.head }
+                    title={ title }
+                    titleTemplate={ titleTemplate }
+                    meta={ meta }
+                    link={ link }
                 />
                 <SiteHeader
                     headline={ headline }

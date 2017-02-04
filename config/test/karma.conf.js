@@ -1,8 +1,8 @@
-var path = require('path');
-var webpack = require('webpack');
-var postcssAssets = require('postcss-assets');
-var postcssNext = require('postcss-cssnext');
-var appConfig = require('../main');
+const path = require('path');
+const webpack = require('webpack');
+const postcssAssets = require('postcss-assets');
+const postcssNext = require('postcss-cssnext');
+const appConfig = require('../main');
 
 module.exports = function (config) {
   const conf = {
@@ -49,7 +49,7 @@ module.exports = function (config) {
           path.resolve(__dirname),
           '../../src',
           '../../src/app',
-          '../../src/app/redux',
+          '../../src/app/state',
           'node_modules'
         ],
         extensions: ['.json', '.js', '.ts', '.tsx', '.jsx']

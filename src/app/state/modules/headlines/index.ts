@@ -1,6 +1,6 @@
 export {
     headlinesReducer
-} from './reducers'
+} from './reducer'
 
 export {
     GET_REQUEST,
