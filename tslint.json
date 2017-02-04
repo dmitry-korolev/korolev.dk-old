@@ -1,0 +1,52 @@
+{
+    "rulesDirectory": [
+        "node_modules/tslint-eslint-rules/dist/rules"
+    ],
+    "extends": [
+        "tslint:latest",
+        "tslint-react"
+    ],
+    "rules": {
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "never",
+                "singleline": "never"
+            }
+        ],
+        "indent": [
+            true,
+            "spaces"
+        ],
+        "quotemark": [
+            true,
+            "single",
+            "jsx-single"
+        ],
+        "no-var-requires": false,
+        "ordered-imports": false,
+        "member-ordering": [
+            false
+        ],
+        "object-literal-sort-keys": false,
+        "no-shadowed-variable": false,
+        "no-console": [
+            false
+        ],
+        "object-curly-spacing": [
+            true,
+            "always"
+        ],
+
+        "jsx-no-multiline-js": [
+            false
+        ],
+        "jsx-alignment": [
+            false
+        ],
+        "jsx-curly-spacing": [
+            true,
+            "always"
+        ]
+    }
+}

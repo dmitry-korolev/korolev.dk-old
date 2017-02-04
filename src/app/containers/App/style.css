@@ -1,0 +1,9 @@
+@import '../../statics/styles/variables.css';
+
+.appContainer {
+    display: block;
+    margin: 0 auto;
+    width: var(--siteWidth);
+    position: relative;
+    transition: left 0.3s ease-out;
+}

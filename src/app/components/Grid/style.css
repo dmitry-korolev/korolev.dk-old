@@ -1,0 +1,12 @@
+@import '../../statics/styles/variables.css';
+
+.flex {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: var(--leading);
+}
+
+.box {
+    padding: 0 var(--gutter) 0 var(--gutter);
+}
