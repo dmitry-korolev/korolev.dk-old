@@ -6,21 +6,25 @@ import { IPost } from 'models/post';
 
 interface IProps extends React.HTMLProps<HTMLElement> {
     item: IPost;
-    isMainPage: boolean;
+    isSingle: boolean;
 }
+
+const renderArticle = (html) => ({ __html: html });
 
 export const Post: React.StatelessComponent<IProps> = (props: IProps) => {
     const {
-        id,
-        title: {
-            rendered: title
+        item: {
+            id,
+            title: {
+                rendered: title
+            },
+            content: {
+                rendered: content
+            },
+            slug
         },
-        content: {
-            rendered: content
-        },
-        slug
-    } = props.item;
-    const renderArticle = (html) => ({ __html: html });
+        isSingle
+    } = props;
 
     return <article
         id={ `post-${id}` }
@@ -28,6 +32,7 @@ export const Post: React.StatelessComponent<IProps> = (props: IProps) => {
         <Header
             titleText={ title }
             titleLink={ `/${slug}/` }
+            titleTag={ isSingle ? 'h1' : 'h2' }
         />
 
         <div
