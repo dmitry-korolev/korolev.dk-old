@@ -3,6 +3,7 @@ export interface IHeadlines {
     error?: boolean;
     message?: any;
     headlines: string[];
+    current: string;
 }
 
 export interface IHeadlinesAction {

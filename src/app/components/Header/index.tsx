@@ -8,14 +8,10 @@ const s = require('./style.css');
 interface IProps extends React.HTMLProps<HTMLElement> {
     titleText: string;
     titleLink: string;
+    titleTag?: 'h1' | 'h2' | 'h3';
     subtitle?: string;
     mod?: 'site' | 'post';
 }
-
-const getTitleTag = (mod) => ({
-    site: 'h1',
-    post: 'h2'
-}[mod]);
 
 const getTitleClass = (mod) => ({
     site: s.header__title_site,
@@ -26,6 +22,7 @@ export const Header: React.StatelessComponent<IProps> = (props: IProps) => {
     const {
         titleText,
         titleLink,
+        titleTag = 'h2',
         subtitle,
         mod = 'post'
     } = props;
@@ -34,7 +31,7 @@ export const Header: React.StatelessComponent<IProps> = (props: IProps) => {
         className={ s.header }
     >
         <Title
-            tag={ getTitleTag(mod) }
+            tag={ titleTag }
             className={ classNames({
                 [s.header__title]: true,
                 [getTitleClass(mod)]: true

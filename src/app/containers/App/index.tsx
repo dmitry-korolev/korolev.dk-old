@@ -1,10 +1,8 @@
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
-import { IHeadlines } from 'models/headlines';
 
 import { SiteHeader } from 'components';
-import { getHeadlines } from 'redux/modules/headlines/index';
-import { randomFromArray } from 'utils/randomFromArray';
+import { getHeadlines, headlinesSet } from 'redux/modules/headlines';
 
 const { connect } = require('react-redux');
 const { asyncConnect } = require('redux-connect');
@@ -12,43 +10,31 @@ const appConfig = require('../../../../config/main');
 const s = require('./style.css');
 
 interface IProps {
-    headlines: IHeadlines;
+    headline: string;
     location: {
         pathname: string;
     };
+    changeHeadline(): void;
 }
 
-@asyncConnect([{
-    promise: ({ store: { dispatch } }) => dispatch(getHeadlines())
-}])
+@asyncConnect(
+    [{
+        promise: ({ store: { dispatch } }) => dispatch(getHeadlines())
+    }]
+)
 @connect(
-    ({ headlines }) => ({ headlines })
+    ({ headlines }) => ({ headline: headlines.current }),
+    (dispatch) => ({ changeHeadline: () => dispatch(headlinesSet()) })
 )
 class App extends React.PureComponent<IProps, any> {
-    public componentWillMount() {
-        this.setState({
-            headline: '...'
-        });
-    }
-
-    public componentDidMount() {
-        this.updateHeadline();
-    }
-
-    public componentWillUpdate(prevProps: IProps) {
-        if (this.props.location.pathname !== prevProps.location.pathname) {
-            this.updateHeadline();
+    public componentDidUpdate(prevProps: IProps) {
+        if (prevProps.location.pathname !== this.props.location.pathname) {
+            this.props.changeHeadline();
         }
     }
 
-    private updateHeadline() {
-        this.setState({
-            headline: randomFromArray(this.props.headlines.headlines)
-        });
-    }
-
     public render() {
-        const { headline } = this.state;
+        const { headline, children } = this.props;
 
         return (
             <div className={ s.appContainer }>
@@ -59,7 +45,7 @@ class App extends React.PureComponent<IProps, any> {
                 <SiteHeader
                     headline={ headline }
                 />
-                { this.props.children }
+                { children }
             </div>
         );
     }
