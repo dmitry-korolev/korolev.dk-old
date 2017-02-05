@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Helmet from 'react-helmet';
 
 // Types
-import { IStore } from 'state/IStore';
+import { IStore } from '../../models/store';
 
 interface IHtmlProps {
     manifest?: Object;

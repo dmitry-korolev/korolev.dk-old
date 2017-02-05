@@ -4,7 +4,7 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    margin-bottom: var(--leading);
+    margin: 0 calc(0 - var(--gutter)) var(--leading);
 }
 
 .box {

@@ -1,10 +1,13 @@
-const appConfig = require('../../../config/main');
 import { createStore, applyMiddleware, compose } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
+import { routerMiddleware } from 'react-router-redux';
+import * as createLogger from 'redux-logger';
+
+// Models
+import { IStore } from 'models/store';
 import rootReducer from './reducers';
-import { IStore } from './IStore';
-const createLogger = require('redux-logger');
+
+const appConfig = require('../../../config/main');
 
 export function configureStore(history, initialState?: IStore): Redux.Store<IStore> {
 

@@ -32,7 +32,7 @@ interface IProps {
     }),
     (dispatch) => ({ changeHeadline: () => dispatch(headlinesSet()) })
 )
-class App extends React.PureComponent<IProps, any> {
+class App extends React.Component<IProps, any> {
     public componentDidUpdate(prevProps: IProps) {
         if (prevProps.location.pathname !== this.props.location.pathname) {
             this.props.changeHeadline();

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Header } from 'components';
-import { IPost } from 'models/post';
+import { IPost } from 'models/content';
 
 // const s = require('./style.css');
 

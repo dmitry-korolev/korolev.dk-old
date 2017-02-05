@@ -18,5 +18,4 @@ describe('<Home />', () => {
     it('Has a p element that says Hello!', () => {
         expect(component.find('p').text()).eql('Hello!');
     });
-
 });

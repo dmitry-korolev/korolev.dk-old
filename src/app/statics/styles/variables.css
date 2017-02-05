@@ -7,6 +7,6 @@
     --gutter: 8px;
     --baseColumnWidth: 66.666px;
     --columnWidth: calc(var(--baseColumnWidth) + var(--gutter) * 2);
-    --siteWidth: calc(var(--columnWidth) * 8);
+    --siteWidth: calc(var(--columnWidth) * 8 - var(--gutter) * 2);
 }
 

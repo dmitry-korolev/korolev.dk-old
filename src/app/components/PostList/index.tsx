@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Post } from 'components';
-import { IPost } from 'models/post';
+import { IPost } from 'models/content';
 
 interface IProps {
     posts: IPost[];
