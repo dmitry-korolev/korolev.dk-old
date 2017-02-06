@@ -1,9 +1,13 @@
+export interface IHeadline {
+    id?: number;
+    content: string;
+}
+
 export interface IHeadlines {
     isFetching: boolean;
-    error?: boolean;
-    message?: any;
-    headlines: string[];
-    current: string;
+    error?: any;
+    headlines: Map<string, any>;
+    current: IHeadline;
 }
 
 export interface IHeadlinesAction {

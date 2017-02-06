@@ -27,7 +27,7 @@ interface IProps {
         headlines,
         application
     }) => ({
-        headline: headlines.current,
+        headline: headlines.current.content,
         application
     }),
     (dispatch) => ({ changeHeadline: () => dispatch(headlinesSet()) })

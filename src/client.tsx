@@ -5,11 +5,11 @@ import 'isomorphic-fetch';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-const { Router, browserHistory } = require('react-router');
 import { syncHistoryWithStore } from 'react-router-redux';
+const { Router, browserHistory } = require('react-router');
 const { ReduxAsyncConnect } = require('redux-connect');
+
 import { configureStore } from './app/state/store';
-import 'isomorphic-fetch';
 import routes from './app/routes';
 
 const store = configureStore(

@@ -73,3 +73,20 @@ export interface IContent {
     posts: Map<number, IPost>;
     categories: Map<number, ICategory>;
 }
+
+export interface IGetPosts {
+    page?: number;
+    perPage?: number;
+    offset?: number;
+    order?: 'asc' | 'desc';
+}
+
+export interface IContentAction {
+    type: string;
+    payload?: {
+        post?: IPost;
+        posts?: IPost[];
+        category?: ICategory;
+        categories?: ICategory[];
+    };
+}
