@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
 import { asyncConnect } from 'redux-connect';
+import { path } from 'ramda';
+
 import { getHeadlines, headlinesSet } from 'state/modules/headlines';
 import { SiteHeader } from 'components';
 
@@ -19,6 +21,9 @@ interface IProps {
     changeHeadline(): void;
 }
 
+const headlinePath = path(['current', 'content']);
+const pathnamePath = path(['location', 'pathname']);
+
 @asyncConnect(
     [{
         promise: ({ store: { dispatch } }) => dispatch(getHeadlines())
@@ -27,14 +32,14 @@ interface IProps {
         headlines,
         application
     }) => ({
-        headline: headlines.current.content,
+        headline: headlinePath(headlines),
         application
     }),
     (dispatch) => ({ changeHeadline: () => dispatch(headlinesSet()) })
 )
 class App extends React.Component<IProps, any> {
     public componentDidUpdate(prevProps: IProps) {
-        if (prevProps.location.pathname !== this.props.location.pathname) {
+        if (pathnamePath(prevProps) !== pathnamePath(this.props)) {
             this.props.changeHeadline();
         }
     }

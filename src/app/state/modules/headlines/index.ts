@@ -34,7 +34,7 @@ export function headlinesReducer(state: IHeadlines = initialState, action: ICrud
 
 /* Async action creator */
 export const getHeadlines = () => (dispatch, getState) => {
-    if (getState().headlines.headlines.size) {
+    if (getState().headlines.headlines.length) {
         return Promise.resolve();
     }
 

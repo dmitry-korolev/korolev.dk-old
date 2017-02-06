@@ -43,16 +43,20 @@ const updateTypes = ['UPDATE_START', 'UPDATE_SUCCESS', 'UPDATE_ERROR'];
 const createTypes = ['CREATE_START', 'CREATE_SUCCESS', 'CREATE_ERROR'];
 const deleteTypes = ['DELETE_START', 'DELETE_SUCCESS', 'DELETE_ERROR'];
 
-const updateArray = (items, array: any[]) => pipe(
+const updateArray = (items, array: any[] = []) => pipe(
     concat(pluck('id', items)),
     uniq,
     sort((a: number, b: number) => a - b)
 )(array);
 
-const generator = (type: string) => pipe(
-    map((i) => `${type}_${i}`),
-    indexBy(identity)
-);
+const generator = (type: string) => {
+    const TYPE = toUpper(type);
+
+    return pipe(
+        map((i) => `${TYPE}_${i}`),
+        indexBy(identity)
+    );
+};
 
 const typesGenerator = (type: string, options: ICrudOptions) => {
     const typeGen = generator(type);
@@ -65,45 +69,53 @@ const typesGenerator = (type: string, options: ICrudOptions) => {
     };
 };
 
-const generateFetchActions = (type: string): ICrudActions => ({
-    fetchStart: (data?: any) => ({
-        type: `${type}_FETCH_START`,
-        data
-    }),
-    fetchSuccess: (result: any, data?: any) => ({
-        type: `${type}_FETCH_SUCCESS`,
-        result,
-        data
-    }),
-    fetchError: (error: Error, data?: any) => ({
-        type: `${type}_FETCH_ERROR`,
-        error,
-        data
-    })
-});
+const generateFetchActions = (type: string): ICrudActions => {
+    const TYPE = toUpper(type);
+
+    return {
+        fetchStart: (data?: any) => ({
+            type: `${TYPE}_FETCH_START`,
+            data
+        }),
+        fetchSuccess: (result: any, data?: any) => ({
+            type: `${TYPE}_FETCH_SUCCESS`,
+            result,
+            data
+        }),
+        fetchError: (error: Error, data?: any) => ({
+            type: `${TYPE}_FETCH_ERROR`,
+            error,
+            data
+        })
+    };
+};
 
 // TODO: Add create, update and delete generators
 
-const generateFetchHandlers = (type: string) => ({
-    [`${type}_FETCH_START`]: (state) => ({
-        ...state,
-        isFetching: true
-    }),
-    [`${type}_FETCH_SUCCESS`]: (state, action: ICrudAction) => ({
-        ...state,
-        isFetching: false,
-        [type]: updateArray(action.result, state[type]),
-        [`${type}ById`]: {
-            ...state[`${type}ById`],
-            ...indexBy(prop('id'), action.result)
-        }
-    }),
-    [`${type}_FETCH_ERROR`]: (state, action: ICrudAction) => ({
-        ...state,
-        isFetching: false,
-        error: action.error
-    })
-});
+const generateFetchHandlers = (type: string) => {
+    const TYPE = toUpper(type);
+
+    return {
+        [`${TYPE}_FETCH_START`]: (state) => ({
+            ...state,
+            isFetching: true
+        }),
+        [`${TYPE}_FETCH_SUCCESS`]: (state, action: ICrudAction) => ({
+            ...state,
+            isFetching: false,
+            [type]: updateArray(action.result, state[type]),
+            [`${type}ById`]: {
+                ...state[`${type}ById`],
+                ...indexBy(prop('id'), action.result)
+            }
+        }),
+        [`${TYPE}_FETCH_ERROR`]: (state, action: ICrudAction) => ({
+            ...state,
+            isFetching: false,
+            error: action.error
+        })
+    };
+};
 
 const generateReducer = (type: string, options) => {
     const initialState = {
@@ -130,10 +142,9 @@ export const crudGenerator = (type: string, opts: ICrudOptions = {}) => {
         ...defaultOptions,
         ...opts
     };
-    const typeUpper = toUpper(type);
-    const types = typesGenerator(typeUpper, options);
+    const types = typesGenerator(type, options);
     const actions: ICrudActions = {
-        ...(options.fetch ? generateFetchActions(typeUpper) : {})
+        ...(options.fetch ? generateFetchActions(type) : {})
     };
     const reducer = generateReducer(type, options);
 
