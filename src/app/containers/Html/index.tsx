@@ -33,7 +33,11 @@ class Html extends React.Component<IHtmlProps, {}> {
         );
 
         const initialState = <script
-            dangerouslySetInnerHTML={ { __html: `window.__INITIAL_STATE__=${JSON.stringify(store.getState())};` } }
+            dangerouslySetInnerHTML={
+                {
+                    __html: `window.__INITIAL_STATE__='${encodeURIComponent(JSON.stringify(store.getState()))}';`
+                }
+            }
             charSet='UTF-8'
         />;
 

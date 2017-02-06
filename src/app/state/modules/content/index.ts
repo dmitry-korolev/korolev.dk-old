@@ -1,1 +1,0 @@
-export { contentReducer } from './reducer';

@@ -1,8 +1,8 @@
-import { randomFromArray } from 'utils/randomFromArray';
-import { crudGenerator, ICrudAction } from 'utils/crudGenerator';
+import { randomFromArray, crudGenerator } from 'utils';
 
 // Models
 import { IHeadlines } from 'models/headlines';
+import { ICrudAction } from 'utils';
 
 const {
     actions,
@@ -15,11 +15,11 @@ const initialState: IHeadlines = {
     isFetching: false,
     headlines: [],
     headlinesById: {},
-    current: { content: '...' }
+    current: { content: 'На последнем издыхании я проклинаю нелетающих тварей, называющих себя пингвинами!' }
 };
 
 /** Reducer */
-export function headlinesReducer(state: IHeadlines = initialState, action: ICrudAction): IHeadlines {
+function headlinesReducer(state: IHeadlines = initialState, action: ICrudAction): IHeadlines {
     switch (action.type) {
         case SET_HEADLINE:
             return {
@@ -33,7 +33,7 @@ export function headlinesReducer(state: IHeadlines = initialState, action: ICrud
 }
 
 /* Async action creator */
-export const getHeadlines = () => (dispatch, getState) => {
+const getHeadlines = () => (dispatch, getState) => {
     if (getState().headlines.headlines.length) {
         return Promise.resolve();
     }
@@ -46,6 +46,12 @@ export const getHeadlines = () => (dispatch, getState) => {
 };
 
 /* Action creators */
-export const headlinesSet = () => ({
+const headlinesSet = () => ({
     type: SET_HEADLINE
 });
+
+export {
+    headlinesReducer,
+    getHeadlines,
+    headlinesSet
+}

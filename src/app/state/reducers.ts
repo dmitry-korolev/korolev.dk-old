@@ -5,7 +5,7 @@ import { reducer } from 'redux-connect';
 // Reducers
 import { headlinesReducer } from 'modules/headlines';
 import { applicationReducer } from 'modules/application';
-import { contentReducer } from 'modules/content';
+import { postsReducer } from 'modules/posts';
 
 // Types
 import { IStore } from 'models/store';
@@ -13,7 +13,7 @@ import { IStore } from 'models/store';
 const rootReducer: Redux.Reducer<IStore> = combineReducers<IStore>({
     headlines: headlinesReducer,
     application: applicationReducer,
-    content: contentReducer,
+    posts: postsReducer,
     routing: routerReducer,
     reduxAsyncConnect: reducer
 });
