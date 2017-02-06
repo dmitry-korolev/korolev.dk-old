@@ -5,7 +5,10 @@ import {
     pipe,
     prop,
     toUpper,
-    toPairs
+    concat,
+    uniq,
+    pluck,
+    sort
 } from 'ramda';
 
 interface ICrudOptions {
@@ -40,11 +43,11 @@ const updateTypes = ['UPDATE_START', 'UPDATE_SUCCESS', 'UPDATE_ERROR'];
 const createTypes = ['CREATE_START', 'CREATE_SUCCESS', 'CREATE_ERROR'];
 const deleteTypes = ['DELETE_START', 'DELETE_SUCCESS', 'DELETE_ERROR'];
 
-const arrayToHash = (array: any[], by: string) => pipe(
-    indexBy(prop(by)),
-    toPairs
+const updateArray = (items, array: any[]) => pipe(
+    concat(pluck('id', items)),
+    uniq,
+    sort((a: number, b: number) => a - b)
 )(array);
-const toMap = (array: any[], by: string = 'id') => new Map(arrayToHash(array, by));
 
 const generator = (type: string) => pipe(
     map((i) => `${type}_${i}`),
@@ -89,7 +92,11 @@ const generateFetchHandlers = (type: string) => ({
     [`${type}_FETCH_SUCCESS`]: (state, action: ICrudAction) => ({
         ...state,
         isFetching: false,
-        [type]: new Map([...state[type], ...toMap(action.result)])
+        [type]: updateArray(action.result, state[type]),
+        [`${type}ById`]: {
+            ...state[`${type}ById`],
+            ...indexBy(prop('id'), action.result)
+        }
     }),
     [`${type}_FETCH_ERROR`]: (state, action: ICrudAction) => ({
         ...state,
@@ -101,7 +108,8 @@ const generateFetchHandlers = (type: string) => ({
 const generateReducer = (type: string, options) => {
     const initialState = {
         isFetching: false,
-        [type]: new Map()
+        [type]: [],
+        [`${type}ById`]: {}
     };
 
     const actionHandlers = {
@@ -127,7 +135,7 @@ export const crudGenerator = (type: string, opts: ICrudOptions = {}) => {
     const actions: ICrudActions = {
         ...(options.fetch ? generateFetchActions(typeUpper) : {})
     };
-    const reducer = generateReducer(typeUpper, options);
+    const reducer = generateReducer(type, options);
 
     return {
         types,

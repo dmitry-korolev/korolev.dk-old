@@ -6,7 +6,10 @@ export interface IHeadline {
 export interface IHeadlines {
     isFetching: boolean;
     error?: any;
-    headlines: Map<string, any>;
+    headlines: number[];
+    headlinesById: {
+        [K: number]: IHeadline
+    };
     current: IHeadline;
 }
 

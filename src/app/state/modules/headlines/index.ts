@@ -1,4 +1,4 @@
-import { randomFromMap } from 'utils/randomFromMap';
+import { randomFromArray } from 'utils/randomFromArray';
 import { crudGenerator, ICrudAction } from 'utils/crudGenerator';
 
 // Models
@@ -13,7 +13,8 @@ const SET_HEADLINE: string = 'headlines/SET_HEADLINE';
 /** Initial State */
 const initialState: IHeadlines = {
     isFetching: false,
-    headlines: new Map(),
+    headlines: [],
+    headlinesById: {},
     current: { content: '...' }
 };
 
@@ -23,7 +24,7 @@ export function headlinesReducer(state: IHeadlines = initialState, action: ICrud
         case SET_HEADLINE:
             return {
                 ...state,
-                current: randomFromMap(state.headlines)
+                current: state.headlinesById[randomFromArray(state.headlines)]
             };
 
         default:
