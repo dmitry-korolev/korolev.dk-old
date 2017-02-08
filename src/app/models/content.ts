@@ -29,6 +29,15 @@ export interface IPost {
     tags: number[];
 }
 
+export interface IPosts {
+    isFetching: boolean;
+    error?: any;
+    posts: number[];
+    postsById: {
+        [K: number]: IPost
+    };
+}
+
 export interface ICategory {
     id: number;
     count: number;
@@ -43,35 +52,44 @@ export interface ICategory {
             {
                 href: string;
             }
-        ];
+            ];
         collection: [
             {
                 href: string;
             }
-        ];
+            ];
         about: [
             {
                 href: string
             }
-        ];
+            ];
         'wp:post_type': [
             {
                 href: string;
             }
-        ];
+            ];
         curies: [
             {
                 name: string;
                 href: string;
                 templated: true;
             }
-        ];
+            ];
     };
 }
 
-export interface IContent {
-    posts: Map<number, IPost>;
-    categories: Map<number, ICategory>;
+export interface ICategories {
+    isFetching: boolean;
+    error?: any;
+    categories: number[];
+    categoriesById: {
+        [K: number]: ICategory
+    };
+}
+
+export interface IArticleData {
+    data: IPost;
+    categories: ICategory[];
 }
 
 export interface IGetPosts {

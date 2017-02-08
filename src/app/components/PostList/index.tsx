@@ -1,32 +1,24 @@
 import * as React from 'react';
 
 import { Post } from 'components';
-import { IPost } from 'models/content';
 
 interface IProps {
-    posts: number[];
-    postsById: {
-        [K: number]: IPost;
-    };
+    itemIds: number[];
 }
 
-const renderPost = (postsById: {
-    [K: number]: IPost;
-}) => (postId: number) => <Post
-    key={ postId }
-    item={ postsById[postId] }
-    isSingle={ false }
+const renderPost = (itemId: number) => <Post
+    key={ itemId }
+    itemId={ itemId }
 />;
 
-export const PostList: React.StatelessComponent<IProps> = (props: IProps) => {
-    const {
-        posts,
-        postsById
-    } = props;
-
-    const render = renderPost(postsById);
+const PostList: React.StatelessComponent<IProps> = (props: IProps) => {
+    const { itemIds } = props;
 
     return <div>
-        { posts.map(render) }
+        { itemIds.map(renderPost) }
     </div>;
 };
+
+PostList.displayName = 'PostList';
+
+export { PostList };

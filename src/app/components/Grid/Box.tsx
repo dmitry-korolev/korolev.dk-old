@@ -32,7 +32,7 @@ const getSelfAlign = ({ a = 'auto' }: IFlexItemProps) => a !== 'auto' ? {
     alignSelf: a
 } : {};
 
-export const Box: React.StatelessComponent<IFlexItemProps> = ({
+const Box: React.StatelessComponent<IFlexItemProps> = ({
     className = '',
     ...props
 }: IFlexItemProps = {}) => <div
@@ -48,3 +48,7 @@ export const Box: React.StatelessComponent<IFlexItemProps> = ({
 >
     { props.children }
 </div>;
+
+Box.displayName = 'Box';
+
+export { Box };

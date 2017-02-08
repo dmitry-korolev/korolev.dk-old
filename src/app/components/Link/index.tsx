@@ -10,7 +10,7 @@ interface IProps extends RouterLink.LinkProps {
     isHome?: boolean;
 }
 
-export const Link: React.StatelessComponent<IProps> = (props: IProps) => {
+const Link: React.StatelessComponent<IProps> = (props: IProps) => {
     const {
         unstyled,
         children,
@@ -31,3 +31,7 @@ export const Link: React.StatelessComponent<IProps> = (props: IProps) => {
         { children }
     </Component>;
 };
+
+Link.displayName = 'Link';
+
+export { Link };

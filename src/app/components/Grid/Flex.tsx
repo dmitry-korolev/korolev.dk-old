@@ -54,7 +54,7 @@ const getAlignContent = ({ ac = 'flex-start' }: IFlexContainerProps) => ac !== '
     aAlignContent: ac
 } : {};
 
-export const Flex: React.StatelessComponent<IFlexContainerProps> = ({
+const Flex: React.StatelessComponent<IFlexContainerProps> = ({
     is,
     className = '',
     ...props
@@ -77,3 +77,7 @@ export const Flex: React.StatelessComponent<IFlexContainerProps> = ({
         { props.children }
     </Container>;
 };
+
+Flex.displayName = 'Flex';
+
+export { Flex };

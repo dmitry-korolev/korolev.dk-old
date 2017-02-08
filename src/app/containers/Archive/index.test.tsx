@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { renderComponent } from 'helpers/TestHelper';
-import { Home } from './index';
+import { Archive } from './index';
 
-describe('<Home />', () => {
-    const component = renderComponent(Home);
+describe('<Archive />', () => {
+    const component = renderComponent(Archive);
 
     it('Renders with correct style', () => {
         const s = require('./style.css');

@@ -18,7 +18,7 @@ const getTitleClass = (mod) => ({
     post: s.header__title_post
 }[mod]);
 
-export const Header: React.StatelessComponent<IProps> = (props: IProps) => {
+const Header: React.StatelessComponent<IProps> = (props: IProps) => {
     const {
         titleText,
         titleLink,
@@ -49,3 +49,7 @@ export const Header: React.StatelessComponent<IProps> = (props: IProps) => {
         </Title> }
     </div>;
 };
+
+Header.displayName = 'Header';
+
+export { Header };

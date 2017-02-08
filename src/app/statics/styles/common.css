@@ -42,7 +42,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     margin-top: var(--leading);
     margin-bottom: 0;
-    line-height: 0.9;
+    line-height: 1;
 }
 
 h1 { font-size: calc(2 * var(--scale) * 1rem); }

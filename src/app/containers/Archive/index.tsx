@@ -1,17 +1,47 @@
 import * as React from 'react';
+import { asyncConnect } from 'redux-connect';
+
+// Actions
+import { getPosts } from 'state/modules/posts';
+import { getCategories } from 'state/modules/categories';
 
 // Components
-// import { PostList } from 'components';
+import { PostList } from 'components';
 
-interface IProps extends React.HTMLProps<HTMLElement> {
-    test: string;
+// Styles
+const s = require('./style.css');
+
+interface IProps {
+    posts: number[];
 }
 
-export class Archive extends React.PureComponent<IProps, any> {
-
+@asyncConnect(
+    [{
+        promise: ({ store: { dispatch } }) => Promise.all([
+            dispatch(getPosts()),
+            dispatch(getCategories())
+        ])
+    }],
+    ({
+        posts
+    }) => ({
+        posts: posts.posts
+    })
+)
+class Archive extends React.Component<IProps, any> {
     public render() {
+        const {
+            posts
+        } = this.props;
+
         return (
-            <section />
+            <section className={ s.home }>
+                <PostList
+                    itemIds={ posts }
+                />
+            </section>
         );
     }
 }
+
+export { Archive }
