@@ -2,7 +2,7 @@ import * as React from 'react';
 import { asyncConnect } from 'redux-connect';
 
 // Actions
-import { getPosts } from 'state/modules/posts';
+import { getPosts } from 'state/posts';
 
 // Components
 import { PostList } from 'components';

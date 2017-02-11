@@ -12,7 +12,7 @@ const {
 const getCategories = () => (dispatch) => {
     dispatch(actions.fetchStart());
 
-    return Promise.resolve(require('../../../../../mocks/categories.json'))
+    return Promise.resolve(require('../../../../mocks/categories.json'))
         .then((categories: ICategory[]) => dispatch(actions.fetchSuccess(categories)));
 };
 

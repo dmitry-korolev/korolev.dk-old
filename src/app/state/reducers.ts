@@ -3,10 +3,10 @@ import { routerReducer } from 'react-router-redux';
 import { reducer } from 'redux-connect';
 
 // Reducers
-import { headlinesReducer } from 'modules/headlines';
-import { applicationReducer } from 'modules/application';
-import { postsReducer } from 'modules/posts';
-import { categoriesReducer } from 'modules/categories';
+import { headlinesReducer } from 'state/headlines';
+import { applicationReducer } from 'state/application';
+import { postsReducer } from 'state/posts';
+import { categoriesReducer } from 'state/categories';
 
 // Types
 import { IStore } from 'models/store';

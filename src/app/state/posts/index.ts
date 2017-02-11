@@ -2,7 +2,7 @@ import { crudGenerator } from 'utils';
 
 // Models
 import { IPost, IPosts } from 'models/content';
-import { ICrudAction } from '../../../utils/crudGenerator';
+import { ICrudAction } from 'utils/crudGenerator';
 
 const {
     actions,
@@ -36,7 +36,7 @@ function postsReducer(state: IPosts = initialState, action: ICrudAction): IPosts
 const getPosts = () => (dispatch) => {
     dispatch(actions.fetchStart());
 
-    return Promise.resolve(require('../../../../../mocks/posts.json'))
+    return Promise.resolve(require('../../../../mocks/posts.json'))
         .then((posts: IPost[]) => Promise.all([
             dispatch(actions.fetchSuccess(posts)),
             dispatch(setTotal(posts.length))
