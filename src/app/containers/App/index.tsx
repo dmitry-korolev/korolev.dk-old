@@ -4,6 +4,7 @@ import { asyncConnect } from 'redux-connect';
 import { path } from 'ramda';
 
 import { getHeadlines, headlinesSet } from 'state/modules/headlines';
+import { getCategories } from 'state/modules/categories';
 import { SiteHeader } from 'components';
 
 // Models
@@ -26,7 +27,10 @@ const pathnamePath = path(['location', 'pathname']);
 
 @asyncConnect(
     [{
-        promise: ({ store: { dispatch } }) => dispatch(getHeadlines())
+        promise: ({ store: { dispatch } }) => Promise.all([
+            dispatch(getHeadlines()),
+            dispatch(getCategories())
+        ])
     }],
     ({
         headlines,

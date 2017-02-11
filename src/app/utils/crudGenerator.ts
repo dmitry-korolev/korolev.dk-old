@@ -20,14 +20,14 @@ interface ICrudOptions {
 
 interface ICrudActions {
     fetchStart?: <T>(data?: T) => ({ type: string; data?: T; });
-    fetchSuccess?: <R, T>(result: R, data?: T) => ({ type: string; result: R; data?: T; });
+    fetchSuccess?: <R, T>(payload: R, data?: T) => ({ type: string; payload: R; data?: T; });
     fetchError?: <Error, T>(error: Error, data?: T) => ({ type: string; error: Error; data?: T; });
 }
 
 export interface ICrudAction {
     type: string;
     error?: Error;
-    result?: any;
+    payload?: any;
     data?: any;
 }
 
@@ -77,9 +77,9 @@ const generateFetchActions = (type: string): ICrudActions => {
             type: `${TYPE}_FETCH_START`,
             data
         }),
-        fetchSuccess: (result: any, data?: any) => ({
+        fetchSuccess: (payload: any, data?: any) => ({
             type: `${TYPE}_FETCH_SUCCESS`,
-            result,
+            payload,
             data
         }),
         fetchError: (error: Error, data?: any) => ({
@@ -103,10 +103,10 @@ const generateFetchHandlers = (type: string) => {
         [`${TYPE}_FETCH_SUCCESS`]: (state, action: ICrudAction) => ({
             ...state,
             isFetching: false,
-            [type]: updateArray(action.result, state[type]),
+            [type]: updateArray(action.payload, state[type]),
             [`${type}ById`]: {
                 ...state[`${type}ById`],
-                ...indexBy(prop('id'), action.result)
+                ...indexBy(prop('id'), action.payload)
             }
         }),
         [`${TYPE}_FETCH_ERROR`]: (state, action: ICrudAction) => ({

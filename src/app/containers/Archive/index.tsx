@@ -3,7 +3,6 @@ import { asyncConnect } from 'redux-connect';
 
 // Actions
 import { getPosts } from 'state/modules/posts';
-import { getCategories } from 'state/modules/categories';
 
 // Components
 import { PostList } from 'components';
@@ -17,10 +16,7 @@ interface IProps {
 
 @asyncConnect(
     [{
-        promise: ({ store: { dispatch } }) => Promise.all([
-            dispatch(getPosts()),
-            dispatch(getCategories())
-        ])
+        promise: ({ store: { dispatch } }) => dispatch(getPosts())
     }],
     ({
         posts

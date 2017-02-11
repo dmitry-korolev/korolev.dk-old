@@ -36,6 +36,7 @@ export interface IPosts {
     postsById: {
         [K: number]: IPost
     };
+    total: number;
 }
 
 export interface ICategory {
