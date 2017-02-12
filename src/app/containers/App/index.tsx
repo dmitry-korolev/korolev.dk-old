@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
 import { asyncConnect } from 'redux-connect';
-import { path } from 'ramda';
 
 import { getHeadlines, headlinesSet } from 'state/headlines';
 import { getCategories } from 'state/categories';
@@ -12,6 +11,8 @@ import { IApplication } from 'models/appication';
 
 // Styles
 const s = require('./style.css');
+
+const path = require('ramda/src/path');
 
 interface IProps {
     headline: string;

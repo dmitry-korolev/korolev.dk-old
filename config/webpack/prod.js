@@ -20,7 +20,6 @@ const config = {
         app: './src/client.tsx',
         vendor: [
             './src/vendor/main.ts',
-            'ramda',
             'react',
             'react-dom',
             'react-router',

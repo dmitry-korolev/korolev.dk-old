@@ -1,15 +1,13 @@
-import {
-    indexBy,
-    identity,
-    map,
-    pipe,
-    prop,
-    toUpper,
-    concat,
-    uniq,
-    pluck,
-    sort
-} from 'ramda';
+const indexBy = require('ramda/src/indexBy');
+const identity = require('ramda/src/identity');
+const map = require('ramda/src/map');
+const pipe = require('ramda/src/pipe');
+const prop = require('ramda/src/prop');
+const toUpper = require('ramda/src/toUpper');
+const concat = require('ramda/src/concat');
+const uniq = require('ramda/src/uniq');
+const pluck = require('ramda/src/pluck');
+const sort = require('ramda/src/sort');
 
 interface ICrudOptions {
     fetch?: boolean;

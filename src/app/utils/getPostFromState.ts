@@ -1,4 +1,4 @@
-import { map } from 'ramda';
+const map = require('ramda/src/map');
 import { IStore } from 'models/store';
 
 export const getPostFromState = (state: IStore, postId: number) => {
