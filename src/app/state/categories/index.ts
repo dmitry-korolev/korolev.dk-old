@@ -1,4 +1,5 @@
 import { crudGenerator } from 'utils';
+import { request } from 'services/request';
 
 // Models
 import { ICategory } from 'models/content';
@@ -12,7 +13,9 @@ const {
 const getCategories = () => (dispatch) => {
     dispatch(actions.fetchStart());
 
-    return Promise.resolve(require('../../../../mocks/categories.json'))
+    return request({
+        method: 'categories'
+    })
         .then((categories: ICategory[]) => dispatch(actions.fetchSuccess(categories)));
 };
 
