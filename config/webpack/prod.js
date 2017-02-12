@@ -20,6 +20,7 @@ const config = {
         app: './src/client.tsx',
         vendor: [
             './src/vendor/main.ts',
+            'ramda',
             'react',
             'react-dom',
             'react-router',
@@ -67,7 +68,7 @@ const config = {
                             options: {
                                 modules: true,
                                 importLoaders: 2,
-                                minimze: true,
+                                minimize: true,
                                 localIdentName: 'c_[hash:base64:5]'
                             }
                         },
@@ -110,7 +111,8 @@ const config = {
 
     plugins: [
         new webpack.LoaderOptionsPlugin({
-            debug: true,
+            debug: false,
+            minimize: true,
             options: {
                 tslint: {
                     failOnHint: true
@@ -124,9 +126,9 @@ const config = {
                         postcssNext(),
                         postcssAssets({
                             relative: true
-                        }),
+                        })
                     ];
-                },
+                }
             }
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
@@ -137,7 +139,19 @@ const config = {
         }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings: false
+                warnings: false,
+                screw_ie8: true,
+                conditionals: true,
+                unused: true,
+                comparisons: true,
+                sequences: true,
+                dead_code: true,
+                evaluate: true,
+                if_return: true,
+                join_vars: true,
+            },
+            output: {
+                comments: false,
             }
         }),
         new ExtractTextPlugin('css/[name].[hash].css'),
