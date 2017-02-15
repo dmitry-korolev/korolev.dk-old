@@ -2,13 +2,13 @@ import { randomFromArray, crudGenerator } from 'utils';
 
 // Models
 import { IHeadlines } from 'models/headlines';
-import { ICrudAction } from 'utils';
+import { IFluxAction } from 'models/flux';
 
 const {
     actions,
     reducer
 } = crudGenerator('headlines', { fetch: true });
-const SET_HEADLINE: string = 'headlines/SET_HEADLINE';
+const HEADLINES_SET: string = 'headlines/SET';
 
 /** Initial State */
 const initialState: IHeadlines = {
@@ -19,9 +19,9 @@ const initialState: IHeadlines = {
 };
 
 /** Reducer */
-function headlinesReducer(state: IHeadlines = initialState, action: ICrudAction): IHeadlines {
+function headlinesReducer(state: IHeadlines = initialState, action: IFluxAction): IHeadlines {
     switch (action.type) {
-        case SET_HEADLINE:
+        case HEADLINES_SET:
             return {
                 ...state,
                 current: state.headlinesById[randomFromArray(state.headlines)]
@@ -47,7 +47,7 @@ const getHeadlines = () => (dispatch, getState) => {
 
 /* Action creators */
 const headlinesSet = () => ({
-    type: SET_HEADLINE
+    type: HEADLINES_SET
 });
 
 export {

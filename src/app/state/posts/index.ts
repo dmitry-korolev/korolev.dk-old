@@ -2,7 +2,7 @@ import { crudGenerator } from 'utils';
 
 // Models
 import { IPost, IPosts } from 'models/content';
-import { ICrudAction } from 'utils/crudGenerator';
+import { IFluxAction } from 'models/flux';
 
 const {
     actions,
@@ -16,12 +16,12 @@ const initialState: IPosts = {
     total: 0
 };
 
-const SET_TOTAL: string = 'posts/SET_TOTAL';
+const POSTS_SET_TOTAL: string = 'posts/POSTS_SET_TOTAL';
 
 /** Reducer */
-function postsReducer(state: IPosts = initialState, action: ICrudAction): IPosts {
+function postsReducer(state: IPosts = initialState, action: IFluxAction): IPosts {
     switch (action.type) {
-        case SET_TOTAL:
+        case POSTS_SET_TOTAL:
             return {
                 ...state,
                 total: action.payload
@@ -43,8 +43,8 @@ const getPosts = () => (dispatch) => {
         ]));
 };
 
-const setTotal = (total: number): ICrudAction => ({
-    type: SET_TOTAL,
+const setTotal = (total: number): IFluxAction => ({
+    type: POSTS_SET_TOTAL,
     payload: total
 });
 

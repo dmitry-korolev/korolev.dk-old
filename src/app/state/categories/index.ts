@@ -16,7 +16,8 @@ const getCategories = () => (dispatch) => {
     return request({
         method: 'categories'
     })
-        .then((categories: ICategory[]) => dispatch(actions.fetchSuccess(categories)));
+        .then((categories: ICategory[]) => dispatch(actions.fetchSuccess(categories)))
+        .catch((error) => dispatch(actions.fetchError(error)));
 };
 
 export {
