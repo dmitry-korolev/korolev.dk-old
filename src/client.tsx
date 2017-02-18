@@ -6,8 +6,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
-const { Router, browserHistory } = require('react-router');
-const { ReduxAsyncConnect } = require('redux-connect');
+import { Router, browserHistory } from 'react-router';
+import { ReduxAsyncConnect } from 'redux-connect';
 
 import { configureStore } from './app/state/store';
 import routes from './app/routes';

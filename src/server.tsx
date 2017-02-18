@@ -10,7 +10,7 @@ import * as ReactDOMServer from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { createMemoryHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-const { ReduxAsyncConnect, loadOnServer } = require('redux-connect');
+import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 import { configureStore } from './app/state/store';
 import routes from './app/routes';
 

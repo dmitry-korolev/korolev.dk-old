@@ -19,7 +19,7 @@ const config = {
     entry: {
         app: './src/client.tsx',
         vendor: [
-            './src/vendor/main.ts',
+            './src/vendor.ts',
             'react',
             'react-dom',
             'react-router',

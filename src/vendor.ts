@@ -6,5 +6,5 @@
  */
 
 require('ress');
-require('../app/statics/styles/variables.css');
-require('../app/statics/styles/common.css');
+require('app/statics/styles/variables.css');
+require('app/statics/styles/common.css');
