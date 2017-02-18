@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
+import * as cn from 'classnames';
 
-import { Title, Link } from '../../components';
+import { Title, Link } from 'components';
 
 const s = require('./style.css');
 
@@ -32,7 +32,7 @@ const Header: React.StatelessComponent<IProps> = (props: IProps) => {
     >
         <Title
             tag={ titleTag }
-            className={ classNames({
+            className={ cn({
                 [s.header__title]: true,
                 [getTitleClass(mod)]: true
             }) }

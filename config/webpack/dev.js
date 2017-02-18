@@ -14,7 +14,7 @@ const config = {
 
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
-        modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/state'],
+        modules: [path.resolve(__dirname), 'node_modules', 'src', 'state'],
     },
 
     entry: {
@@ -53,7 +53,7 @@ const config = {
             },
             {
                 test: /\.css$/,
-                include: path.resolve('./src/app'),
+                include: path.resolve('./src'),
                 use: [
                     { loader: 'style-loader' },
                     {
@@ -69,7 +69,7 @@ const config = {
             },
             {
                 test: /\.css$/,
-                exclude: path.resolve('./src/app'),
+                exclude: path.resolve('./src'),
                 loaders: [
                     'style-loader',
                     'css-loader'
@@ -110,7 +110,7 @@ const config = {
                 postcss: function () {
                     return [
                         stylelint({
-                            files: '../../src/app/*.css'
+                            files: '../../src/*.css'
                         }),
                         postcssImport(),
                         postcssNext(),

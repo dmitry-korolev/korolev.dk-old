@@ -11,10 +11,10 @@ import { Provider } from 'react-redux';
 import { createMemoryHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
-import { configureStore } from './app/state/store';
-import routes from './app/routes';
+import { configureStore } from 'state/store';
+import routes from 'routes';
 
-import { Html } from './app/containers';
+import { Html } from 'containers';
 const manifest = require('../build/manifest.json');
 
 const express = require('express');

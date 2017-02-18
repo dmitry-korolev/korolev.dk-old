@@ -40,7 +40,7 @@ const getHeadlines = () => (dispatch, getState) => {
 
     dispatch(actions.fetchStart());
 
-    return Promise.resolve(require('../../../../mocks/taglines.json'))
+    return Promise.resolve(require('../../../mocks/taglines.json'))
         .then((headlines: string[]) => dispatch(actions.fetchSuccess(headlines)))
         .then(() => dispatch(headlinesSet()));
 };

@@ -5,6 +5,6 @@
  * require('./bootstrap/css/bootstrap.min.css');
  */
 
-require('ress');
-require('app/statics/styles/variables.css');
-require('app/statics/styles/common.css');
+import 'ress';
+import './statics/styles/variables.css';
+import './statics/styles/common.css';

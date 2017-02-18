@@ -7,7 +7,7 @@ import * as createLogger from 'redux-logger';
 import { IStore } from 'models/store';
 import rootReducer from './reducers';
 
-const appConfig = require('../../../config/main');
+const appConfig = require('../../config/main');
 
 export function configureStore(history, initialState?: IStore): Store<IStore> {
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
+import * as cn from 'classnames';
 import { Link as RouterLink, IndexLink, LinkProps } from 'react-router';
 
 const s = require('./style.css');
@@ -22,7 +22,7 @@ const Link: React.StatelessComponent<IProps> = (props: IProps) => {
 
     return <Component
         activeClassName={ s.link_active }
-        className={ classNames({
+        className={ cn({
             [s.link]: true,
             [s.link_unstyled]: unstyled
         }) }

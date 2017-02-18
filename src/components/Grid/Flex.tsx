@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
+import * as cn from 'classnames';
 
 const s = require('./style.css');
 
@@ -62,7 +62,7 @@ const Flex: React.StatelessComponent<IFlexContainerProps> = ({
     const Container = is || 'div';
 
     return <Container
-        className={ classNames({
+        className={ cn({
             [s.flex]: true,
             [className]: !!className
         }) }

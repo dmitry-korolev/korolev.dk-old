@@ -48,8 +48,7 @@ module.exports = function (config) {
         modules: [
           path.resolve(__dirname),
           '../../src',
-          '../../src/app',
-          '../../src/app/state',
+          '../../src/state',
           'node_modules'
         ],
         extensions: ['.json', '.js', '.ts', '.tsx', '.jsx']
@@ -75,7 +74,7 @@ module.exports = function (config) {
           },
           {
             test: /\.css$/,
-            include: path.resolve('./src/app'),
+            include: path.resolve('./src'),
             loaders: [
               'style-loader',
               'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]',
@@ -84,14 +83,14 @@ module.exports = function (config) {
           },
           {
             test: /\.css$/,
-            exclude: path.resolve('./src/app'),
+            exclude: path.resolve('./src'),
             loader: 'style-loader!css-loader'
           },
           {
             enforce: 'post',
             test: /\.tsx?$/,
             loader: 'istanbul-instrumenter-loader',
-            include: path.resolve('./src/app')
+            include: path.resolve('./src')
           }
         ],
       },

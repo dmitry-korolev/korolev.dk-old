@@ -13,7 +13,7 @@ const config = {
 
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
-        modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/state'],
+        modules: [path.resolve(__dirname), 'node_modules', 'state'],
     },
 
     entry: {
@@ -59,7 +59,7 @@ const config = {
             },
             {
                 test: /\.css$/,
-                include: path.resolve('./src/app'),
+                include: path.resolve('./src'),
                 loader: ExtractTextPlugin.extract({
                     fallbackLoader: 'style-loader',
                     loader: [
@@ -78,7 +78,7 @@ const config = {
             },
             {
                 test: /\.css$/,
-                exclude: path.resolve('./src/app'),
+                exclude: path.resolve('./src'),
                 loader: ExtractTextPlugin.extract({
                     fallbackLoader: 'style-loader',
                     loader: [
@@ -120,7 +120,7 @@ const config = {
                 postcss: function () {
                     return [
                         stylelint({
-                            files: '../../src/app/*.css'
+                            files: '../../src/*.css'
                         }),
                         postcssImport(),
                         postcssNext(),

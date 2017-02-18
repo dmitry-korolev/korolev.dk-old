@@ -4,7 +4,7 @@ import { crudGenerator } from 'utils';
 import { IPost, IPosts } from 'models/content';
 import { IFluxAction } from 'models/flux';
 import { IGetState } from 'models/store';
-import { request } from '../../services/request';
+import { request } from 'services/request';
 
 const {
     actions,
