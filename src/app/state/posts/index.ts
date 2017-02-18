@@ -3,6 +3,8 @@ import { crudGenerator } from 'utils';
 // Models
 import { IPost, IPosts } from 'models/content';
 import { IFluxAction } from 'models/flux';
+import { IGetState } from 'models/store';
+import { request } from '../../services/request';
 
 const {
     actions,
@@ -33,14 +35,33 @@ function postsReducer(state: IPosts = initialState, action: IFluxAction): IPosts
 }
 
 /* Async action creator */
-const getPosts = () => (dispatch) => {
+const getPosts = () => (dispatch, getState: IGetState) => {
+    if (getState().posts.posts.length) {
+        return Promise.resolve();
+    }
+
     dispatch(actions.fetchStart());
 
-    return Promise.resolve(require('../../../../mocks/posts.json'))
+    return request({
+        method: 'posts'
+    })
         .then((posts: IPost[]) => Promise.all([
             dispatch(actions.fetchSuccess(posts)),
             dispatch(setTotal(posts.length))
         ]));
+};
+
+const getPost = (id) => (dispatch, getState: IGetState) => {
+    if (getState().posts.postsById[id]) {
+        return Promise.resolve();
+    }
+
+    dispatch(actions.fetchStart());
+
+    return request({
+        method: `posts?id=${id}`
+    })
+        .then((post: IPost) => dispatch(actions.fetchSuccess([post])));
 };
 
 const setTotal = (total: number): IFluxAction => ({
@@ -50,5 +71,6 @@ const setTotal = (total: number): IFluxAction => ({
 
 export {
     postsReducer,
-    getPosts
+    getPosts,
+    getPost
 };
