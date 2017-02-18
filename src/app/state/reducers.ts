@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers, Reducer } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { reducer } from 'redux-connect';
 
@@ -11,7 +11,7 @@ import { categoriesReducer } from 'state/categories';
 // Types
 import { IStore } from 'models/store';
 
-const rootReducer: Redux.Reducer<IStore> = combineReducers<IStore>({
+const rootReducer: Reducer<IStore> = combineReducers<IStore>({
     headlines: headlinesReducer,
     application: applicationReducer,
     posts: postsReducer,

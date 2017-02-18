@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
+import { Store } from 'redux';
 
 // Types
 import { IStore } from '../../models/store';
@@ -7,7 +8,7 @@ import { IStore } from '../../models/store';
 interface IHtmlProps {
     manifest?: Object;
     markup?: string;
-    store?: Redux.Store<IStore>;
+    store?: Store<IStore>;
 }
 
 class Html extends React.Component<IHtmlProps, {}> {

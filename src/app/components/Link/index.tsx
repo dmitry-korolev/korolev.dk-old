@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
-import { Link as RouterLink, IndexLink } from 'react-router';
+import { Link as RouterLink, IndexLink, LinkProps } from 'react-router';
 
 const s = require('./style.css');
 
-interface IProps extends RouterLink.LinkProps {
+interface IProps extends LinkProps {
     to: string;
     unstyled?: boolean;
     isHome?: boolean;

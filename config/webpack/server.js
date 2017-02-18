@@ -34,10 +34,11 @@ const config = {
     },
 
     module: {
-        loaders: [{
-            test: /\.(jpe?g|png|gif)$/i,
-            loader: 'url-loader?limit=1000&name=images/[hash].[ext]'
-        },
+        loaders: [
+            {
+                test: /\.(jpe?g|png|gif)$/i,
+                loader: 'url-loader?limit=1000&name=images/[hash].[ext]'
+            },
             {
                 test: /\.json$/,
                 loader: 'json-loader'

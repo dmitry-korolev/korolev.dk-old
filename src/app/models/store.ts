@@ -8,3 +8,5 @@ export interface IStore {
     categories: ICategories;
     application: IApplication;
 }
+
+export type IGetState = () => IStore;

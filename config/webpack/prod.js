@@ -39,11 +39,12 @@ const config = {
     },
 
     module: {
-        rules: [{
-            enforce: 'pre',
-            test: /\.tsx?$/,
-            loader: 'tslint-loader'
-        },
+        rules: [
+            {
+                enforce: 'pre',
+                test: /\.tsx?$/,
+                loader: 'tslint-loader'
+            },
             {
                 test: /\.tsx?$/,
                 loader: 'react-hot-loader!awesome-typescript-loader'
