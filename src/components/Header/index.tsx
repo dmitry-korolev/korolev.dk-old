@@ -1,7 +1,7 @@
-import * as React from 'react';
 import * as cn from 'classnames';
+import * as React from 'react';
 
-import { Title, Link } from 'components';
+import { Link, Title } from 'components';
 
 const s = require('./style.css');
 
@@ -13,12 +13,12 @@ interface IProps extends React.HTMLProps<HTMLElement> {
     mod?: 'site' | 'post';
 }
 
-const getTitleClass = (mod) => ({
+const getTitleClass = (mod: string): string => ({
     site: s.header__title_site,
     post: s.header__title_post
 }[mod]);
 
-const Header: React.StatelessComponent<IProps> = (props: IProps) => {
+const Header: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => {
     const {
         titleText,
         titleLink,

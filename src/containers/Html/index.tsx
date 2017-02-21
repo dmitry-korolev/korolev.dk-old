@@ -12,24 +12,24 @@ interface IHtmlProps {
 }
 
 class Html extends React.Component<IHtmlProps, {}> {
-    private resolve(files) {
-        return files.map((src) => {
+    private resolve(files: any[]): any[] {
+        return files.map((src: string) => {
             if (!this.props.manifest[src]) { return; }
             return '/public/' + this.props.manifest[src];
-        }).filter((file) => file !== undefined);
+        }).filter((file: any) => file !== undefined);
     }
 
-    public render() {
+    public render(): JSX.Element {
         const head = Helmet.rewind();
         const { markup, store } = this.props;
 
         const styles = this.resolve(['vendor.css', 'app.css']);
-        const renderStyles = styles.map((src, i) =>
+        const renderStyles = styles.map((src: string, i: number) =>
             <link key={ i } rel='stylesheet' type='text/css' href={ src } />
         );
 
         const scripts = this.resolve(['vendor.js', 'app.js']);
-        const renderScripts = scripts.map((src, i) =>
+        const renderScripts = scripts.map((src: string, i: number) =>
             <script src={ src } key={ i } />
         );
 

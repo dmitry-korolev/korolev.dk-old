@@ -1,6 +1,6 @@
-import * as React from 'react';
 import * as cn from 'classnames';
-import { Link as RouterLink, IndexLink, LinkProps } from 'react-router';
+import * as React from 'react';
+import { IndexLink, Link as RouterLink, LinkProps } from 'react-router';
 
 const s = require('./style.css');
 
@@ -10,7 +10,7 @@ interface IProps extends LinkProps {
     isHome?: boolean;
 }
 
-const Link: React.StatelessComponent<IProps> = (props: IProps) => {
+const Link: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => {
     const {
         unstyled,
         children,

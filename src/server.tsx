@@ -1,29 +1,30 @@
-const appConfig = require('../config/main');
-
 import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
 import 'isomorphic-fetch';
 
+import * as debug from 'debug';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-
 import { Provider } from 'react-redux';
 import { createMemoryHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
-import { configureStore } from 'state/store';
+
 import routes from 'routes';
+import { configureStore } from 'state/store';
 
 import { Html } from 'containers';
 const manifest = require('../build/manifest.json');
+const appConfig = require('../config/main');
 
 const express = require('express');
 const path = require('path');
 const compression = require('compression');
-const Chalk = require('chalk');
 const favicon = require('serve-favicon');
 
 const app = express();
+const logInfo = debug('k:server:info');
+const logError = debug('k:server:error');
 
 app.use(compression());
 
@@ -50,14 +51,14 @@ app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-app.get('*', (req, res) => {
+app.get('*', (req: any, res: any) => {
     const location = req.url;
     const memoryHistory = createMemoryHistory(req.originalUrl);
-    const store = configureStore(memoryHistory);
+    const store = configureStore(memoryHistory as any);
     const history = syncHistoryWithStore(memoryHistory, store);
 
     match({ history, routes, location },
-        (error, redirectLocation, renderProps) => {
+        (error: Error, redirectLocation: any, renderProps: any) => {
             if (error) {
                 res.status(500).send(error.message);
             } else if (redirectLocation) {
@@ -79,17 +80,15 @@ app.get('*', (req, res) => {
         });
 });
 
-app.listen(appConfig.port, appConfig.host, (err) => {
+app.listen(appConfig.port, appConfig.host, (err: Error): void => {
     if (err) {
-        console.error(Chalk.bgRed(err));
+        logError(err);
     } else {
-        console.info(Chalk.black.bgGreen(
-            `\n\n💂  Listening at http://${appConfig.host}:${appConfig.port}\n`
-        ));
+        logInfo(`\n\n💂  Listening at http://${appConfig.host}:${appConfig.port}\n`);
     }
 });
 
-function renderHTML(markup: string, store: any) {
+function renderHTML(markup: string, store: any): string {
     const html = ReactDOMServer.renderToString(
         <Html markup={ markup } manifest={ manifest } store={ store } />
     );

@@ -1,6 +1,9 @@
+import { Header } from 'components';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Header } from 'components';
+
+const curry = require('ramda/src/curry');
+const pipe = require('ramda/src/pipe');
 
 // Types
 import { IPost } from 'models/content';
@@ -12,30 +15,38 @@ interface IProps extends React.HTMLProps<HTMLElement> {
     isSingle?: boolean;
 }
 
-interface IPostProps extends IProps {
+interface IPostProps {
     item?: IPost;
 }
 
-const renderArticle = (html) => ({ __html: html });
+type CombinedProps = IProps & IPostProps;
 
-@connect<{}, {}, IProps>(
-    ({ posts }: IStore, { itemId }: IProps) => ({
-        item: posts.postsById[itemId]
-    })
-)
-export class Post extends React.PureComponent<IPostProps, any> {
-    public render() {
+const renderArticle = (html: string): JSX.Element => <div
+    dangerouslySetInnerHTML={ { __html: html } }
+/>;
+const getPart = curry((mode: string, html: string): string => {
+    if (mode === 'full') {
+        return html;
+    }
+
+    return (html || '').split('<p><!--more--></p>')[0];
+});
+
+const mapStateToProps = ({ posts }: IStore, { itemId }: IProps): IPostProps => ({
+    item: posts.postsById[itemId]
+});
+
+@connect<{}, {}, IProps>(mapStateToProps)
+export class Post extends React.PureComponent<CombinedProps, any> {
+    public render(): JSX.Element | null {
         const {
             item: {
                 id,
-                title: {
-                    rendered: title
-                },
                 content: {
                     rendered: content
                 },
-                excerpt: {
-                    rendered: excerpt
+                title: {
+                    rendered: title
                 },
                 slug
             },
@@ -51,9 +62,12 @@ export class Post extends React.PureComponent<IPostProps, any> {
                 titleTag={ isSingle ? 'h1' : 'h2' }
             />
 
-            <div
-                dangerouslySetInnerHTML={ renderArticle(isSingle ? content : excerpt) }
-            />
+            {
+                pipe(
+                    getPart(isSingle ? 'full' : 'excerpt'),
+                    renderArticle
+                )(content)
+            }
         </article>;
     }
 }

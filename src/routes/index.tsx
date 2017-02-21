@@ -1,6 +1,6 @@
+import { About, App, Archive } from 'containers';
 import * as React from 'react';
-import { IndexRoute, Route, Redirect } from 'react-router';
-import { App, Archive, About } from 'containers';
+import { IndexRoute, Redirect, Route } from 'react-router';
 
 export default (
     <Route path='/' component={ App }>

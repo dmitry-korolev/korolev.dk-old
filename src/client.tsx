@@ -5,27 +5,27 @@ import 'isomorphic-fetch';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { syncHistoryWithStore } from 'react-router-redux';
 import { Router, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect } from 'redux-connect';
 
-import { configureStore } from './state/store';
-import routes from './routes';
+import routes from 'routes';
+import { configureStore } from 'state/store';
 
 const store = configureStore(
-    browserHistory,
+    browserHistory as any,
     JSON.parse(decodeURIComponent(window.__INITIAL_STATE__))
 );
 const history = syncHistoryWithStore(browserHistory, store);
-const connectedCmp = (props) => <ReduxAsyncConnect { ...props } />;
+const connectedCmp = (props: any): any => <ReduxAsyncConnect { ...props } />;
 
 if (process.env.NODE_ENV !== 'production') {
     window['grid'] = { // tslint:disable-line
-        enable() {
+        enable(): void {
             localStorage.setItem('grid_enable', '1');
             document.body.classList.remove('no-grid');
         },
-        disable() {
+        disable(): void {
             localStorage.removeItem('grid_enable');
             document.body.classList.add('no-grid');
         }

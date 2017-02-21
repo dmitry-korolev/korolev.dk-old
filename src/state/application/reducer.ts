@@ -38,6 +38,6 @@ if (process.env.NODE_ENV !== 'production') {
     });
 }
 
-export const applicationReducer = (state = initialState) => {
+export const applicationReducer = (state: IApplication = initialState): IApplication => {
     return state;
 };

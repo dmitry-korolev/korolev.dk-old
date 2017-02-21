@@ -2,9 +2,10 @@ import { IFluxAction } from 'models/flux';
 const identity = require('ramda/src/identity');
 
 type IPayloadHandler = (...payload: any[]) => any;
+export type IActionCreator = (...args: any[]) => IFluxAction;
 
-const createAction =
-    (type: string, payloadCreator: IPayloadHandler = identity, metaCreator?: IPayloadHandler) =>
+export const createAction =
+    (type: string, payloadCreator: IPayloadHandler = identity, metaCreator?: IPayloadHandler): IActionCreator =>
         (...args: any[]): IFluxAction => {
             const hasError = args[0] instanceof Error;
 
@@ -27,7 +28,3 @@ const createAction =
 
             return action;
         };
-
-export {
-    createAction
-}

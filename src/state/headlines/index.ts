@@ -1,8 +1,10 @@
-import { randomFromArray, crudGenerator } from 'utils';
+import { crudGenerator, randomFromArray } from 'utils';
 
 // Models
-import { IHeadlines } from 'models/headlines';
 import { IFluxAction } from 'models/flux';
+import { IHeadlines } from 'models/headlines';
+import { IGetState } from 'models/store';
+import { Dispatch } from 'redux';
 
 const {
     actions,
@@ -32,8 +34,10 @@ function headlinesReducer(state: IHeadlines = initialState, action: IFluxAction)
     }
 }
 
+type IGetHeadlinesActionCreator = (dispatch: Dispatch<any>, getState: IGetState) => Promise<any>;
+
 /* Async action creator */
-const getHeadlines = () => (dispatch, getState) => {
+const getHeadlines = (): IGetHeadlinesActionCreator => (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
     if (getState().headlines.headlines.length) {
         return Promise.resolve();
     }
@@ -46,7 +50,7 @@ const getHeadlines = () => (dispatch, getState) => {
 };
 
 /* Action creators */
-const headlinesSet = () => ({
+const headlinesSet = (): IFluxAction => ({
     type: HEADLINES_SET
 });
 

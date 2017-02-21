@@ -1,5 +1,5 @@
+import { Box, Flex, Header, Link } from 'components';
 import * as React from 'react';
-import { Header, Link, Flex, Box } from 'components';
 
 const s = require('./style.css');
 
@@ -7,7 +7,7 @@ interface IProps {
     headline: string;
 }
 
-const SiteHeader: React.StatelessComponent<IProps> = ({ headline }: IProps) => <Flex
+const SiteHeader: React.StatelessComponent<IProps> = ({ headline }: IProps): JSX.Element => <Flex
     is='header'
     className={ s.site_header }
     ai='center'

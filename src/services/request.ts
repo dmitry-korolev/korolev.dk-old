@@ -1,5 +1,5 @@
-const cache = new Map();
-const activeRequests = new Map();
+const cache: Map<string, Response | IJSONData> = new Map();
+const activeRequests: Map<string, Promise<Response | IJSONData>> = new Map();
 const baseUrl = 'https://agenius.ru/wp-json/wp/v2/';
 
 interface IRequestOptions {
@@ -10,12 +10,16 @@ interface IRequestOptions {
     init?: RequestInit;
 }
 
+interface IJSONData {
+    [K: string]: any;
+}
+
 const request = ({
     method,
     useCache = true,
     type = 'json',
     init = {}
-}: IRequestOptions) => {
+}: IRequestOptions): Promise<Response | IJSONData> => {
     const url = baseUrl + method;
     const cacheKey = url + init.method + init.body + type;
 
@@ -28,14 +32,14 @@ const request = ({
     }
 
     const result = fetch(baseUrl + method, init)
-        .then((response) => {
+        .then((response: Response) => {
             if (type === 'json') {
-                return response.json();
+                return response.json() as IJSONData;
             }
 
-            return response;
+            return response as Response;
         })
-        .then((response) => {
+        .then((response: Response | IJSONData ) => {
             if (useCache) {
                 cache.set(cacheKey, response);
             }

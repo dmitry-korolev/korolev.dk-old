@@ -1,12 +1,13 @@
 /** React Specific */
+import { ReactWrapper, mount } from 'enzyme';
 import * as React from 'react';
-import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 // State
+import { IStore } from 'models/store';
 import rootReducer from 'state/reducers';
 
 const fetchMock = require('fetch-mock');
@@ -17,7 +18,7 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 /** Render Component */
-function renderComponent(ComponentClass, state?, props?) {
+function renderComponent(ComponentClass: any, state?: IStore, props?: any): ReactWrapper<any, any> {
     const store = createStore(rootReducer, state);
 
     return mount(

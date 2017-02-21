@@ -1,4 +1,4 @@
-export { createAction } from './createAction';
+export { createAction, IActionCreator } from './createAction';
 export { crudGenerator } from './crudGenerator';
 export { getPostFromState } from './getPostFromState';
 export { randomFromArray } from './randomFromArray';

@@ -6,6 +6,8 @@ import { getPosts } from 'state/posts';
 
 // Components
 import { PostList } from 'components';
+import { IStore } from 'models/store';
+import { Dispatch } from 'redux';
 
 // Styles
 const s = require('./style.css');
@@ -16,16 +18,16 @@ interface IProps {
 
 @asyncConnect(
     [{
-        promise: ({ store: { dispatch } }) => dispatch(getPosts())
+        promise: ({ store: { dispatch } }: { store: { dispatch: Dispatch<any> } }): any => dispatch(getPosts())
     }],
     ({
         posts
-    }) => ({
+    }: IStore) => ({
         posts: posts.posts
     })
 )
 class Archive extends React.Component<IProps, any> {
-    public render() {
+    public render(): JSX.Element {
         const {
             posts
         } = this.props;

@@ -6,12 +6,12 @@ interface IProps {
     itemIds: number[];
 }
 
-const renderPost = (itemId: number) => <Post
+const renderPost = (itemId: number): JSX.Element => <Post
     key={ itemId }
     itemId={ itemId }
 />;
 
-const PostList: React.StatelessComponent<IProps> = (props: IProps) => {
+const PostList: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => {
     const { itemIds } = props;
 
     return <div>

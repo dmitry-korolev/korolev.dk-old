@@ -1,7 +1,11 @@
+import { ICategory, IPost } from '../models/content';
 const map = require('ramda/src/map');
 import { IStore } from 'models/store';
 
-export const getPostFromState = (state: IStore, postId: number) => {
+export const getPostFromState = (state: IStore, postId: number): {
+    post: IPost,
+    categories: ICategory[]
+} => {
     const {
         posts,
         categories
@@ -10,6 +14,6 @@ export const getPostFromState = (state: IStore, postId: number) => {
 
     return {
         post,
-        categories: map((categoryId) => categories.categoriesById[categoryId], post.categories)
+        categories: map((categoryId: number) => categories.categoriesById[categoryId], post.categories)
     };
 };

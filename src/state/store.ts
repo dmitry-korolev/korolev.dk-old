@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware, compose, Store, Middleware } from 'redux';
-import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
+import { Middleware, Store, applyMiddleware, compose, createStore } from 'redux';
 import * as createLogger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 // Models
 import { IStore } from 'models/store';
@@ -9,10 +9,10 @@ import rootReducer from './reducers';
 
 const appConfig = require('../../config/main');
 
-export function configureStore(history, initialState?: IStore): Store<IStore> {
+export function configureStore(history: History, initialState?: IStore): Store<IStore> {
 
     const middlewares: Middleware[] = [
-        routerMiddleware(history),
+        routerMiddleware(history as any),
         thunk
     ];
 

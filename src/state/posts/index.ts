@@ -4,6 +4,7 @@ import { crudGenerator } from 'utils';
 import { IPost, IPosts } from 'models/content';
 import { IFluxAction } from 'models/flux';
 import { IGetState } from 'models/store';
+import { Dispatch } from 'redux';
 import { request } from 'services/request';
 
 const {
@@ -34,8 +35,9 @@ function postsReducer(state: IPosts = initialState, action: IFluxAction): IPosts
     }
 }
 
-/* Async action creator */
-const getPosts = () => (dispatch, getState: IGetState) => {
+/* Async action creators */
+type IGetPostsActionCreator = (dispatch: Dispatch<any>, getState: IGetState) => Promise<any>;
+const getPosts = (): IGetPostsActionCreator => (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
     if (getState().posts.posts.length) {
         return Promise.resolve();
     }
@@ -51,7 +53,8 @@ const getPosts = () => (dispatch, getState: IGetState) => {
         ]));
 };
 
-const getPost = (id) => (dispatch, getState: IGetState) => {
+type IGetPostActionCreator = (dispatch: Dispatch<any>, getState: IGetState) => Promise<any>;
+const getPost = (id: number): IGetPostActionCreator => (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
     if (getState().posts.postsById[id]) {
         return Promise.resolve();
     }

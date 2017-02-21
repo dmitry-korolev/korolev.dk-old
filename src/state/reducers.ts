@@ -1,12 +1,12 @@
-import { combineReducers, Reducer } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import { Reducer, combineReducers } from 'redux';
 import { reducer } from 'redux-connect';
 
 // Reducers
-import { headlinesReducer } from 'state/headlines';
 import { applicationReducer } from 'state/application';
-import { postsReducer } from 'state/posts';
 import { categoriesReducer } from 'state/categories';
+import { headlinesReducer } from 'state/headlines';
+import { postsReducer } from 'state/posts';
 
 // Types
 import { IStore } from 'models/store';

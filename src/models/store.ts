@@ -1,6 +1,6 @@
-import { IHeadlines } from 'models/headlines';
 import { IApplication } from 'models/appication';
-import { IPosts, ICategories } from 'models/content';
+import { ICategories, IPosts } from 'models/content';
+import { IHeadlines } from 'models/headlines';
 
 export interface IStore {
     headlines: IHeadlines;

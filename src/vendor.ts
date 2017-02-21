@@ -6,5 +6,5 @@
  */
 
 import 'ress';
-import './statics/styles/variables.css';
 import './statics/styles/common.css';
+import './statics/styles/variables.css';
