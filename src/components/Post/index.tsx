@@ -1,12 +1,13 @@
 import { Header } from 'components';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { postUrlTemplate } from 'utils';
 
 const curry = require('ramda/src/curry');
 const pipe = require('ramda/src/pipe');
 
 // Types
-import { IPost } from 'models/content';
+import { ICategory, IPost } from 'models/content';
 import { IStore } from 'models/store';
 
 // const s = require('./style.css');
@@ -17,6 +18,7 @@ interface IProps extends React.HTMLProps<HTMLElement> {
 
 interface IPostProps {
     item?: IPost;
+    category?: ICategory;
 }
 
 type CombinedProps = IProps & IPostProps;
@@ -32,9 +34,14 @@ const getPart = curry((mode: string, html: string): string => {
     return (html || '').split('<p><!--more--></p>')[0];
 });
 
-const mapStateToProps = ({ posts }: IStore, { itemId }: IProps): IPostProps => ({
-    item: posts.postsById[itemId]
-});
+const mapStateToProps = ({ posts, categories }: IStore, { itemId }: IProps): IPostProps => {
+    const post = posts.postsById[itemId];
+
+    return {
+        item: post,
+        category: categories.categoriesById[post.categories[0]]
+    };
+};
 
 @connect<{}, {}, IProps>(mapStateToProps)
 export class Post extends React.PureComponent<CombinedProps, any> {
@@ -47,10 +54,10 @@ export class Post extends React.PureComponent<CombinedProps, any> {
                 },
                 title: {
                     rendered: title
-                },
-                slug
+                }
             },
-            isSingle
+            isSingle,
+            category
         } = this.props;
 
         return <article
@@ -58,7 +65,7 @@ export class Post extends React.PureComponent<CombinedProps, any> {
         >
             <Header
                 titleText={ title }
-                titleLink={ `/${slug}/` }
+                titleLink={ postUrlTemplate(this.props.item, category) }
                 titleTag={ isSingle ? 'h1' : 'h2' }
             />
 

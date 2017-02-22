@@ -1,3 +1,5 @@
+import * as debug from 'debug';
+import { request } from 'services/request';
 import { crudGenerator } from 'utils';
 
 // Models
@@ -5,12 +7,16 @@ import { IPost, IPosts } from 'models/content';
 import { IFluxAction } from 'models/flux';
 import { IGetState } from 'models/store';
 import { Dispatch } from 'redux';
-import { request } from 'services/request';
 
 const {
     actions,
     reducer
 } = crudGenerator('posts', { fetch: true });
+const log = debug('k:posts');
+// const through = (fn: Function): any => (args: any): any => {
+//     fn(args);
+//     return args;
+// };
 
 const initialState: IPosts = {
     isFetching: false,
@@ -55,6 +61,8 @@ const getPosts = (): IGetPostsActionCreator => (dispatch: Dispatch<any>, getStat
 
 type IGetPostActionCreator = (dispatch: Dispatch<any>, getState: IGetState) => Promise<any>;
 const getPost = (id: number): IGetPostActionCreator => (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
+    log('Get post', id);
+
     if (getState().posts.postsById[id]) {
         return Promise.resolve();
     }
@@ -62,7 +70,7 @@ const getPost = (id: number): IGetPostActionCreator => (dispatch: Dispatch<any>,
     dispatch(actions.fetchStart());
 
     return request({
-        method: `posts?id=${id}`
+        method: `posts/${id}`
     })
         .then((post: IPost) => dispatch(actions.fetchSuccess([post])));
 };

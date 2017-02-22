@@ -1,6 +1,13 @@
-import { ICategory, IPost } from '../models/content';
-const map = require('ramda/src/map');
+import { ICategory, IPost } from 'models/content';
 import { IStore } from 'models/store';
+
+const find = require('ramda/src/find');
+const propEq = require('ramda/src/propEq');
+const map = require('ramda/src/map');
+
+export const getCategoryBySlug =
+    (slug: string, categories: ICategory[]): ICategory =>
+        find(propEq('slug', slug), categories);
 
 export const getPostFromState = (state: IStore, postId: number): {
     post: IPost,

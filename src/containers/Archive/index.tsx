@@ -9,9 +9,6 @@ import { PostList } from 'components';
 import { IStore } from 'models/store';
 import { Dispatch } from 'redux';
 
-// Styles
-const s = require('./style.css');
-
 interface IProps {
     posts: number[];
 }
@@ -33,7 +30,7 @@ class Archive extends React.Component<IProps, any> {
         } = this.props;
 
         return (
-            <section className={ s.home }>
+            <section>
                 <PostList
                     itemIds={ posts }
                 />
