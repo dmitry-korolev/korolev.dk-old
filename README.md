@@ -2,12 +2,11 @@
 Non-functional yet.
 
 # Korolev.dk
-Proudly uses [Vortigern](https://github.com/barbar/vortigern) and features:
-
+- [Vortigern](https://github.com/barbar/vortigern) as a boilerplate.
 - [TypeScript](https://www.typescriptlang.org/)
-- [React](https://github.com/facebook/react) & [React DOM](https://github.com/facebook/react) for views.
+- [React](https://github.com/facebook/react) for views.
 - [Redux](https://github.com/reactjs/redux) for managing application state.
-- and [much more](https://github.com/barbar/vortigern)
+- Wordpress as a backend (for now).
 
 ## Credits
 Korolev.dk is released under the [MIT license](LICENSE). 
