@@ -17,15 +17,21 @@ import { Html } from 'containers';
 const manifest = require('../build/manifest.json');
 const appConfig = require('../config/main');
 
-const express = require('express');
+// Server stuff
+const feathers = require('feathers');
+const rest = require('feathers-rest');
+const bodyParser = require('body-parser');
 const path = require('path');
 const compression = require('compression');
 const favicon = require('serve-favicon');
 
-const app = express();
+const app = feathers();
 const logInfo = debug('k:server:info');
 const logError = debug('k:server:error');
 
+app.configure(rest());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
 
 if (process.env.NODE_ENV !== 'production') {
@@ -49,7 +55,17 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/public', feathers.static(path.join(__dirname, 'public')));
+
+app.use('/api/:name', {
+    get(id: any, params: any): any {
+        return Promise.resolve({
+            id,
+            params,
+            description: `You have to do ${params.name}!`
+        });
+    }
+});
 
 app.get('*', (req: any, res: any) => {
     const location = req.url;

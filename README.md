@@ -6,7 +6,6 @@ Non-functional yet.
 - [TypeScript](https://www.typescriptlang.org/)
 - [React](https://github.com/facebook/react) for views.
 - [Redux](https://github.com/reactjs/redux) for managing application state.
-- Wordpress as a backend (for now).
 
 ## Credits
 Korolev.dk is released under the [MIT license](LICENSE). 
