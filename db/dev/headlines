@@ -1,0 +1,13 @@
+{"$$indexCreated":{"fieldName":"id","unique":true,"sparse":true}}
+{"content":"test","created":{"$$date":1487973528096},"id":1,"_id":"1"}
+{"content":"test","created":{"$$date":1487973528136},"id":2,"_id":"2"}
+{"content":"test","created":{"$$date":1487973528193},"id":3,"_id":"3"}
+{"content":"test","created":{"$$date":1487973528216},"id":4,"_id":"4"}
+{"content":"test","created":{"$$date":1487973528298},"id":5,"_id":"5"}
+{"content":"test","created":{"$$date":1487973528333},"id":6,"_id":"6"}
+{"content":"test","created":{"$$date":1487973554895},"id":7,"_id":"7"}
+{"content":"test","created":{"$$date":1487973554978},"id":8,"_id":"8"}
+{"content":"test","created":{"$$date":1487973555013},"id":9,"_id":"9"}
+{"content":"test","created":{"$$date":1487973555051},"id":10,"_id":"10"}
+{"content":"test","created":{"$$date":1487973555116},"id":11,"_id":"11"}
+{"content":"test","created":{"$$date":1487973555136},"id":12,"_id":"12"}

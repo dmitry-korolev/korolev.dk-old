@@ -95,6 +95,12 @@ const config = {
                     ];
                 },
             }
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                BROWSER: JSON.stringify(false),
+                NODE_ENV: JSON.stringify('development')
+            }
         })
     ],
 

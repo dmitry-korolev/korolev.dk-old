@@ -2,6 +2,7 @@ import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
 import 'isomorphic-fetch';
 
+import * as debug from 'debug';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -20,6 +21,8 @@ const history = syncHistoryWithStore(browserHistory, store);
 const connectedCmp = (props: any): any => <ReduxAsyncConnect { ...props } />;
 
 if (process.env.NODE_ENV !== 'production') {
+    window['debug'] = debug; // tslint:disable-line
+
     window['grid'] = { // tslint:disable-line
         enable(): void {
             localStorage.setItem('grid_enable', '1');

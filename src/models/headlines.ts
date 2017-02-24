@@ -1,6 +1,8 @@
 export interface IHeadline {
     id?: number;
     content: string;
+    created?: string;
+    updated?: string;
 }
 
 export interface IHeadlines {

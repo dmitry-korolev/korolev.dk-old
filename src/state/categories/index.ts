@@ -18,7 +18,9 @@ type IGetCategoriesActionCreator = (dispatch: Dispatch<any>, getState: IGetState
 /* Async action creator */
 const getCategories = (): IGetCategoriesActionCreator =>
     (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
-        if (path(['categories', 'categories', 'length'], getState())) {
+        const state = getState();
+
+        if (path(['categories', 'categories', 'length'], state)) {
             return Promise.resolve();
         }
 
@@ -26,7 +28,7 @@ const getCategories = (): IGetCategoriesActionCreator =>
 
         return request({
             method: 'categories'
-        })
+        }, state)
             .then((categories: ICategory[]) => dispatch(actions.fetchSuccess(categories)))
             .catch((error: Error) => dispatch(actions.fetchError(error)));
     };

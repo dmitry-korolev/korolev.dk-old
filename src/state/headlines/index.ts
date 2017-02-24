@@ -1,8 +1,9 @@
+import { apiRequest } from 'services';
 import { crudGenerator, randomFromArray } from 'utils';
 
 // Models
 import { IFluxAction } from 'models/flux';
-import { IHeadlines } from 'models/headlines';
+import { IHeadline, IHeadlines } from 'models/headlines';
 import { IGetState } from 'models/store';
 import { Dispatch } from 'redux';
 
@@ -38,14 +39,18 @@ type IGetHeadlinesActionCreator = (dispatch: Dispatch<any>, getState: IGetState)
 
 /* Async action creator */
 const getHeadlines = (): IGetHeadlinesActionCreator => (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
-    if (getState().headlines.headlines.length) {
+    const state = getState();
+
+    if (state.headlines.headlines.length) {
         return Promise.resolve();
     }
 
     dispatch(actions.fetchStart());
 
-    return Promise.resolve(require('../../../mocks/taglines.json'))
-        .then((headlines: string[]) => dispatch(actions.fetchSuccess(headlines)))
+    return apiRequest({
+        method: 'headlines'
+    }, state)
+        .then((headlines: IHeadline[]) => dispatch(actions.fetchSuccess(headlines)))
         .then(() => dispatch(headlinesSet()));
 };
 

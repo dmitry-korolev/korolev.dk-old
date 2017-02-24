@@ -26,7 +26,9 @@ const initialState: IApplication = {
                 rel: 'stylesheet'
             }
         ]
-    }
+    },
+    localApi: process.env.LOCAL_API || 'http://localhost:8889/api/',
+    wpApi: process.env.WP_API || 'https://agenius.ru/wp-json/wp/v2/'
 };
 
 // Add grid in dev mode

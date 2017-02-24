@@ -44,7 +44,9 @@ function postsReducer(state: IPosts = initialState, action: IFluxAction): IPosts
 /* Async action creators */
 type IGetPostsActionCreator = (dispatch: Dispatch<any>, getState: IGetState) => Promise<any>;
 const getPosts = (): IGetPostsActionCreator => (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
-    if (getState().posts.posts.length) {
+    const state = getState();
+
+    if (state.posts.posts.length) {
         return Promise.resolve();
     }
 
@@ -52,7 +54,7 @@ const getPosts = (): IGetPostsActionCreator => (dispatch: Dispatch<any>, getStat
 
     return request({
         method: 'posts'
-    })
+    }, state)
         .then((posts: IPost[]) => Promise.all([
             dispatch(actions.fetchSuccess(posts)),
             dispatch(setTotal(posts.length))
@@ -63,7 +65,9 @@ type IGetPostActionCreator = (dispatch: Dispatch<any>, getState: IGetState) => P
 const getPost = (id: number): IGetPostActionCreator => (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
     log('Get post', id);
 
-    if (getState().posts.postsById[id]) {
+    const state = getState();
+
+    if (state.posts.postsById[id]) {
         return Promise.resolve();
     }
 
@@ -71,7 +75,7 @@ const getPost = (id: number): IGetPostActionCreator => (dispatch: Dispatch<any>,
 
     return request({
         method: `posts/${id}`
-    })
+    }, state)
         .then((post: IPost) => dispatch(actions.fetchSuccess([post])));
 };
 

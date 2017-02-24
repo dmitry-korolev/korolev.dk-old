@@ -10,10 +10,11 @@ import { createMemoryHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 
+import { services } from 'api/services';
+import { Html } from 'containers';
 import routes from 'routes';
 import { configureStore } from 'state/store';
 
-import { Html } from 'containers';
 const manifest = require('../build/manifest.json');
 const appConfig = require('../config/main');
 
@@ -57,15 +58,7 @@ app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 
 app.use('/public', feathers.static(path.join(__dirname, 'public')));
 
-app.use('/api/:name', {
-    get(id: any, params: any): any {
-        return Promise.resolve({
-            id,
-            params,
-            description: `You have to do ${params.name}!`
-        });
-    }
-});
+services(app);
 
 app.get('*', (req: any, res: any) => {
     const location = req.url;

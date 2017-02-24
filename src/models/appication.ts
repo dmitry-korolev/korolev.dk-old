@@ -18,4 +18,6 @@ export interface IApplication {
         meta: IHeadMeta[];
         link: IHeadLink[];
     };
+    localApi: string;
+    wpApi: string;
 }
