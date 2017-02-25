@@ -1,6 +1,9 @@
 # Build Folder
 build
 
+# Production db
+db/prod
+
 # Logs
 logs
 *.log

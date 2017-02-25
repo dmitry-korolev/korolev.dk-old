@@ -13,7 +13,7 @@ const config = {
 
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
-        modules: [path.resolve(__dirname), 'node_modules', 'state'],
+        modules: [path.resolve(__dirname), 'node_modules', 'src', 'state'],
     },
 
     entry: {
@@ -61,8 +61,8 @@ const config = {
                 test: /\.css$/,
                 include: path.resolve('./src'),
                 loader: ExtractTextPlugin.extract({
-                    fallbackLoader: 'style-loader',
-                    loader: [
+                    fallback: 'style-loader',
+                    use: [
                         {
                             loader: 'css-loader',
                             options: {
@@ -80,8 +80,8 @@ const config = {
                 test: /\.css$/,
                 exclude: path.resolve('./src'),
                 loader: ExtractTextPlugin.extract({
-                    fallbackLoader: 'style-loader',
-                    loader: [
+                    fallback: 'style-loader',
+                    use: [
                         'css-loader',
                     ]
                 })
