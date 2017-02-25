@@ -1,6 +1,7 @@
 import * as debug from 'debug';
 
 // Models
+import { IJSONData } from 'models/api';
 import { IStore } from 'models/store';
 
 const cache: Map<string, Response | IJSONData> = new Map();
@@ -15,10 +16,6 @@ export interface IRequestOptions {
     useCache?: boolean;
     type?: 'json';
     init?: RequestInit;
-}
-
-export interface IJSONData {
-    [K: string]: any;
 }
 
 const request = ({
