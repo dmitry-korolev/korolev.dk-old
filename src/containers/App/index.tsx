@@ -3,13 +3,12 @@ import * as Helmet from 'react-helmet';
 import { asyncConnect } from 'redux-connect';
 
 import { SiteHeader } from 'components';
-import { getCategories } from 'state/categories';
-import { getHeadlines, headlinesSet } from 'state/headlines';
 
 // Models
 import { IApplication } from 'models/appication';
 import { IStore } from 'models/store';
 import { Dispatch } from 'redux';
+import { doActions } from '../../state/globalActions';
 
 // Styles
 const s = require('./style.css');
@@ -26,14 +25,12 @@ interface IProps {
 }
 
 const headlinePath = path(['current', 'content']);
-const pathnamePath = path(['location', 'pathname']);
 
 @asyncConnect(
     [{
-        promise: ({ store: { dispatch } }: { store: { dispatch: Dispatch<any> } }): Promise<any> => Promise.all([
-            dispatch(getHeadlines()),
-            dispatch(getCategories())
-        ])
+        promise:
+            ({ store: { dispatch } }: { store: { dispatch: Dispatch<any> } }): Promise<any[]> =>
+                doActions(dispatch)
     }],
     ({
         headlines,
@@ -41,16 +38,9 @@ const pathnamePath = path(['location', 'pathname']);
     }: IStore) => ({
         headline: headlinePath(headlines),
         application
-    }),
-    (dispatch: Dispatch<any>) => ({ changeHeadline: (): any => dispatch(headlinesSet()) })
+    })
 )
 class App extends React.Component<IProps, any> {
-    public componentDidUpdate(prevProps: IProps): void {
-        if (pathnamePath(prevProps) !== pathnamePath(this.props)) {
-            this.props.changeHeadline();
-        }
-    }
-
     public render(): JSX.Element {
         const {
             headline,

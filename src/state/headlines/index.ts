@@ -2,7 +2,7 @@ import { apiRequest } from 'services';
 import { crudGenerator, randomFromArray } from 'utils';
 
 // Models
-import { IFluxAction } from 'models/flux';
+import { IFluxAction, IFluxActionCreator } from 'models/flux';
 import { IHeadline, IHeadlines } from 'models/headlines';
 import { IGetState } from 'models/store';
 import { Dispatch } from 'redux';
@@ -38,21 +38,24 @@ function headlinesReducer(state: IHeadlines = initialState, action: IFluxAction)
 type IGetHeadlinesActionCreator = (dispatch: Dispatch<any>, getState: IGetState) => Promise<any>;
 
 /* Async action creator */
-const getHeadlines = (): IGetHeadlinesActionCreator => (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
-    const state = getState();
+const getHeadlines: IFluxActionCreator =
+    (): IGetHeadlinesActionCreator => (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
+        const state = getState();
 
-    if (state.headlines.headlines.length) {
-        return Promise.resolve();
-    }
+        if (state.headlines.headlines.length) {
+            return Promise.resolve();
+        }
 
-    dispatch(actions.fetchStart());
+        dispatch(actions.fetchStart());
 
-    return apiRequest({
-        method: 'headlines'
-    }, state)
-        .then((headlines: IHeadline[]) => dispatch(actions.fetchSuccess(headlines)))
-        .then(() => dispatch(headlinesSet()));
-};
+        return apiRequest({
+            method: 'headlines'
+        }, state)
+            .then((headlines: IHeadline[]) => dispatch(actions.fetchSuccess(headlines)))
+            .then(() => dispatch(headlinesSet()));
+    };
+
+getHeadlines.onlyServer = true;
 
 /* Action creators */
 const headlinesSet = (): IFluxAction => ({

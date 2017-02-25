@@ -1,10 +1,9 @@
-import { path } from 'ramda';
-
 import { request } from 'services/request';
 import { crudGenerator } from 'utils';
 
 // Models
 import { ICategory } from 'models/content';
+import { IFluxActionCreator } from 'models/flux';
 import { IGetState } from 'models/store';
 import { Dispatch } from 'redux';
 
@@ -16,13 +15,9 @@ const {
 type IGetCategoriesActionCreator = (dispatch: Dispatch<any>, getState: IGetState) => Promise<any>;
 
 /* Async action creator */
-const getCategories = (): IGetCategoriesActionCreator =>
+const getCategories: IFluxActionCreator = (): IGetCategoriesActionCreator =>
     (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
         const state = getState();
-
-        if (path(['categories', 'categories', 'length'], state)) {
-            return Promise.resolve();
-        }
 
         dispatch(actions.fetchStart());
 
@@ -32,6 +27,8 @@ const getCategories = (): IGetCategoriesActionCreator =>
             .then((categories: ICategory[]) => dispatch(actions.fetchSuccess(categories)))
             .catch((error: Error) => dispatch(actions.fetchError(error)));
     };
+
+getCategories.onlyServer = true;
 
 export {
     categoriesReducer,

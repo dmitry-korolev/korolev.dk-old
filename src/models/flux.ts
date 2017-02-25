@@ -4,3 +4,10 @@ export interface IFluxAction {
     payload?: any;
     meta?: any;
 }
+
+export interface IFluxActionCreator {
+    (): any;
+    once?: boolean;
+    onlyServer?: boolean;
+    onlyClient?: boolean;
+}
