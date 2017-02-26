@@ -9,7 +9,8 @@
         },
         "outDir": "build",
         "module": "commonjs",
-        "target": "es6",
+        "target": "es2017",
+        "lib": ["dom", "es5", "es6", "es7", "scripthost"],
         "sourceMap": true,
         "inlineSourceMap": false,
         "inlineSources": false,
@@ -17,6 +18,7 @@
         "noUnusedParameters": true,
         "noUnusedLocals": true,
         "jsx": "react",
+        "importHelpers": true,
         "moduleResolution": "node"
     },
     "exclude": [
@@ -26,7 +28,7 @@
         "typings/main.d.ts"
     ],
     "awesomeTypescriptLoaderOptions": {
-        "useCache": true,
-        "useBabel": true
+        "useCache": false,
+        "useBabel": false
     }
 }

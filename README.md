@@ -13,7 +13,10 @@
 Korolev.dk is released under the [MIT license](LICENSE). 
 
 ## Todo
-- ~~Add caching to NeDB querying~~
+- ~~Add caching to common NeDB querying~~
 - Authentication
 - Post and categories schema
+- Markdown
 - Posts styling
+- Editing settings on front
+- Editing posts and categories on front

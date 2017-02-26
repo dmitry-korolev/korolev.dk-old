@@ -47,7 +47,7 @@ const config = {
             },
             {
                 test: /\.tsx?$/,
-                loader: 'react-hot-loader!awesome-typescript-loader'
+                loader: 'babel-loader!awesome-typescript-loader'
             },
             {
                 test: /\.jsx$/,
