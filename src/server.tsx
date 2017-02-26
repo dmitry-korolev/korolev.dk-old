@@ -10,7 +10,7 @@ import { createMemoryHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 
-import { services } from 'api/services';
+import { headlinesService, optionsService, tokensService, usersService } from 'api';
 import { Html } from 'containers';
 import routes from 'routes';
 import { configureStore } from 'state/store';
@@ -20,7 +20,9 @@ const appConfig = require('../config/main');
 
 // Server stuff
 const feathers = require('feathers');
+// const authentication = require('feathers-authentication');
 const rest = require('feathers-rest');
+const hooks = require('feathers-hooks');
 const bodyParser = require('body-parser');
 const path = require('path');
 const compression = require('compression');
@@ -31,6 +33,7 @@ const logInfo = debug('k:server:info');
 const logError = debug('k:server:error');
 
 app.configure(rest());
+app.configure(hooks());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
@@ -55,10 +58,18 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
-
 app.use('/public', feathers.static(path.join(__dirname, 'public')));
-
-services(app);
+app.use('/api/headlines', headlinesService);
+app.use('/api/options', optionsService);
+app.use('/api/users', usersService);
+app.use('/api/tokens', tokensService);
+// app.configure(authentication({
+//     local: {
+//         usernameField: 'username'
+//     },
+//     userEndpoint: '/api/users',
+//     tokenEndpoint: '/api/tokens'
+// }));
 
 app.get('*', (req: any, res: any) => {
     const location = req.url;

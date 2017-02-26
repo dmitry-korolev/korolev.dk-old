@@ -1,4 +1,4 @@
-import { Service } from 'feathers-nedb';
+import { BaseService } from 'api/base';
 import * as NeDB from 'nedb';
 
 // Models
@@ -9,7 +9,7 @@ const optionsDb = new NeDB({
     autoload: true
 });
 
-class OptionsService extends Service {
+class OptionsService extends BaseService {
     constructor(options: any) {
         super(options);
     }
@@ -35,10 +35,10 @@ class OptionsService extends Service {
 }
 
 const optionsService = new OptionsService({
+    serviceName: 'options',
     Model: optionsDb
 });
 
-export { updateItemId } from './updateItemId';
 export {
     optionsDb,
     optionsService
