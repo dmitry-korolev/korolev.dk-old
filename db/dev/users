@@ -1,2 +1,2 @@
-{"username":"admin","password":123,"capabilities":["contentFull","optionsFull"],"_id":"1","id":1}
+{"email":"dmitry@korolev.dk","password":"$2a$10$YadrdAmZvtDf6cpdz9TWleN/jTzAYgczysxyx/BUaolzZT4/N8kv2","created":{"$$date":1488229033084},"id":0,"_id":"0"}
 {"$$indexCreated":{"fieldName":"id","unique":true,"sparse":true}}

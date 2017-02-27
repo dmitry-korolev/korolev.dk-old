@@ -24,11 +24,9 @@ class OptionsService extends BaseService {
     }
 
     public create(data: any, params: any): Promise<IJSONData> {
-        if (!data.id) {
+        if (!data._id) {
             throw new Error('ID parameter is mandatory!');
         }
-
-        data._id = data.id;
 
         return super.create(data, params);
     }

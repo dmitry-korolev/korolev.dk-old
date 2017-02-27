@@ -14,6 +14,7 @@ interface ICachedQueries {
 interface ICreateServiceOptions {
     serviceName: string;
     incremental?: boolean;
+    cacheable?: boolean;
     Model: any;
     pagination?: any;
 }
@@ -23,6 +24,7 @@ export class BaseService extends Service {
     private logError: IDebugger;
     private serviceName: string;
     private incremental: boolean;
+    private cacheable: boolean;
     private cachedQueries: ICachedQueries;
     private isCreationInProcess: boolean;
     private creationQueue: Map<string, any>;
@@ -31,12 +33,14 @@ export class BaseService extends Service {
     constructor({
         serviceName,
         incremental = false,
+        cacheable = true,
         ...rest
     }: ICreateServiceOptions) {
         super(rest);
 
         this.serviceName = serviceName;
         this.incremental = incremental;
+        this.cacheable = cacheable;
         this.isCreationInProcess = false;
         this.cachedQueries = {
             find: new Map(),
@@ -89,7 +93,7 @@ export class BaseService extends Service {
 
         const key = JSON.stringify(params);
 
-        if (this.cachedQueries.find.has(key)) {
+        if (this.cacheable && this.cachedQueries.find.has(key)) {
             this.logInfo('Found cached FIND query', params);
             return this.cachedQueries.find.get(key);
         }
@@ -98,7 +102,7 @@ export class BaseService extends Service {
 
         const result = await this.formatData(super.find(params));
 
-        if (result.resultCode === 'OK') {
+        if (this.cacheable && result.resultCode === 'OK') {
             this.cachedQueries.find.set(key, result);
         }
 
@@ -108,7 +112,7 @@ export class BaseService extends Service {
     public async get(id: any, params: any): Promise<IReturnData<IJSONData>> {
         const key = JSON.stringify([id, params]);
 
-        if (this.cachedQueries.get.has(key)) {
+        if (this.cacheable && this.cachedQueries.get.has(key)) {
             this.logInfo('Found cached GET query', id, params);
             return this.cachedQueries.get.get(key);
         }
@@ -117,7 +121,7 @@ export class BaseService extends Service {
 
         const result = await this.formatData(super.get(id, params));
 
-        if (result.resultCode === 'OK') {
+        if (this.cacheable && result.resultCode === 'OK') {
             this.cachedQueries.get.set(key, result);
         }
 
@@ -141,13 +145,17 @@ export class BaseService extends Service {
     }
 
     private async createIncremental(data: any, params: any): Promise<IJSONData> {
-        const id = `${this.serviceName}_last_id`;
-        const lastId = await this.optionsService.get(id) || { value: -1 };
-        const newId = lastId.value;
+        const serviceOptionId = `${this.serviceName}_last_id`;
+        const serviceLastId = await this.optionsService.get(serviceOptionId);
+        let newId = 0;
 
-        await lastId
-            ? this.optionsService.update(id, { value: newId })
-            : this.optionsService.create({ _id: id, value: newId });
+        if (serviceLastId.resultCode === 'OK') {
+            newId = serviceLastId.payload.value + 1;
+        }
+
+        await newId > 0
+            ? this.optionsService.update(serviceOptionId, { value: newId, internal: true })
+            : this.optionsService.create({ _id: serviceOptionId, value: newId, internal: true });
 
         data.id = newId;
         data._id = String(newId);
@@ -209,6 +217,6 @@ export class BaseService extends Service {
     }
 
     public setup(app: any): void {
-        this.optionsService = app.service('options');
+        this.optionsService = app.service('/api/options');
     }
 }

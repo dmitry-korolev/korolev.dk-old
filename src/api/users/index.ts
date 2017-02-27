@@ -13,7 +13,7 @@ usersDb.ensureIndex({
 });
 
 const usersService = new BaseService({
-    serviceName: 'headlines',
+    serviceName: 'users',
     incremental: true,
     Model: usersDb
 });
