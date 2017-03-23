@@ -1,0 +1,15 @@
+## Todo
+- ~~Add caching to common NeDB querying~~
+- Post and categories
+    - ~~Schema~~
+    - Add mocks
+- ~~Add feathers-client to client bundle~~
+- Authentication
+    - ~~Add basic client auth~~
+    - Reduxify this s**t
+- Markdown
+- Posts styling
+- Editing settings on front
+- Editing posts and categories on front
+- Other
+    - Rearrange application setup in server.ts, 'cause mother of god, it's so shitty right now

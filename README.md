@@ -10,18 +10,4 @@
 - [Redux](https://github.com/reactjs/redux) for managing application state.
 
 ## Licence
-Korolev.dk is released under the [MIT license](LICENSE). 
-
-## Todo
-- ~~Add caching to common NeDB querying~~
-- Post and categories
-    - ~~Schema~~
-    - Add mocks
-- ~~Add feathers-client to client bundle~~
-- Authentication
-    - ~~Add basic client auth~~
-    - Reduxify this s**t
-- Markdown
-- Posts styling
-- Editing settings on front
-- Editing posts and categories on front
+Korolev.dk is released under the [MIT license](LICENSE).
