@@ -15,7 +15,6 @@ const uniq = require('ramda/src/uniq');
 
 // Models
 import IDebugger = debug.IDebugger;
-import { IReturnData } from 'models/api';
 import { IAction, IActionCreator, IAsyncAction, IAsyncActionCreator } from 'models/flux';
 import { IGetState, IStore } from 'models/store';
 import { Dispatch } from 'redux';
@@ -162,12 +161,8 @@ export class CRUD<IState, IItem> {
                 dispatch(this.actions.fetchStart());
 
                 try {
-                    const result: IReturnData<IItem[]> = await service.find(query);
-                    if (result.resultCode === 'OK') {
-                        await dispatch(this.actions.fetchSuccess(result.payload));
-                    } else {
-                        throw new Error(result.errorMessage);
-                    }
+                    const result: IItem[] = await service.find(query);
+                    await dispatch(this.actions.fetchSuccess(result));
                 } catch (error) {
                     this.logError(error);
                     await dispatch(this.actions.fetchError(error));
@@ -186,12 +181,8 @@ export class CRUD<IState, IItem> {
                 dispatch(this.actions.fetchStart());
 
                 try {
-                    const result: IReturnData<IItem> = await service.get(id);
-                    if (result.resultCode === 'OK') {
-                        await dispatch(this.actions.fetchSuccess(result.payload));
-                    } else {
-                        throw new Error(result.errorMessage);
-                    }
+                    const result: IItem = await service.get(id);
+                    await dispatch(this.actions.fetchSuccess(result));
                 } catch (error) {
                     this.logError(error);
                     await dispatch(this.actions.fetchError(error));

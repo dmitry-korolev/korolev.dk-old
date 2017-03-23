@@ -25,6 +25,7 @@ const feathers = require('feathers');
 const rest = require('feathers-rest');
 const hooks = require('feathers-hooks');
 const bodyParser = require('body-parser');
+const errorsHandler = require('feathers-errors/handler');
 const path = require('path');
 const compression = require('compression');
 const favicon = require('serve-favicon');
@@ -61,6 +62,9 @@ app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 app.use('/public', feathers.static(path.join(__dirname, 'public')));
 
 setupApplication(app);
+
+// Some services do not use it, so pass it directly
+app.use(errorsHandler());
 
 app.get('*', (req: any, res: any) => {
     const location = req.url;

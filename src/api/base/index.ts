@@ -11,13 +11,13 @@ import {
 } from 'ramda';
 
 // Models
-import { IJSONData, IReturnData } from 'models/api';
+import { IJSONData } from 'models/api';
 import IDebugger = debug.IDebugger;
 
 type IMapCache<T> = Map<string, T>;
 interface ICachedQueries {
-    find: IMapCache<IReturnData<IJSONData[]>>;
-    get: IMapCache<IReturnData<IJSONData>>;
+    find: IMapCache<IJSONData[]>;
+    get: IMapCache<IJSONData>;
 }
 
 interface ICreateServiceOptions {
@@ -74,26 +74,6 @@ export class BaseService extends Service {
         this.clearCache = this.clearCache.bind(this);
     }
 
-    private async formatData(promise: Promise<any>): Promise<IReturnData<any>> {
-        let error = null;
-        const result = await promise.catch((e: Error): void => {
-            this.logError(e);
-            error = e;
-        });
-
-        if (error) {
-            return {
-                resultCode: 'Error',
-                errorMessage: error.message
-            };
-        }
-
-        return {
-            resultCode: 'OK',
-            payload: result
-        };
-    }
-
     private clearCache(data?: any): any {
         const methods = ['find', 'get'];
 
@@ -104,7 +84,7 @@ export class BaseService extends Service {
         return data;
     }
 
-    public async find(params?: any): Promise<IReturnData<IJSONData[]>> {
+    public async find(params?: any): Promise<IJSONData[]> {
         if (this.incremental && !view(sortL, params)) {
             params = set(sortL, {
                 id: -1
@@ -120,16 +100,16 @@ export class BaseService extends Service {
 
         this.logInfo('FIND', params);
 
-        const result = await this.formatData(super.find(params));
+        const result = await super.find(params);
 
-        if (this.cacheable && result.resultCode === 'OK') {
+        if (this.cacheable) {
             this.cachedQueries.find.set(key, result);
         }
 
         return result;
     }
 
-    public async get(id: any, params: any): Promise<IReturnData<IJSONData>> {
+    public async get(id: any, params: any): Promise<IJSONData> {
         const key = JSON.stringify([id, params]);
 
         if (this.cacheable && this.cachedQueries.get.has(key)) {
@@ -139,9 +119,9 @@ export class BaseService extends Service {
 
         this.logInfo('GET', id, params);
 
-        const result = await this.formatData(super.get(id, params));
+        const result = await super.get(id, params);
 
-        if (this.cacheable && result.resultCode === 'OK') {
+        if (this.cacheable) {
             this.cachedQueries.get.set(key, result);
         }
 
@@ -149,6 +129,8 @@ export class BaseService extends Service {
     }
 
     private async createNormal(data: any, params: any): Promise<IJSONData> {
+        this.logInfo('POST', data, params);
+
         const result = await super.create(data, params);
         await this.clearCache();
         this.isCreationInProcess = false;
@@ -165,30 +147,25 @@ export class BaseService extends Service {
     }
 
     private async createIncremental(data: any, params: any): Promise<IJSONData> {
-        const serviceLastId = await this.optionsService.get(optionLastId);
-        let newId = 0;
-
-        if (serviceLastId.resultCode === 'OK') {
-            newId = serviceLastId.payload.value + 1;
-        }
+        const serviceLastId = await this.optionsService.get(optionLastId) || { value: -1 };
+        const newId = serviceLastId.value + 1;
 
         await newId > 0
             ? this.optionsService.update(optionLastId, { value: newId, internal: true })
             : this.optionsService.create({ _id: optionLastId, value: newId, internal: true });
 
+        data.id = newId;
         data._id = String(newId);
-
-        this.logInfo('POST', data, params);
 
         return this.createNormal(data, params);
     }
 
-    public async create(data: any, params: any): Promise<IReturnData<IJSONData>> {
+    public async create(data: any, params: any): Promise<IJSONData> {
         data.created = new Date();
 
         if (this.isCreationInProcess) {
             this.logInfo('Found active CREATE request, moving request to queue');
-            return new Promise<IReturnData<IJSONData>>((resolve: Function): void => {
+            return new Promise<IJSONData>((resolve: Function): void => {
                 this.creationQueue.set(JSON.stringify([data, params]), {
                     data,
                     params,
@@ -199,36 +176,34 @@ export class BaseService extends Service {
 
         this.isCreationInProcess = true;
 
-        return this.formatData(
-            this.incremental
-                ? this.createIncremental(data, params)
-                : this.createNormal(data, params)
-        );
+        return this.incremental
+            ? this.createIncremental(data, params)
+            : this.createNormal(data, params);
     }
 
-    public async update(id: number, data: any, params: any): Promise<IReturnData<IJSONData>> {
+    public async update(id: number, data: any, params: any): Promise<IJSONData> {
         data.updated = new Date();
         this.logInfo('PUT', id, data, params);
 
-        const result = await this.formatData(super.update(id, data, params));
+        const result = await super.update(id, data, params);
         await this.clearCache();
 
         return result;
     }
 
-    public async patch(id: any, data: any, params: any): Promise<IReturnData<IJSONData>> {
+    public async patch(id: any, data: any, params: any): Promise<IJSONData> {
         this.logInfo('PATCH', id, data, params);
 
-        const result = await this.formatData(super.patch(id, data, params));
+        const result = await super.patch(id, data, params);
         await this.clearCache();
 
         return result;
     }
 
-    public async remove(id: any, params: any): Promise<IReturnData<IJSONData>> {
+    public async remove(id: any, params: any): Promise<IJSONData> {
         this.logInfo('DELETE', id, params);
 
-        const result = await this.formatData(super.remove(id, params));
+        const result = await super.remove(id, params);
         await this.clearCache();
 
         return result;

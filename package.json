@@ -11,6 +11,7 @@
     "postbuild": "webpack --config config/webpack/server.js",
     "prestart": "npm run build",
     "start": "cross-env DEBUG=k:* node build/server.js",
+    "start:debugger": "cross-env DEBUG=k:* node --inspect=50000 --debug-brk build/server.js",
     "start:prod": "cross-env NODE_ENV=production npm start",
     "test": "node_modules/.bin/karma start config/test/karma.conf.js",
     "lint": "node_modules/.bin/tslint \"src/**/**.ts*\" --fix"
@@ -129,6 +130,7 @@
     "es6-promise": "^4.0.5",
     "feathers": "^2.0.3",
     "feathers-authentication": "^0.7.12",
+    "feathers-errors": "^2.6.2",
     "feathers-hooks": "^1.7.1",
     "feathers-nedb": "^2.6.1",
     "feathers-rest": "^1.6.0",

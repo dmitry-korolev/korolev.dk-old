@@ -1,2 +1,2 @@
-{"email":"dmitry@korolev.dk","password":"$2a$10$YadrdAmZvtDf6cpdz9TWleN/jTzAYgczysxyx/BUaolzZT4/N8kv2","created":{"$$date":1488229033084},"id":0,"_id":"0"}
+{"email":"dmitry@korolev.dk","password":"$2a$10$m/Lj1LtHVY8JRXKbOOUnr.c1wojSPr4P3f2bsKrSM6L382KW5Y1B.","created":{"$$date":1490299066234},"id":21,"_id":"21"}
 {"$$indexCreated":{"fieldName":"id","unique":true,"sparse":true}}

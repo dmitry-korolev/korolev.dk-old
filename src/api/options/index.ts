@@ -2,7 +2,7 @@ import { BaseService } from 'api/base';
 import * as NeDB from 'nedb';
 
 // Models
-import { IJSONData, IReturnData } from 'models/api';
+import { IJSONData } from 'models/api';
 
 const optionsDb = new NeDB({
     filename: `db/${process.env.NODE_ENV === 'production' ? 'prod' : 'dev'}/options`,
@@ -10,7 +10,7 @@ const optionsDb = new NeDB({
 });
 
 class OptionsService extends BaseService {
-    public find(params: any): Promise<IReturnData<IJSONData[]>> {
+    public find(params: any): Promise<IJSONData[]> {
         // Remove internal options from response
         params.query.internal = {
             $ne: true

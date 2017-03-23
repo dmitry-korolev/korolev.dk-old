@@ -5,6 +5,10 @@ const authentication = require('feathers-authentication');
 const hooks = authentication.hooks;
 
 export const setupApplication = (app: any): void => {
+    app.configure(authentication({
+        userEndpoint: '/api/users'
+    }));
+
     app.use('/api/headlines', baseService('headlines'));
     app.use('/api/users', baseService('users'));
     app.use('/api/posts', baseService('posts'));
@@ -19,11 +23,7 @@ export const setupApplication = (app: any): void => {
 
     app.service('/api/headlines').before({
         all: [
-            hooks.populateUser()
+            hooks.verifyToken()
         ]
     });
-
-    app.configure(authentication({
-        userEndpoint: '/api/users'
-    }));
 };
