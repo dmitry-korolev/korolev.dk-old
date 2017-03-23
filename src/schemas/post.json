@@ -1,0 +1,95 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Post",
+    "definitions": {
+        "minInt": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "tags": {
+            "items": {
+                "$ref": "#/definitions/minInt"
+            },
+            "uniqueItems": true,
+            "type": "array"
+        }
+    },
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "id": {
+            "type": "integer"
+        },
+        "author": {
+            "$ref": "#/definitions/minInt"
+        },
+        "categories": {
+            "$ref": "#/definitions/tags"
+        },
+        "created": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "modified": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "content": {
+            "type": "string"
+        },
+        "excerpt": {
+            "type": "string"
+        },
+        "format": {
+            "enum": [
+                "quote",
+                "standard"
+            ],
+            "type": "string"
+        },
+        "slug": {
+            "type": "string"
+        },
+        "status": {
+            "enum": [
+                "draft",
+                "publish"
+            ],
+            "type": "string"
+        },
+        "sticky": {
+            "type": "boolean"
+        },
+        "subtitle": {
+            "type": "string"
+        },
+        "tags": {
+            "$ref": "#/definitions/tags"
+        },
+        "title": {
+            "type": "string"
+        },
+        "type": {
+            "enum": [
+                "page",
+                "post"
+            ],
+            "type": "string"
+        }
+    },
+    "required": [
+        "categories",
+        "content",
+        "excerpt",
+        "format",
+        "slug",
+        "status",
+        "sticky",
+        "subtitle",
+        "tags",
+        "title",
+        "type"
+    ],
+    "type": "object"
+}
