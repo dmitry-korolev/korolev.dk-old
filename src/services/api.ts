@@ -8,8 +8,9 @@ if (process.env.BROWSER) {
 
     app.configure(rest(host).fetch(fetch));
 
-    window['app'] = app; // tslint:disable-line
-
+    if (process.env.NODE_ENV !== 'production') {
+        window['app'] = app; // tslint:disable-line
+    }
 } else {
     app = require('../app/app').default;
 }
