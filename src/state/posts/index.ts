@@ -1,22 +1,13 @@
-import * as debug from 'debug';
-import { request } from 'services/request';
-import { crudGenerator } from 'utils';
+import { CRUD } from 'utils';
 
 // Models
 import { IPost, IPosts } from 'models/content';
-import { IFluxAction } from 'models/flux';
-import { IGetState } from 'models/store';
-import { Dispatch } from 'redux';
+import { IAction } from 'models/flux';
 
 const {
-    actions,
+    asyncActions,
     reducer
-} = crudGenerator('posts', { fetch: true });
-const log = debug('k:posts');
-// const through = (fn: Function): any => (args: any): any => {
-//     fn(args);
-//     return args;
-// };
+} = new CRUD<IPosts, IPost>('posts', { fetch: true });
 
 const initialState: IPosts = {
     isFetching: false,
@@ -28,7 +19,7 @@ const initialState: IPosts = {
 const POSTS_SET_TOTAL: string = 'posts/POSTS_SET_TOTAL';
 
 /** Reducer */
-function postsReducer(state: IPosts = initialState, action: IFluxAction): IPosts {
+function postsReducer(state: IPosts = initialState, action: IAction): IPosts {
     switch (action.type) {
         case POSTS_SET_TOTAL:
             return {
@@ -42,47 +33,8 @@ function postsReducer(state: IPosts = initialState, action: IFluxAction): IPosts
 }
 
 /* Async action creators */
-type IGetPostsActionCreator = (dispatch: Dispatch<any>, getState: IGetState) => Promise<any>;
-const getPosts = (): IGetPostsActionCreator => (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
-    const state = getState();
-
-    if (state.posts.posts.length) {
-        return Promise.resolve();
-    }
-
-    dispatch(actions.fetchStart());
-
-    return request({
-        method: 'posts'
-    }, state)
-        .then((posts: IPost[]) => Promise.all([
-            dispatch(actions.fetchSuccess(posts)),
-            dispatch(setTotal(posts.length))
-        ]));
-};
-
-type IGetPostActionCreator = (dispatch: Dispatch<any>, getState: IGetState) => Promise<any>;
-const getPost = (id: number): IGetPostActionCreator => (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
-    log('Get post', id);
-
-    const state = getState();
-
-    if (state.posts.postsById[id]) {
-        return Promise.resolve();
-    }
-
-    dispatch(actions.fetchStart());
-
-    return request({
-        method: `posts/${id}`
-    }, state)
-        .then((post: IPost) => dispatch(actions.fetchSuccess([post])));
-};
-
-const setTotal = (total: number): IFluxAction => ({
-    type: POSTS_SET_TOTAL,
-    payload: total
-});
+const getPosts = asyncActions.find;
+const getPost = asyncActions.get;
 
 export {
     postsReducer,

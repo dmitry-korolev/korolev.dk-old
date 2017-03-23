@@ -14,8 +14,10 @@ Korolev.dk is released under the [MIT license](LICENSE).
 
 ## Todo
 - ~~Add caching to common NeDB querying~~
+- ~~Post and categories schema~~
+    - Add mocks
+- ~~Add feathers-client to client bundle~~
 - Authentication
-- Post and categories schema
 - Markdown
 - Posts styling
 - Editing settings on front

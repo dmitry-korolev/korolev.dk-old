@@ -6,7 +6,7 @@ import { createStore } from 'redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-// State
+// IState
 import { IStore } from 'models/store';
 import rootReducer from 'state/reducers';
 

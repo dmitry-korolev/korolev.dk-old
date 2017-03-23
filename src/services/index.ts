@@ -1,2 +1,2 @@
 export { request } from './request';
-export { apiRequest } from './api';
+export { app } from './api';

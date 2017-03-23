@@ -18,6 +18,8 @@ import { configureStore } from 'state/store';
 const manifest = require('../build/manifest.json');
 const appConfig = require('../config/main');
 
+import app from 'app/app';
+
 // Server stuff
 const feathers = require('feathers');
 const rest = require('feathers-rest');
@@ -27,7 +29,6 @@ const path = require('path');
 const compression = require('compression');
 const favicon = require('serve-favicon');
 
-const app = feathers();
 const logInfo = debug('k:server:info');
 const logError = debug('k:server:error');
 

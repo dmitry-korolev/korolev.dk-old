@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Category",
+    "definitions": {
+        "minInt": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "tags": {
+            "items": {
+                "$ref": "#/definitions/minInt"
+            },
+            "uniqueItems": true,
+            "type": "array"
+        }
+    },
+    "properties": {
+        "_id": {
+            "type": "string"
+        },
+        "id": {
+            "type": "integer"
+        },
+        "created": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "modified": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "description": {
+            "type": "string"
+        },
+        "taxonomy": {
+            "enum": [
+                "categories",
+                "tags"
+            ],
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "description",
+        "title",
+        "taxonomy"
+    ],
+    "type": "object"
+}

@@ -1,19 +1,10 @@
-import { apiRequest } from 'services';
-import { crudGenerator, randomFromArray } from 'utils';
+import { CRUD, randomFromArray } from 'utils';
 
 // Models
-import { IFluxAction, IFluxActionCreator } from 'models/flux';
+import { IAction } from 'models/flux';
 import { IHeadline, IHeadlines } from 'models/headlines';
-import { IGetState } from 'models/store';
-import { Dispatch } from 'redux';
 
-const {
-    actions,
-    reducer
-} = crudGenerator('headlines', { fetch: true });
-const HEADLINES_SET: string = 'headlines/SET';
-
-/** Initial State */
+/** Initial IState */
 const initialState: IHeadlines = {
     isFetching: false,
     headlines: [],
@@ -21,8 +12,16 @@ const initialState: IHeadlines = {
     current: { content: 'На последнем издыхании я проклинаю нелетающих тварей, называющих себя пингвинами!' }
 };
 
+const {
+    asyncActions,
+    reducer
+} = new CRUD<IHeadlines, IHeadline>('headlines', {
+    fetch: true
+});
+const HEADLINES_SET: string = 'headlines/SET';
+
 /** Reducer */
-function headlinesReducer(state: IHeadlines = initialState, action: IFluxAction): IHeadlines {
+function headlinesReducer(state: IHeadlines = initialState, action: IAction): IHeadlines {
     switch (action.type) {
         case HEADLINES_SET:
             return {
@@ -35,30 +34,11 @@ function headlinesReducer(state: IHeadlines = initialState, action: IFluxAction)
     }
 }
 
-type IGetHeadlinesActionCreator = (dispatch: Dispatch<any>, getState: IGetState) => Promise<any>;
-
-/* Async action creator */
-const getHeadlines: IFluxActionCreator =
-    (): IGetHeadlinesActionCreator => (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
-        const state = getState();
-
-        if (state.headlines.headlines.length) {
-            return Promise.resolve();
-        }
-
-        dispatch(actions.fetchStart());
-
-        return apiRequest({
-            method: 'headlines'
-        }, state)
-            .then((headlines: IHeadline[]) => dispatch(actions.fetchSuccess(headlines)))
-            .then(() => dispatch(headlinesSet()));
-    };
-
+const getHeadlines = asyncActions.find;
 getHeadlines.onlyServer = true;
 
 /* Action creators */
-const headlinesSet = (): IFluxAction => ({
+const headlinesSet = (): IAction => ({
     type: HEADLINES_SET
 });
 

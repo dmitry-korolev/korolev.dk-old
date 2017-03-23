@@ -1,5 +1,14 @@
 import * as debug from 'debug';
 import { Service } from 'feathers-nedb';
+import * as NeDB from 'nedb';
+
+import {
+    assocPath,
+    lens,
+    path,
+    set,
+    view
+} from 'ramda';
 
 // Models
 import { IJSONData, IReturnData } from 'models/api';
@@ -19,6 +28,9 @@ interface ICreateServiceOptions {
     pagination?: any;
 }
 
+const optionLastId = 'last_id';
+const sortL = lens(path(['query', '$sort']), assocPath(['query', '$sort']));
+
 export class BaseService extends Service {
     private logInfo: IDebugger;
     private logError: IDebugger;
@@ -34,9 +46,9 @@ export class BaseService extends Service {
         serviceName,
         incremental = false,
         cacheable = true,
-        ...rest
+        Model
     }: ICreateServiceOptions) {
-        super(rest);
+        super({ Model });
 
         this.serviceName = serviceName;
         this.incremental = incremental;
@@ -50,6 +62,14 @@ export class BaseService extends Service {
 
         this.logInfo = debug(`k:db:${serviceName}:info`);
         this.logError = debug(`k:db:${serviceName}:error`);
+
+        if (this.incremental) {
+            Model.ensureIndex({
+                fieldName: 'id',
+                unique: true,
+                sparse: true
+            });
+        }
 
         this.clearCache = this.clearCache.bind(this);
     }
@@ -85,10 +105,10 @@ export class BaseService extends Service {
     }
 
     public async find(params?: any): Promise<IReturnData<IJSONData[]>> {
-        if (this.incremental && !params.query.$sort) {
-            params.query.$sort = {
+        if (this.incremental && !view(sortL, params)) {
+            params = set(sortL, {
                 id: -1
-            };
+            }, params);
         }
 
         const key = JSON.stringify(params);
@@ -145,8 +165,7 @@ export class BaseService extends Service {
     }
 
     private async createIncremental(data: any, params: any): Promise<IJSONData> {
-        const serviceOptionId = `${this.serviceName}_last_id`;
-        const serviceLastId = await this.optionsService.get(serviceOptionId);
+        const serviceLastId = await this.optionsService.get(optionLastId);
         let newId = 0;
 
         if (serviceLastId.resultCode === 'OK') {
@@ -154,10 +173,9 @@ export class BaseService extends Service {
         }
 
         await newId > 0
-            ? this.optionsService.update(serviceOptionId, { value: newId, internal: true })
-            : this.optionsService.create({ _id: serviceOptionId, value: newId, internal: true });
+            ? this.optionsService.update(optionLastId, { value: newId, internal: true })
+            : this.optionsService.create({ _id: optionLastId, value: newId, internal: true });
 
-        data.id = newId;
         data._id = String(newId);
 
         this.logInfo('POST', data, params);
@@ -220,3 +238,16 @@ export class BaseService extends Service {
         this.optionsService = app.service('/api/options');
     }
 }
+
+export const baseService = (name: string): any => {
+    const db = new NeDB({
+        filename: `db/${process.env.NODE_ENV === 'production' ? 'prod' : 'dev'}/${name}`,
+        autoload: true
+    });
+
+    return new BaseService({
+        serviceName: name,
+        incremental: true,
+        Model: db
+    });
+};

@@ -1,33 +1,15 @@
-import { request } from 'services/request';
-import { crudGenerator } from 'utils';
+import { CRUD } from 'utils';
 
 // Models
-import { ICategory } from 'models/content';
-import { IFluxActionCreator } from 'models/flux';
-import { IGetState } from 'models/store';
-import { Dispatch } from 'redux';
+import { ICategories, ICategory } from 'models/content';
 
 const {
-    actions,
+    asyncActions,
     reducer: categoriesReducer
-} = crudGenerator('categories', { fetch: true });
-
-type IGetCategoriesActionCreator = (dispatch: Dispatch<any>, getState: IGetState) => Promise<any>;
+} = new CRUD<ICategories, ICategory>('categories', { fetch: true });
 
 /* Async action creator */
-const getCategories: IFluxActionCreator = (): IGetCategoriesActionCreator =>
-    (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
-        const state = getState();
-
-        dispatch(actions.fetchStart());
-
-        return request({
-            method: 'categories'
-        }, state)
-            .then((categories: ICategory[]) => dispatch(actions.fetchSuccess(categories)))
-            .catch((error: Error) => dispatch(actions.fetchError(error)));
-    };
-
+const getCategories = asyncActions.find;
 getCategories.onlyServer = true;
 
 export {

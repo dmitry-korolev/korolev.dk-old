@@ -1,5 +1,6 @@
-import { IFluxAction } from 'models/flux';
-import { IActionCreator, createAction, toCamelCase } from 'utils';
+import * as debug from 'debug';
+import { app } from 'services';
+import { createAction, toCamelCase } from 'utils';
 
 const concat = require('ramda/src/concat');
 const identity = require('ramda/src/identity');
@@ -12,27 +13,37 @@ const reduce = require('ramda/src/reduce');
 const sort = require('ramda/src/sort');
 const uniq = require('ramda/src/uniq');
 
-interface ICrudOptions {
+// Models
+import IDebugger = debug.IDebugger;
+import { IReturnData } from 'models/api';
+import { IAction, IActionCreator, IAsyncAction, IAsyncActionCreator } from 'models/flux';
+import { IGetState, IStore } from 'models/store';
+import { Dispatch } from 'redux';
+
+interface ICrudOptions<IState> {
     fetch?: boolean;
     update?: boolean;
     create?: boolean;
     delete?: boolean;
+    initialState?: IState;
 }
 
-interface ICrudActions {
+interface ICrudActionCreators {
     fetchStart?: IActionCreator;
     fetchSuccess?: IActionCreator;
     fetchError?: IActionCreator;
 }
 
-type ICrudReducer = (state: any, action?: IFluxAction) => any;
+interface IQuery {
+    query: any;
+}
 
-const defaultOptions: ICrudOptions = {
-    fetch: false,
-    update: false,
-    create: false,
-    delete: false
-};
+interface ICrudAsyncActionCreators {
+    find?: IAsyncActionCreator;
+    get?: IAsyncActionCreator;
+}
+
+type ICrudReducer<IState> = (state: IState, action?: IAction) => any;
 
 const fetchTypes = ['FETCH_START', 'FETCH_SUCCESS', 'FETCH_ERROR'];
 // const updateTypes = ['UPDATE_START', 'UPDATE_SUCCESS', 'UPDATE_ERROR'];
@@ -45,88 +56,154 @@ const updateArray = (items: number[], array: number[] = []): number[] => pipe(
     sort((a: number, b: number): number => b - a)
 )(array);
 
+const updateState = (state: any, newState: any): any => Object.assign({}, state, newState);
+
 const generator = (type: string): (type: string[]) => { [K: string]: string } => pipe(
     map((i: string): string => `${type}/${i}`),
     indexBy(identity)
 );
 
-const generateTypes = (type: string, options: ICrudOptions): { [K: string]: string } => {
-    const typeGen = generator(type);
-
-    return {
-        ...(options.fetch ? typeGen(fetchTypes) : {})
-    };
-};
-
 const generateActions =
-    (type: string, types: string[]): ICrudActions =>
-        reduce((result: ICrudActions, item: string): ICrudActions => {
+    (type: string, types: string[]): ICrudActionCreators =>
+        reduce((result: ICrudActionCreators, item: string): ICrudActionCreators => {
             result[toCamelCase(item)] = createAction(`${type}/${item}`);
 
             return result;
         }, {}, types);
 
 // TODO: Add create, update and delete generators
+type IActionHandler<IState> = (state: IState, action?: IAction) => IState;
 
-const generateFetchHandlers = (type: string): { [K: string]: Function } => ({
-    [`${type}/FETCH_START`]: (state: Object): Object => ({
-        ...state,
-        isFetching: true
-    }),
-    [`${type}/FETCH_SUCCESS`]: (state: any, action: IFluxAction): any => ({
-        ...state,
-        isFetching: false,
-        [type]: updateArray(action.payload, state[type]),
-        [`${type}ById`]: {
-            ...state[`${type}ById`],
-            ...indexBy(prop('id'), action.payload)
-        }
-    }),
-    [`${type}/FETCH_ERROR`]: (state: any, action: IFluxAction): any => ({
-        ...state,
-        isFetching: false,
-        error: action.error
-    })
-});
+export class CRUD<IState, IItem> {
+    private type: string;
+    private options: ICrudOptions<IState>;
+    private logInfo: IDebugger;
+    private logError: IDebugger;
+    private initialState: IState;
 
-const generateReducer = (type: string, options: ICrudOptions): ICrudReducer => {
-    const initialState = {
-        isFetching: false,
-        [type]: [],
-        [`${type}ById`]: {}
+    public types: { [K: string]: string };
+    public actions: ICrudActionCreators;
+    public asyncActions: ICrudAsyncActionCreators;
+    public reducer: ICrudReducer<IState>;
+
+    constructor(type: string, {
+        initialState,
+        ...options
+    }: ICrudOptions<IState> = {}) {
+        this.type = type;
+        this.options = options;
+        this.initialState = updateState(initialState, {
+            isFetching: false,
+            [this.type]: [],
+            [`${this.type}ById`]: {}
+        });
+
+        this.logInfo = debug(`k:crud:${type}:info`);
+        this.logError = debug(`k:crud:${type}:error`);
+        this.generateTypes();
+        this.generateActions();
+        this.generateReducer();
+        this.generateAsyncActions();
+    }
+
+    private generateTypes(): void {
+        const typeGen = generator(this.type);
+
+        this.types = {
+            ...(this.options.fetch ? typeGen(fetchTypes) : {})
+        };
+    }
+
+    private generateActions(): void {
+        this.actions = {
+            ...(this.options.fetch ? generateActions(this.type, fetchTypes) : {})
+        };
+    }
+
+    private generateFetchHandlers(type: string): { [K: string]: IActionHandler<IState> } {
+        return {
+            [`${type}/FETCH_START`]: (state: IState): IState => updateState(state, {
+                isFetching: true
+            }),
+            [`${type}/FETCH_SUCCESS`]: (state: IState, action: IAction): IState => updateState(state, {
+                isFetching: false,
+                [type]: updateArray(action.payload, state[type]),
+                [`${type}ById`]: {
+                    ...state[`${type}ById`],
+                    ...indexBy(prop('id'), action.payload)
+                }
+            }),
+            [`${type}/FETCH_ERROR`]: (state: IState, action: IAction): IState => updateState(state, {
+                isFetching: false,
+                error: action.error
+            })
+        };
     };
 
-    const actionHandlers = {
-        ...(options.fetch ? generateFetchHandlers(type) : {})
-    };
+    private generateReducer(): void {
+        const actionHandlers = {
+            ...(this.options.fetch ? this.generateFetchHandlers(this.type) : {})
+        };
 
-    return (state: any = initialState, action: IFluxAction): any => {
-        if (actionHandlers[action.type]) {
-            return actionHandlers[action.type](state, action);
-        }
+        this.reducer = (state: IState = this.initialState, action: IAction): IState => {
+            if (actionHandlers[action.type]) {
+                return actionHandlers[action.type](state, action);
+            }
 
-        return state;
-    };
-};
+            return state;
+        };
+    }
 
-export const crudGenerator = (type: string, opts: ICrudOptions = {}): {
-    types: { [K: string]: string },
-    actions: ICrudActions,
-    reducer: ICrudReducer
-} => {
-    const options = {
-        ...defaultOptions,
-        ...opts
-    };
-    const types = generateTypes(type, options);
-    const actions: ICrudActions = {
-        ...(options.fetch ? generateActions(type, fetchTypes) : {})
-    };
-    const reducer = generateReducer(type, options);
+    private generateAsyncActions(): void {
+        const find: IAsyncActionCreator = (query?: IQuery): IAsyncAction =>
+            async (dispatch: Dispatch<IStore>): Promise<any> => {
+                const service = app.service(`api/${this.type}`);
 
-    return {
-        types,
-        actions,
-        reducer
-    };
-};
+                dispatch(this.actions.fetchStart());
+
+                try {
+                    const result: IReturnData<IItem[]> = await service.find(query);
+                    if (result.resultCode === 'OK') {
+                        await dispatch(this.actions.fetchSuccess(result.payload));
+                    } else {
+                        throw new Error(result.errorMessage);
+                    }
+                } catch (error) {
+                    this.logError(error);
+                    await dispatch(this.actions.fetchError(error));
+                }
+            };
+
+        const get: IAsyncActionCreator = (id: number): IAsyncAction =>
+            async (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
+                const service = app.service(`api/${this.type}`);
+                const state = getState();
+
+                if (state.posts.postsById[id]) {
+                    return;
+                }
+
+                dispatch(this.actions.fetchStart());
+
+                try {
+                    const result: IReturnData<IItem> = await service.get(id);
+                    if (result.resultCode === 'OK') {
+                        await dispatch(this.actions.fetchSuccess(result.payload));
+                    } else {
+                        throw new Error(result.errorMessage);
+                    }
+                } catch (error) {
+                    this.logError(error);
+                    await dispatch(this.actions.fetchError(error));
+                }
+            };
+
+        find.actionName = `${this.type}Find`;
+        get.actionName = `${this.type}Get`;
+
+        this.asyncActions = {
+            find,
+            get
+        };
+    }
+}

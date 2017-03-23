@@ -3,12 +3,14 @@ import * as Helmet from 'react-helmet';
 import { asyncConnect } from 'redux-connect';
 
 import { SiteHeader } from 'components';
+import { getCategories } from 'state/categories';
+import { runGlobalActions } from 'state/globalActions';
+import { getHeadlines, headlinesSet } from 'state/headlines';
 
 // Models
 import { IApplication } from 'models/appication';
 import { IStore } from 'models/store';
-import { Dispatch } from 'redux';
-import { doActions } from '../../state/globalActions';
+import { Store } from 'redux';
 
 // Styles
 const s = require('./style.css');
@@ -29,8 +31,17 @@ const headlinePath = path(['current', 'content']);
 @asyncConnect(
     [{
         promise:
-            ({ store: { dispatch } }: { store: { dispatch: Dispatch<any> } }): Promise<any[]> =>
-                doActions(dispatch)
+            ({ store: { dispatch } }: { store: Store<IStore> }): Promise<void> => runGlobalActions(
+                dispatch,
+                [
+                    getHeadlines,
+                    getCategories
+                ],
+                [
+                    headlinesSet
+                ]
+            )
+
     }],
     ({
         headlines,

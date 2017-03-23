@@ -1,14 +1,19 @@
-import { IRequestOptions, request } from './request';
+let app;
 
-// Models
-import { IJSONData } from 'models/api';
-import { IStore } from 'models/store';
+if (process.env.BROWSER) {
+    const feathers = require('feathers/client');
+    const rest = require('feathers-rest/client');
+    app = feathers();
+    const host = process.env.HOST || 'http://localhost:8889';
 
-export const apiRequest = (options: IRequestOptions, store: IStore): Promise<Response | IJSONData> => {
-    const baseUrl = store.application.localApi;
+    app.configure(rest(host).fetch(fetch));
 
-    return request({
-        ...options,
-        baseUrl
-    }, store);
+    window['app'] = app; // tslint:disable-line
+
+} else {
+    app = require('../app/app').default;
+}
+
+export {
+    app
 };

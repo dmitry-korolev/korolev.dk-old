@@ -1,29 +1,34 @@
-import { IFluxActionCreator } from 'models/flux';
+import * as debug from 'debug';
+import { IActionCreator, IAsyncActionCreator } from 'models/flux';
+import { IStore } from 'models/store';
 import { Dispatch } from 'redux';
-import { getCategories } from 'state/categories';
-import { getHeadlines, headlinesSet } from 'state/headlines';
 
-const actions = [
-    getHeadlines,
-    getCategories,
-    headlinesSet
-];
+const logInfo = debug('k:global:actions');
 
-const doneActions = new Map();
+const doneActions = new Set();
+const shouldRunAction = (action: AnyAction): boolean => !(
+    action.once && doneActions.has(action)
+    || action.onlyServer && process.env.BROWSER
+    || action.onlyClient && !process.env.BROWSER
+);
 
-const doActions = (dispatch: Dispatch<any>): Promise<any[]> => {
-    const actionsToDo = actions.filter((action: IFluxActionCreator): boolean => !(
-        action.once && doneActions.has(action)
-        || action.onlyServer && process.env.BROWSER
-        || action.onlyClient && !process.env.BROWSER
-    ));
+type AnyAction = IAsyncActionCreator | IActionCreator;
 
-    return Promise.all(actionsToDo.map((action: IFluxActionCreator) => {
-        doneActions.set(action, true);
-        return dispatch(action());
-    }));
-};
+const runGlobalActions =
+    async (dispatch: Dispatch<IStore>, ...actions: AnyAction[][]): Promise<void> => {
+        // Simple way to make sequences of actions
+        // See usage example in containers/App
+        for (const step of actions) {
+            const actionsToDo = step.filter(shouldRunAction);
+
+            await Promise.all(actionsToDo.map((action: IAsyncActionCreator) => {
+                logInfo(`Processing:`, action.actionName || action.name);
+                doneActions.add(action);
+                return dispatch(action());
+            }));
+        }
+    };
 
 export {
-    doActions
+    runGlobalActions
 };

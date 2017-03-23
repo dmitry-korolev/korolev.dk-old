@@ -5,15 +5,11 @@ import * as NeDB from 'nedb';
 import { IJSONData, IReturnData } from 'models/api';
 
 const optionsDb = new NeDB({
-    filename: `db/${process.env === 'production' ? 'prod' : 'dev'}/options`,
+    filename: `db/${process.env.NODE_ENV === 'production' ? 'prod' : 'dev'}/options`,
     autoload: true
 });
 
 class OptionsService extends BaseService {
-    constructor(options: any) {
-        super(options);
-    }
-
     public find(params: any): Promise<IReturnData<IJSONData[]>> {
         // Remove internal options from response
         params.query.internal = {
