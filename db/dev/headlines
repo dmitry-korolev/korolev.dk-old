@@ -10,6 +10,7 @@
 {"content":"123","created":{"$$date":1490299713158},"id":25,"_id":"25"}
 {"content":"123","created":{"$$date":1490299934505},"id":26,"_id":"26"}
 {"content":"123","created":{"$$date":1490304758516},"id":27,"_id":"27"}
+{"content":"123","created":{"$$date":1490304891073},"id":28,"_id":"28"}
 {"content":"Охотники на пингвинов могут носить по одноручному арбалету в каждой руке.","created":{"$$date":1488032644183},"id":3,"_id":"3"}
 {"content":"Penguinish, motherfucker, do you speak it?","created":{"$$date":1488032644196},"id":4,"_id":"4"}
 {"content":"Burn the Heretic! Kill the Mutant! Purge the Penguin!","created":{"$$date":1488032644211},"id":5,"_id":"5"}
@@ -17,4 +18,3 @@
 {"content":"Борьба с пингвинами —﻿ обязанность каждого рационально думающего человека.","created":{"$$date":1488032644252},"id":7,"_id":"7"}
 {"content":"На последнем издыхании я проклинаю нелетающих тварей, называющих себя пингвинами!","created":{"$$date":1488032644118},"id":8,"_id":"8"}
 {"$$indexCreated":{"fieldName":"id","unique":true,"sparse":true}}
-{"content":"123","created":{"$$date":1490304891073},"id":28,"_id":"28"}
