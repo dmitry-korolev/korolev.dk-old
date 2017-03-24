@@ -7,6 +7,7 @@
 - Authentication
     - ~~Add basic client auth~~
     - Reduxify this s**t
+- Move settings to the backend
 - Markdown
 - Posts styling
 - Editing settings on front
