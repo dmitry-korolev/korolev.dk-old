@@ -99,7 +99,7 @@ const config = {
         new webpack.DefinePlugin({
             'process.env': {
                 BROWSER: JSON.stringify(false),
-                NODE_ENV: JSON.stringify('development')
+                NODE_ENV: JSON.stringify(process.env.NODE_ENV === 'production' ? 'production' : 'development')
             }
         })
     ],
