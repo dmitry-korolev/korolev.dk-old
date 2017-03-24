@@ -7,6 +7,7 @@
 - Authentication
     - ~~Add basic client auth~~
     - Reduxify this s**t
+    - Add automatic logout on timeout
 - Move settings to the backend
 - Markdown
 - Posts styling
