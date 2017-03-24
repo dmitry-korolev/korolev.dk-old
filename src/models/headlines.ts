@@ -1,3 +1,5 @@
+import { ICommonReducer } from 'models/flux';
+
 export interface IHeadline {
     id?: number;
     content: string;
@@ -5,20 +7,10 @@ export interface IHeadline {
     updated?: string;
 }
 
-export interface IHeadlines {
-    isFetching: boolean;
-    error?: any;
+export interface IHeadlines extends ICommonReducer  {
     headlines: number[];
     headlinesById: {
         [K: number]: IHeadline
     };
     current: IHeadline;
-}
-
-export interface IHeadlinesAction {
-    type: string;
-    payload?: {
-        headlines?: string[];
-        message?: any;
-    };
 }

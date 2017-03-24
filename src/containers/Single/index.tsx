@@ -6,7 +6,7 @@ import { getPost } from 'state/posts';
 
 // Components
 import { Post } from 'components';
-import { IAsyncConnectArguments, IAsyncConnectOwnProps } from 'models/store';
+import { IAsyncConnectArguments, IAsyncConnectOwnProps, IStore } from 'models/store';
 
 interface IProps {
     postId: number;
@@ -18,7 +18,7 @@ interface IProps {
             return dispatch(getPost(postId));
         }
     }],
-    (_: any, { params }: IAsyncConnectOwnProps) => ({
+    (_: IStore, { params }: IAsyncConnectOwnProps) => ({
         postId: params.postId
     })
 )

@@ -134,7 +134,8 @@ export class CRUD<IState, IItem> {
             }),
             [`${type}/FETCH_ERROR`]: (state: IState, action: IAction): IState => updateState(state, {
                 isFetching: false,
-                error: action.error
+                error: action.error,
+                errorMessage: action.payload
             })
         };
     };

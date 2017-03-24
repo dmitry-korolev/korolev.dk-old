@@ -1,3 +1,5 @@
+import { ICommonReducer } from 'models/flux';
+
 export interface IPost {
     id: number;
     date: string;
@@ -29,9 +31,7 @@ export interface IPost {
     tags: number[];
 }
 
-export interface IPosts {
-    isFetching: boolean;
-    error?: any;
+export interface IPosts extends ICommonReducer {
     posts: number[];
     postsById: {
         [K: number]: IPost
@@ -79,18 +79,11 @@ export interface ICategory {
     };
 }
 
-export interface ICategories {
-    isFetching: boolean;
-    error?: any;
+export interface ICategories extends ICommonReducer {
     categories: number[];
     categoriesById: {
         [K: number]: ICategory
     };
-}
-
-export interface IArticleData {
-    data: IPost;
-    categories: ICategory[];
 }
 
 export interface IGetPosts {
@@ -98,14 +91,4 @@ export interface IGetPosts {
     perPage?: number;
     offset?: number;
     order?: 'asc' | 'desc';
-}
-
-export interface IContentAction {
-    type: string;
-    payload?: {
-        post?: IPost;
-        posts?: IPost[];
-        category?: ICategory;
-        categories?: ICategory[];
-    };
 }

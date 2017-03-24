@@ -1,7 +1,7 @@
 import { IApplication } from 'models/appication';
 import { ICategories, IPosts } from 'models/content';
 import { IHeadlines } from 'models/headlines';
-import { Dispatch } from 'redux';
+import { Store } from 'redux';
 
 export interface IStore {
     headlines: IHeadlines;
@@ -16,10 +16,8 @@ interface IRouteParams {
 }
 
 export interface IAsyncConnectArguments {
-    store: {
-        dispatch: Dispatch<any>;
-    };
-    params: IRouteParams;
+    store: Store<IStore>;
+    params?: IRouteParams;
 }
 
 export interface IAsyncConnectOwnProps {

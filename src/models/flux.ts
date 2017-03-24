@@ -20,3 +20,9 @@ interface ICommonActionCreator<T> {
 
 export type IAsyncActionCreator = ICommonActionCreator<IAsyncAction>;
 export type IActionCreator = ICommonActionCreator<IAction>;
+
+export interface ICommonReducer {
+    isFetching: boolean;
+    error?: boolean;
+    errorMessage?: Error;
+}

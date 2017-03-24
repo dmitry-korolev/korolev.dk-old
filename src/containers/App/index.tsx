@@ -9,8 +9,7 @@ import { getHeadlines, headlinesSet } from 'state/headlines';
 
 // Models
 import { IApplication } from 'models/appication';
-import { IStore } from 'models/store';
-import { Store } from 'redux';
+import { IAsyncConnectArguments, IStore } from 'models/store';
 
 // Styles
 const s = require('./style.css');
@@ -31,7 +30,7 @@ const headlinePath = path(['current', 'content']);
 @asyncConnect(
     [{
         promise:
-            ({ store: { dispatch } }: { store: Store<IStore> }): Promise<void> => runGlobalActions(
+            ({ store: { dispatch } }: IAsyncConnectArguments): Promise<void> => runGlobalActions(
                 dispatch,
                 [
                     getHeadlines,
