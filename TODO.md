@@ -12,4 +12,5 @@
 - Editing settings on front
 - Editing posts and categories on front
 - Other
-    - Rearrange application setup in server.ts, 'cause mother of god, it's so shitty right now
+    - Rearrange application setup in server.ts, 'cause mother of god, it's so shitty right 
+    - Try to switch ts compiler to native modules (to enable some useful babel plugins)
