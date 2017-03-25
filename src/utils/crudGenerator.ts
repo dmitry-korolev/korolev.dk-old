@@ -33,10 +33,6 @@ interface ICrudActionCreators<IItem> {
     fetchError?: IActionCreator<Error>;
 }
 
-interface IQuery {
-    query: any;
-}
-
 interface ICrudAsyncActionCreators {
     find?: IAsyncActionCreator<IQuery>;
     get?: IAsyncActionCreator<number>;
@@ -60,8 +56,15 @@ const generator = (type: string): (type: string[]) => { [K: string]: string } =>
     indexBy(identity)
 );
 
+// TODO: Should fix this hack, when TS 2.3 is on stage.
+const updateState = (state: any, newState: any): any => Object.assign({}, state, newState);
+
 // TODO: Add create, update and delete generators
 type IActionHandler<IState> = (state: IState, action?: IAction) => IState;
+
+interface IQuery {
+    query: any;
+}
 
 export class CRUD<IState, IItem> {
     private type: string;
@@ -76,12 +79,12 @@ export class CRUD<IState, IItem> {
     public reducer: ICrudReducer<IState>;
 
     constructor(type: string, {
-        initialState = {},
+        initialState,
         ...options
     }: ICrudOptions<IState> = {}) {
         this.type = type;
         this.options = options;
-        this.initialState = Object.assign({}, initialState, {
+        this.initialState = updateState(initialState, {
             isFetching: false,
             [this.type]: [],
             [`${this.type}ById`]: {}
