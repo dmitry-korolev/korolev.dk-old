@@ -7,7 +7,6 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 // IState
-import { IStore } from 'models/store';
 import rootReducer from 'state/reducers';
 
 const fetchMock = require('fetch-mock');
@@ -18,7 +17,7 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 /** Render Component */
-function renderComponent(ComponentClass: any, state?: IStore, props?: any): ReactWrapper<any, any> {
+function renderComponent(ComponentClass: any, state?: any, props?: any): ReactWrapper<any, any> {
     const store = createStore(rootReducer, state);
 
     return mount(

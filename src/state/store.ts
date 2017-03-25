@@ -28,7 +28,7 @@ export function configureStore(history: History, initialState?: IStore): Store<I
 
     const composeEnhancers = (appConfig.env !== 'production' &&
         typeof window === 'object' &&
-        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+        window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']) || compose; // tslint:disable-line no-string-literal
 
     const store = createStore(rootReducer, initialState, composeEnhancers(
         applyMiddleware(...middlewares)

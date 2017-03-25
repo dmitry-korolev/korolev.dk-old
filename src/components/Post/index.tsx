@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { postUrlTemplate } from 'utils';
 
 const curry = require('ramda/src/curry');
+const path = require('ramda/src/path');
 const pipe = require('ramda/src/pipe');
 
 // Types
@@ -35,17 +36,22 @@ const getPart = curry((mode: string, html: string): string => {
 });
 
 const mapStateToProps = ({ posts, categories }: IStore, { itemId }: IProps): IPostProps => {
-    const post = posts.postsById[itemId];
+    const post = path(['postsById', itemId], posts);
+    const postCategory = path(['categories', 0], post);
 
     return {
         item: post,
-        category: categories.categoriesById[post.categories[0]]
+        category: path(['categoriesById', postCategory], categories)
     };
 };
 
 @connect<{}, {}, IProps>(mapStateToProps)
 export class Post extends React.PureComponent<CombinedProps, any> {
     public render(): JSX.Element | null {
+        if (!this.props.item) {
+            return null;
+        }
+
         const {
             item: {
                 id,

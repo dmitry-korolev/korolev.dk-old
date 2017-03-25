@@ -15,7 +15,7 @@ import { configureStore } from 'state/store';
 
 const store = configureStore(
     browserHistory as any,
-    window.__INITIAL_STATE__
+    window['__INITIAL_STATE__'] // tslint:disable-line no-string-literal
 );
 const history = syncHistoryWithStore(browserHistory, store);
 const connectedCmp = (props: any): any => <ReduxAsyncConnect { ...props } />;

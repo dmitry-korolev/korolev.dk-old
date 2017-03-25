@@ -116,9 +116,9 @@ const config = {
                         postcssNext(),
                         postcssAssets({
                             relative: true
-                        }),
+                        })
                     ];
-                },
+                }
             }
         }),
         new ManifestPlugin({
