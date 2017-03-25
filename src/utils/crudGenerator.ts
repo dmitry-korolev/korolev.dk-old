@@ -27,10 +27,10 @@ interface ICrudOptions<IState> {
     initialState?: IState;
 }
 
-interface ICrudActionCreators {
-    fetchStart?: IActionCreator;
-    fetchSuccess?: IActionCreator;
-    fetchError?: IActionCreator;
+interface ICrudActionCreators<IItem> {
+    fetchStart?: IActionCreator<void>;
+    fetchSuccess?: IActionCreator<IItem[]>;
+    fetchError?: IActionCreator<Error>;
 }
 
 interface IQuery {
@@ -38,11 +38,11 @@ interface IQuery {
 }
 
 interface ICrudAsyncActionCreators {
-    find?: IAsyncActionCreator;
-    get?: IAsyncActionCreator;
+    find?: IAsyncActionCreator<IQuery>;
+    get?: IAsyncActionCreator<number>;
 }
 
-type ICrudReducer<IState> = (state: IState, action?: IAction) => any;
+type ICrudReducer<IState> = (state: IState, action?: IAction) => IState;
 
 const fetchTypes = ['FETCH_START', 'FETCH_SUCCESS', 'FETCH_ERROR'];
 // const updateTypes = ['UPDATE_START', 'UPDATE_SUCCESS', 'UPDATE_ERROR'];
@@ -55,20 +55,10 @@ const updateArray = (items: number[], array: number[] = []): number[] => pipe(
     sort((a: number, b: number): number => b - a)
 )(array);
 
-const updateState = (state: any, newState: any): any => Object.assign({}, state, newState);
-
 const generator = (type: string): (type: string[]) => { [K: string]: string } => pipe(
     map((i: string): string => `${type}/${i}`),
     indexBy(identity)
 );
-
-const generateActions =
-    (type: string, types: string[]): ICrudActionCreators =>
-        reduce((result: ICrudActionCreators, item: string): ICrudActionCreators => {
-            result[toCamelCase(item)] = createAction(`${type}/${item}`);
-
-            return result;
-        }, {}, types);
 
 // TODO: Add create, update and delete generators
 type IActionHandler<IState> = (state: IState, action?: IAction) => IState;
@@ -81,17 +71,17 @@ export class CRUD<IState, IItem> {
     private initialState: IState;
 
     public types: { [K: string]: string };
-    public actions: ICrudActionCreators;
+    public actions: ICrudActionCreators<IItem>;
     public asyncActions: ICrudAsyncActionCreators;
     public reducer: ICrudReducer<IState>;
 
     constructor(type: string, {
-        initialState,
+        initialState = {},
         ...options
     }: ICrudOptions<IState> = {}) {
         this.type = type;
         this.options = options;
-        this.initialState = updateState(initialState, {
+        this.initialState = Object.assign({}, initialState, {
             isFetching: false,
             [this.type]: [],
             [`${this.type}ById`]: {}
@@ -114,6 +104,14 @@ export class CRUD<IState, IItem> {
     }
 
     private generateActions(): void {
+        const generateActions =
+            (type: string, types: string[]): ICrudActionCreators<IItem> =>
+                reduce((result: ICrudActionCreators<IItem>, item: string): ICrudActionCreators<IItem> => {
+                    result[toCamelCase(item)] = createAction(`${type}/${item}`);
+
+                    return result;
+                }, {}, types);
+
         this.actions = {
             ...(this.options.fetch ? generateActions(this.type, fetchTypes) : {})
         };
@@ -121,10 +119,10 @@ export class CRUD<IState, IItem> {
 
     private generateFetchHandlers(type: string): { [K: string]: IActionHandler<IState> } {
         return {
-            [`${type}/FETCH_START`]: (state: IState): IState => updateState(state, {
+            [`${type}/FETCH_START`]: (state: IState): IState => Object.assign({}, state, {
                 isFetching: true
             }),
-            [`${type}/FETCH_SUCCESS`]: (state: IState, action: IAction): IState => updateState(state, {
+            [`${type}/FETCH_SUCCESS`]: (state: IState, action: IAction): IState => Object.assign({}, state, {
                 isFetching: false,
                 [type]: updateArray(action.payload, state[type]),
                 [`${type}ById`]: {
@@ -132,7 +130,7 @@ export class CRUD<IState, IItem> {
                     ...indexBy(prop('id'), action.payload)
                 }
             }),
-            [`${type}/FETCH_ERROR`]: (state: IState, action: IAction): IState => updateState(state, {
+            [`${type}/FETCH_ERROR`]: (state: IState, action: IAction): IState => Object.assign({}, state, {
                 isFetching: false,
                 error: action.error,
                 errorMessage: action.payload
@@ -155,7 +153,7 @@ export class CRUD<IState, IItem> {
     }
 
     private generateAsyncActions(): void {
-        const find: IAsyncActionCreator = (query?: IQuery): IAsyncAction =>
+        const find: IAsyncActionCreator<IQuery> = (query?: IQuery): IAsyncAction =>
             async (dispatch: Dispatch<IStore>): Promise<void> => {
                 const service = app.service(`api/${this.type}`);
 
@@ -170,8 +168,8 @@ export class CRUD<IState, IItem> {
                 }
             };
 
-        const get: IAsyncActionCreator = (id: number): IAsyncAction =>
-            async (dispatch: Dispatch<any>, getState: IGetState): Promise<void> => {
+        const get: IAsyncActionCreator<number> = (id: number): IAsyncAction =>
+            async (dispatch: Dispatch<IStore>, getState: IGetState): Promise<void> => {
                 const service = app.service(`api/${this.type}`);
                 const state = getState();
 
@@ -183,7 +181,7 @@ export class CRUD<IState, IItem> {
 
                 try {
                     const result: IItem = await service.get(id);
-                    await dispatch(this.actions.fetchSuccess(result));
+                    await dispatch(this.actions.fetchSuccess([result]));
                 } catch (error) {
                     this.logError(error);
                     await dispatch(this.actions.fetchError(error));

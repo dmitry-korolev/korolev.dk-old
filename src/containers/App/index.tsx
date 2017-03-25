@@ -11,6 +11,7 @@ import { userLogin } from 'state/user';
 // Models
 import { IApplication } from 'models/appication';
 import { IAsyncConnectArguments, IStore } from 'models/store';
+import { Dispatch } from 'redux';
 
 // Styles
 const s = require('./style.css');
@@ -18,6 +19,7 @@ const s = require('./style.css');
 const path = require('ramda/src/path');
 
 interface IProps {
+    dispatch: Dispatch<IStore>;
     headline: string;
     application: IApplication;
     location: {
@@ -35,8 +37,7 @@ const headlinePath = path(['current', 'content']);
                 dispatch,
                 [
                     getHeadlines,
-                    getCategories,
-                    userLogin
+                    getCategories
                 ],
                 [
                     headlinesSet
@@ -52,7 +53,11 @@ const headlinePath = path(['current', 'content']);
         application
     })
 )
-class App extends React.Component<IProps, any> {
+class App extends React.Component<IProps, {}> {
+    public componentDidMount(): void {
+        this.props.dispatch(userLogin());
+    }
+
     public render(): JSX.Element {
         const {
             headline,

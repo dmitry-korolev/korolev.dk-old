@@ -4,15 +4,15 @@ const identity = require('ramda/src/identity');
 type IPayloadHandler = (...payload: any[]) => any;
 
 export const createAction =
-    (type: string, payloadCreator: IPayloadHandler = identity, metaCreator?: IPayloadHandler): IActionCreator =>
-        (...args: any[]): IAction => {
-            const hasError = args[0] instanceof Error;
+    (type: string, payloadCreator: IPayloadHandler = identity, metaCreator?: IPayloadHandler): IActionCreator<any> =>
+        (opts: any): IAction => {
+            const hasError = opts instanceof Error;
 
             const action: IAction = {
                 type
             };
 
-            const payload = hasError ? args[0] : payloadCreator(...args);
+            const payload = hasError ? opts : payloadCreator(opts);
             if (payload !== undefined) {
                 action.payload = payload;
             }
@@ -22,7 +22,7 @@ export const createAction =
             }
 
             if (metaCreator) {
-                action.meta = metaCreator(...args);
+                action.meta = metaCreator(opts);
             }
 
             return action;

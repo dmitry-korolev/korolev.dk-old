@@ -1,6 +1,7 @@
 import { IApplication } from 'models/appication';
 import { ICategories, IPosts } from 'models/content';
 import { IHeadlines } from 'models/headlines';
+import { IUser } from 'models/user';
 import { Store } from 'redux';
 
 export interface IStore {
@@ -8,6 +9,7 @@ export interface IStore {
     posts: IPosts;
     categories: ICategories;
     application: IApplication;
+    user: IUser;
 }
 
 interface IRouteParams {

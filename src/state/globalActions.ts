@@ -12,7 +12,7 @@ const shouldRunAction = (action: AnyAction): boolean => !(
     || action.onlyClient && !process.env.BROWSER
 );
 
-type AnyAction = IAsyncActionCreator | IActionCreator;
+type AnyAction = IAsyncActionCreator<any> | IActionCreator<any>;
 
 const runGlobalActions =
     async (dispatch: Dispatch<IStore>, ...actions: AnyAction[][]): Promise<void> => {
@@ -22,7 +22,7 @@ const runGlobalActions =
         for (const step of actions) {
             const actionsToDo = step.filter(shouldRunAction);
 
-            await Promise.all(actionsToDo.map((action: IAsyncActionCreator) => {
+            await Promise.all(actionsToDo.map((action: IActionCreator<any>) => {
                 logInfo(`Processing:`, action.actionName || action.name);
                 doneActions.add(action);
                 return dispatch(action());

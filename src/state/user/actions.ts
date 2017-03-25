@@ -20,7 +20,7 @@ interface IAuthResult {
     token: string;
 }
 
-export const userLogin: IAsyncActionCreator = (credentials: IUserCredentials): IAsyncAction =>
+export const userLogin: IAsyncActionCreator<IUserCredentials> = (credentials: IUserCredentials): IAsyncAction =>
     async (dispatch: Dispatch<IStore>): Promise<void> => {
         dispatch(userLoginStart());
 
