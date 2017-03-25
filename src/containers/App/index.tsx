@@ -6,7 +6,7 @@ import { SiteHeader } from 'components';
 import { getCategories } from 'state/categories';
 import { runGlobalActions } from 'state/globalActions';
 import { getHeadlines, headlinesSet } from 'state/headlines';
-import { userLogin } from 'state/user';
+// import { userLogin } from 'state/user';
 
 // Models
 import { IApplication } from 'models/appication';
@@ -54,9 +54,9 @@ const headlinePath = path(['current', 'content']);
     })
 )
 class App extends React.Component<IProps, {}> {
-    public componentDidMount(): void {
-        this.props.dispatch(userLogin());
-    }
+    // public componentDidMount(): void {
+    //     this.props.dispatch(userLogin());
+    // }
 
     public render(): JSX.Element {
         const {
