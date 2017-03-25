@@ -15,7 +15,7 @@ import { configureStore } from 'state/store';
 
 const store = configureStore(
     browserHistory as any,
-    JSON.parse(decodeURIComponent(window.__INITIAL_STATE__))
+    window.__INITIAL_STATE__
 );
 const history = syncHistoryWithStore(browserHistory, store);
 const connectedCmp = (props: any): any => <ReduxAsyncConnect { ...props } />;
