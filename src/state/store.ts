@@ -18,7 +18,11 @@ export function configureStore(history: History, initialState?: IStore): Store<I
 
     /** Add Only Dev. Middlewares */
     if (appConfig.env !== 'production' && process.env.BROWSER) {
-        const logger = createLogger();
+        const logger = createLogger({
+            collapsed: true,
+            duration: true,
+            diff: true
+        });
         middlewares.push(logger);
     }
 

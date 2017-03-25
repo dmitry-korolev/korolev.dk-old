@@ -1,8 +1,7 @@
 import { IGetState } from 'models/store';
-import { Dispatch } from 'redux';
+import { Action, Dispatch } from 'redux';
 
-export interface IAction {
-    type: string;
+export interface IAction extends Action {
     error?: boolean;
     payload?: any;
     meta?: any;
@@ -10,7 +9,7 @@ export interface IAction {
 
 export type IAsyncAction = (dispatch: Dispatch<any>, getState: IGetState) => Promise<any>;
 
-interface ICommonActionCreator<T> {
+export interface ICommonActionCreator<T> {
     (...args: any[]): T;
     actionName?: string;
     once?: boolean;
