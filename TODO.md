@@ -16,3 +16,4 @@
 - Other
     - Rearrange application setup in server.ts, 'cause mother of god, it's so shitty right 
     - Try to switch ts compiler to native modules (to enable some useful babel plugins)
+    - Move shouldRunAction from globalActions.ts to a middleware

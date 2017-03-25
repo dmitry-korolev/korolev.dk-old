@@ -18,6 +18,7 @@ const runGlobalActions =
     async (dispatch: Dispatch<IStore>, ...actions: AnyAction[][]): Promise<void> => {
         // Simple way to make sequences of actions
         // See usage example in containers/App
+        // Yep, I tell myself what to do
         for (const step of actions) {
             const actionsToDo = step.filter(shouldRunAction);
 

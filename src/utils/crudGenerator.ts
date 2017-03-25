@@ -156,7 +156,7 @@ export class CRUD<IState, IItem> {
 
     private generateAsyncActions(): void {
         const find: IAsyncActionCreator = (query?: IQuery): IAsyncAction =>
-            async (dispatch: Dispatch<IStore>): Promise<any> => {
+            async (dispatch: Dispatch<IStore>): Promise<void> => {
                 const service = app.service(`api/${this.type}`);
 
                 dispatch(this.actions.fetchStart());
@@ -171,7 +171,7 @@ export class CRUD<IState, IItem> {
             };
 
         const get: IAsyncActionCreator = (id: number): IAsyncAction =>
-            async (dispatch: Dispatch<any>, getState: IGetState): Promise<any> => {
+            async (dispatch: Dispatch<any>, getState: IGetState): Promise<void> => {
                 const service = app.service(`api/${this.type}`);
                 const state = getState();
 

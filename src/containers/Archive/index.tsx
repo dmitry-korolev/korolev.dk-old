@@ -15,7 +15,8 @@ interface IProps {
 
 @asyncConnect(
     [{
-        promise: ({ store: { dispatch } }: { store: { dispatch: Dispatch<any> } }): any => dispatch(getPosts())
+        promise: ({ store: { dispatch } }: { store: { dispatch: Dispatch<any> } }): Promise<void> =>
+            dispatch(getPosts())
     }],
     ({
         posts

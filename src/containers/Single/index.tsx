@@ -14,9 +14,8 @@ interface IProps {
 
 @asyncConnect(
     [{
-        promise({ store: { dispatch }, params: { postId } }: IAsyncConnectArguments): any {
-            return dispatch(getPost(postId));
-        }
+        promise: ({ store: { dispatch }, params: { postId } }: IAsyncConnectArguments): Promise<void> =>
+            dispatch(getPost(postId))
     }],
     (_: IStore, { params }: IAsyncConnectOwnProps) => ({
         postId: params.postId
