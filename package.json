@@ -41,6 +41,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@types/ajv": "^1.0.0",
     "@types/base16": "^1.0.1",
     "@types/chai": "^3.4.35",
     "@types/classnames": "^0.0.32",
@@ -124,6 +125,7 @@
     "webpack-manifest-plugin": "^1.1.0"
   },
   "dependencies": {
+    "ajv": "^4.11.5",
     "babel-runtime": "^6.23.0",
     "compression": "^1.6.2",
     "debug": "^2.6.1",

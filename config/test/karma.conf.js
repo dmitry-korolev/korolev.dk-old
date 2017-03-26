@@ -23,6 +23,8 @@ module.exports = function (config) {
 
         reporters: ['mocha', 'coverage'],
 
+        captureConsole: true,
+
         coverageReporter: {
             dir: '../../coverage',
             reporters: []

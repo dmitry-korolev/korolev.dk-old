@@ -1,6 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "Category",
+    "additionalProperties": false,
     "definitions": {
         "minInt": {
             "type": "integer",
