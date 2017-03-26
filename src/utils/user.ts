@@ -1,4 +1,4 @@
 export const enum UserRoles {
-    anonymous,
-    admin
+    anonymous = 0,
+    admin = 50
 }

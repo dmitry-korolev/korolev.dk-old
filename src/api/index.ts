@@ -1,29 +1,19 @@
+import * as authentication from 'feathers-authentication';
+
 import { baseService } from './base';
 import { optionsService } from './options';
-
-const authentication = require('feathers-authentication');
-const hooks = authentication.hooks;
+import { usersBeforeHooks, usersEndpoint } from './users';
 
 export const setupApplication = (app: any): void => {
     app.configure(authentication({
-        userEndpoint: '/api/users'
+        userEndpoint: usersEndpoint
     }));
 
     app.use('/api/headlines', baseService('headlines'));
-    app.use('/api/users', baseService('users'));
+    app.use(usersEndpoint, baseService('users'));
     app.use('/api/posts', baseService('posts'));
     app.use('/api/categories', baseService('categories'));
     app.use('/api/options', optionsService);
 
-    app.service('/api/users').before({
-        create: hooks.hashPassword(),
-        update: hooks.hashPassword(),
-        patch: hooks.hashPassword()
-    });
-
-    app.service('/api/headlines').before({
-        all: [
-            hooks.verifyToken()
-        ]
-    });
+    app.service('/api/users').before(usersBeforeHooks());
 };
