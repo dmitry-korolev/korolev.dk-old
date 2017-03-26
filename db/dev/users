@@ -1,4 +1,7 @@
 {"level2":"admin4","updated":{"$$date":1490477481482},"_id":"21","password":"$2a$10$1rADqLuCjXEMlUyi.QYjguJWuFhJ1LZMZo.h4JpW.LGKlCNiKwl3W"}
 {"email":"dmitry@korolev.dk","password":"$2a$10$CRafgd9BDYtVw2KGaoSyCe6ahZSmPqREhllhDV4wfIycmZHCSuIV2","roles":[],"level":50,"created":{"$$date":1490479701482},"id":29,"_id":"29"}
 {"email":"dmitry@korolev2.dk","password":"$2a$10$s8Ee4zcEKDk82yAQVXh2i.l6pTpy8wYFvWCWU10sVh1zmffvi8.92","roles":["visitor"],"created":{"$$date":1490480763449},"id":30,"_id":"30"}
+{"email":"dmitry@korolev3.dk","password":"123","level":"visitor","created":{"$$date":1490556033439},"id":36,"_id":"36"}
+{"email":"dmitry@korolev3.dk","password":"123","level":"visitor","created":{"$$date":1490556080503},"id":37,"_id":"37"}
 {"$$indexCreated":{"fieldName":"id","unique":true,"sparse":true}}
+{"email":"dmitry@korolev3.dk","password":"$2a$10$I0j6hVGwLsQ7pN30GeYXduZpL2DLyZ8LugR3eGkdc4j829TA.gC3q","level":"visitor","created":{"$$date":1490558607610},"id":38,"_id":"38"}

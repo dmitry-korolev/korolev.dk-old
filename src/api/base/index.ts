@@ -2,13 +2,11 @@ import * as debug from 'debug';
 import { Service } from 'feathers-nedb';
 import * as NeDB from 'nedb';
 
-import {
-    assocPath,
-    lens,
-    path,
-    set,
-    view
-} from 'ramda';
+const assocPath = require('ramda/src/assocPath');
+const lens = require('ramda/src/lens');
+const path = require('ramda/src/path');
+const set = require('ramda/src/set');
+const view = require('ramda/src/view');
 
 // Models
 import { IJSONData } from 'models/api';
@@ -46,9 +44,10 @@ export class BaseService extends Service {
         serviceName,
         incremental = false,
         cacheable = true,
+        pagination,
         Model
     }: ICreateServiceOptions) {
-        super({ Model });
+        super({ Model, pagination });
 
         this.serviceName = serviceName;
         this.incremental = incremental;
@@ -214,7 +213,7 @@ export class BaseService extends Service {
     }
 }
 
-export const baseService = (name: string): any => {
+export const createBaseService = (name: string): any => {
     const db = new NeDB({
         filename: `db/${process.env.NODE_ENV === 'production' ? 'prod' : 'dev'}/${name}`,
         autoload: true

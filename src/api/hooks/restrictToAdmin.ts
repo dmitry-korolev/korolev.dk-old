@@ -1,6 +1,6 @@
 import * as authentication from 'feathers-authentication';
 
-import { usersEndpoint } from 'api/users/endpoint';
+import { usersServiceName } from 'api/users';
 import { UserRoles } from 'utils';
 
 // Models
@@ -10,7 +10,7 @@ export const restrictToAdmin = (): IHooks => {
     const commonHooks = [
         authentication.hooks.verifyToken(),
         authentication.hooks.populateUser({
-            userEndpoint: usersEndpoint
+            userEndpoint: `/api/${usersServiceName}`
         }),
         authentication.hooks.hashPassword()
     ];

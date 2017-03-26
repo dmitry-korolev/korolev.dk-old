@@ -4,8 +4,10 @@ import * as NeDB from 'nedb';
 // Models
 import { IJSONData } from 'models/api';
 
+const optionsServiceName = 'options';
+
 const optionsDb = new NeDB({
-    filename: `db/${process.env.NODE_ENV === 'production' ? 'prod' : 'dev'}/options`,
+    filename: `db/${process.env.NODE_ENV === 'production' ? 'prod' : 'dev'}/${optionsServiceName}`,
     autoload: true
 });
 
@@ -28,12 +30,16 @@ class OptionsService extends BaseService {
     }
 }
 
-const optionsService = new OptionsService({
-    serviceName: 'options',
+const optionsService = (): any => new OptionsService({
+    serviceName: optionsServiceName,
     Model: optionsDb
 });
 
 export {
-    optionsDb,
-    optionsService
+    optionsBeforeHooks
+} from './hooks';
+
+export {
+    optionsService,
+    optionsServiceName
 };
