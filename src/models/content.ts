@@ -1,34 +1,21 @@
 import { ICommonReducer } from 'models/flux';
 
 export interface IPost {
+    _id: string;
+    author: string;
+    content: string;
+    created: string;
+    excerpt: string;
+    format: 'standard';
     id: number;
-    date: string;
-    date_gmt: string;
-    guid: {
-        rendered: string;
-    };
-    modified: string;
-    modified_gmt: string;
+    modified?: string;
     slug: string;
-    type: 'post';
-    link: string;
-    title: {
-        rendered: string;
-    };
-    content: {
-        rendered: string;
-    };
-    excerpt: {
-        rendered: string;
-    };
-    author: number;
-    featured_media: number;
-    comment_status: 'open' | 'closed';
-    ping_status: 'open' | 'closed';
+    status: 'draft' | 'publish';
     sticky: boolean;
-    format: string;
-    categories: number[];
-    tags: number[];
+    subtitle?: string;
+    tags?: number[];
+    title?: string;
+    type: 'page' | 'post';
 }
 
 export interface IPosts extends ICommonReducer {
@@ -39,50 +26,22 @@ export interface IPosts extends ICommonReducer {
     total: number;
 }
 
-export interface ICategory {
-    id: number;
+export interface ITag {
+    _id: string;
     count: number;
-    description: string;
-    link: string;
-    name: string;
+    created: string;
+    description?: string;
+    id: number;
+    modified?: string;
     slug: string;
-    taxonomy: string;
-    parent: number;
-    _links: {
-        self: [
-            {
-                href: string;
-            }
-            ];
-        collection: [
-            {
-                href: string;
-            }
-            ];
-        about: [
-            {
-                href: string
-            }
-            ];
-        'wp:post_type': [
-            {
-                href: string;
-            }
-            ];
-        curies: [
-            {
-                name: string;
-                href: string;
-                templated: true;
-            }
-            ];
-    };
+    taxonomy: 'categories' | 'tags';
+    title: string;
 }
 
-export interface ICategories extends ICommonReducer {
-    categories: number[];
-    categoriesById: {
-        [K: number]: ICategory
+export interface ITags extends ICommonReducer {
+    tags: number[];
+    tagsById: {
+        [K: number]: ITag
     };
 }
 

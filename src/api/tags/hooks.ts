@@ -3,11 +3,11 @@ import { combineHooks } from 'utils';
 
 import { IHooks } from 'models/api';
 
-const categoriesBeforeHooks = (): IHooks => combineHooks(
+const tagsBeforeHooks = (): IHooks => combineHooks(
     restrictToAdmin(),
     associateUser()
 );
 
 export {
-    categoriesBeforeHooks
+    tagsBeforeHooks
 }

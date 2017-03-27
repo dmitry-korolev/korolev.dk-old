@@ -3,9 +3,9 @@ import * as Helmet from 'react-helmet';
 import { asyncConnect } from 'redux-connect';
 
 import { SiteHeader } from 'components';
-import { getCategories } from 'state/categories';
 import { runGlobalActions } from 'state/globalActions';
 import { getHeadlines, headlinesSet } from 'state/headlines';
+import { getTags } from 'state/tags';
 // import { userLogin } from 'state/user';
 
 // Models
@@ -37,7 +37,7 @@ const headlinePath = path(['current', 'content']);
                 dispatch,
                 [
                     getHeadlines,
-                    getCategories
+                    getTags
                 ],
                 [
                     headlinesSet

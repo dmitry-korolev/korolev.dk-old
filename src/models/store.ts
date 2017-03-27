@@ -1,5 +1,5 @@
 import { IApplication } from 'models/appication';
-import { ICategories, IPosts } from 'models/content';
+import { IPosts, ITags } from 'models/content';
 import { IHeadlines } from 'models/headlines';
 import { IUser } from 'models/user';
 import { Store } from 'redux';
@@ -7,14 +7,15 @@ import { Store } from 'redux';
 export interface IStore {
     headlines: IHeadlines;
     posts: IPosts;
-    categories: ICategories;
+    tags: ITags;
     application: IApplication;
     user: IUser;
 }
 
 interface IRouteParams {
     postId?: number;
-    categoryName?: string;
+    tagName?: string;
+    pageNumber?: number;
 }
 
 export interface IAsyncConnectArguments {

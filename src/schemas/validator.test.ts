@@ -1,20 +1,20 @@
 import { expect } from 'chai';
-import { validateCategory, validatePost } from './validator';
+import { validatePost, validateTag } from './validator';
 
 describe('Validators', () => {
-    it('should validate category', () => {
-        expect(validateCategory({})).to.equal(false);
+    it('should validate tag', () => {
+        expect(validateTag({})).to.equal(false);
 
-        expect(validateCategory({
+        expect(validateTag({
             description: 'non',
             title: 'eiusmod consequat',
-            taxonomy: 'categories'
+            taxonomy: 'tags'
         })).to.equal(true);
 
-        expect(validateCategory({
+        expect(validateTag({
             description: 'non',
             title: 'eiusmod consequat',
-            taxonomy: 'categories',
+            taxonomy: 'tags',
             anotherField: 123
         })).to.equal(false);
     });
@@ -23,51 +23,47 @@ describe('Validators', () => {
         expect(validatePost({})).to.equal(false);
 
         expect(validatePost({
-            categories: [
-                1,
-                2
-            ],
-            tags: [
-                1
-            ],
-            content: 'dolor adipisicing el',
-            excerpt: 'amet ipsum',
-            format: 'standard',
-            slug: 'proident et commodo aliquip',
+            _id: 'nulla enim',
+            author: 56006760,
+            content: 'cupidatat reprehen',
+            created: '3441-04-21T01:38:54.614Z',
+            excerpt: 'ad laborum elit Duis',
+            format: 'quote',
+            id: -95740141,
+            slug: 'ea Duis proident',
             status: 'publish',
             sticky: true,
-            subtitle: 'in ut exercitation nisi',
-            title: 'quis',
-            type: 'post',
-            created: '2014-12-14T08:34:04.792Z',
-            modified: '2017-04-21T12:07:57.090Z',
-            id: 2,
-            _id: '2',
-            author: 75071718
+            tags: [
+                59976191,
+                6569315,
+                40547114,
+                88260907
+            ],
+            title: 'magna aliqua amet',
+            type: 'page',
+            modified: '3743-06-27T17:40:49.331Z'
         })).to.equal(true);
 
         expect(validatePost({
-            categories: [
-                -1,
-                2
-            ],
-            tags: [
-                1
-            ],
-            content: 'dolor adipisicing el',
-            excerpt: 'amet ipsum',
-            format: 'standard',
-            slug: 'proident et commodo aliquip',
+            _id: 'nulla enim',
+            author: 56006760,
+            content: 'cupidatat reprehen',
+            created: '3441-04-21T01:38:54.614Z',
+            excerpt: 'ad laborum elit Duis',
+            format: 'quote',
+            id: -95740141,
+            slug: 'ea Duis proident',
             status: 'publish',
             sticky: true,
-            subtitle: 'in ut exercitation nisi',
-            title: 'quis',
-            type: 'post',
-            created: '2014-12-14T08:34:04.792Z',
-            modified: '2017-04-21T12:07:57.090Z',
-            id: 2,
-            _id: '2',
-            author: 75071718
+            tags: [
+                59976191,
+                6569315,
+                40547114,
+                88260907
+            ],
+            title: 'magna aliqua amet',
+            type: 'page',
+            modified: '3743-06-27T17:40:49.331Z'
         })).to.equal(false);
     });
 });

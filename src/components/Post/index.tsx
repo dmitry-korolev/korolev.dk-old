@@ -1,14 +1,14 @@
 import { Header } from 'components';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { postUrlTemplate } from 'utils';
+// import { postUrlTemplate } from 'utils';
+import { getPostFromState } from 'utils';
 
 const curry = require('ramda/src/curry');
-const path = require('ramda/src/path');
 const pipe = require('ramda/src/pipe');
 
 // Types
-import { ICategory, IPost } from 'models/content';
+import { IPost, ITag } from 'models/content';
 import { IStore } from 'models/store';
 
 // const s = require('./style.css');
@@ -19,7 +19,7 @@ interface IProps extends React.HTMLProps<HTMLElement> {
 
 interface IPostProps {
     item?: IPost;
-    category?: ICategory;
+    tags?: ITag[];
 }
 
 type CombinedProps = IProps & IPostProps;
@@ -35,15 +35,9 @@ const getPart = curry((mode: string, html: string): string => {
     return (html || '').split('<p><!--more--></p>')[0];
 });
 
-const mapStateToProps = ({ posts, categories }: IStore, { itemId }: IProps): IPostProps => {
-    const post = path(['postsById', itemId], posts);
-    const postCategory = path(['categories', 0], post);
-
-    return {
-        item: post,
-        category: path(['categoriesById', postCategory], categories)
-    };
-};
+const mapStateToProps =
+    (state: IStore, { itemId }: IProps): IPostProps =>
+        getPostFromState(state, itemId);
 
 @connect<{}, {}, IProps>(mapStateToProps)
 export class Post extends React.PureComponent<CombinedProps, any> {
@@ -55,15 +49,11 @@ export class Post extends React.PureComponent<CombinedProps, any> {
         const {
             item: {
                 id,
-                content: {
-                    rendered: content
-                },
-                title: {
-                    rendered: title
-                }
+                content,
+                title,
+                slug
             },
-            isSingle,
-            category
+            isSingle
         } = this.props;
 
         return <article
@@ -71,7 +61,7 @@ export class Post extends React.PureComponent<CombinedProps, any> {
         >
             <Header
                 titleText={ title }
-                titleLink={ postUrlTemplate(this.props.item, category) }
+                titleLink={ slug }
                 titleTag={ isSingle ? 'h1' : 'h2' }
             />
 

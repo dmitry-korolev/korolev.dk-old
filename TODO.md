@@ -1,6 +1,6 @@
 ## Todo
 - ~~Add caching to common NeDB querying~~
-- Post and categories
+- Post and tags
     - ~~Schema~~
     - Add mocks
 - ~~Add feathers-client to client bundle~~
@@ -12,7 +12,7 @@
 - Markdown
 - Posts styling
 - Editing settings on front
-- Editing posts and categories on front
+- Editing posts and tags on front
 - Other
     - Rearrange application setup in server.ts, 'cause mother of god, it's so shitty right 
     - Try to switch ts compiler to native modules (to enable some useful babel plugins)
