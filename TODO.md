@@ -1,19 +1,24 @@
 ## Todo
-- ~~Add caching to common NeDB querying~~
-- Post and tags
+- Content:
     - ~~Schema~~
+    - Validate schema in db services
     - Add mocks
-- ~~Add feathers-client to client bundle~~
+    - Think of url schema
+    - Add pagination
+    - Add markdown support
 - Authentication
+    - ~~Add feathers-client to client bundle~~
     - ~~Add basic client auth~~
-    - Reduxify this s**t
+    - ~~Reduxify this s**t~~
     - Add automatic logout on timeout
-- Move settings to the backend
-- Markdown
-- Posts styling
-- Editing settings on front
-- Editing posts and tags on front
+- Admin
+    - Move settings to the backend
+    - Editing settings on front
+    - Editing posts and tags on front
+- Styling
+    - Posts styling
 - Other
+    - ~~Add caching to common NeDB querying~~
     - Rearrange application setup in server.ts, 'cause mother of god, it's so shitty right 
-    - Try to switch ts compiler to native modules (to enable some useful babel plugins)
-    - Move shouldRunAction from globalActions.ts to a middleware
+    - (?) Try to switch ts compiler to native modules (to enable some useful babel plugins)
+    - (?) Move shouldRunAction from globalActions.ts to a middleware
