@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Page",
+    "additionalProperties": false,
+    "definitions": {
+        "tags": {
+            "items": { "type": "string" },
+            "uniqueItems": true,
+            "type": "array"
+        }
+    },
+    "properties": {
+        "_created": {},
+        "_id": { "type": "string" },
+        "_updated": {},
+        "author": { "type": "string" },
+        "content": { "type": "string" },
+        "slug": { "type": "string" },
+        "status": { "enum": [ "draft", "publish"], "type": "string" },
+        "title": { "type": "string" }
+    },
+    "required": [
+        "content"
+    ],
+    "type": "object"
+}
