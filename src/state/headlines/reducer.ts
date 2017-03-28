@@ -1,5 +1,5 @@
 import { randomFromArray } from 'utils';
-import { reducer } from './crud';
+import { headlinesService } from './crud';
 import { HEADLINES_SET } from './types';
 
 // Models
@@ -24,7 +24,7 @@ function headlinesReducer(state: IHeadlines = initialState, action: IAction): IH
             };
 
         default:
-            return reducer(state, action);
+            return headlinesService.reducer(state, action);
     }
 }
 

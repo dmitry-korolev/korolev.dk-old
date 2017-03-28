@@ -48,7 +48,7 @@ export class Post extends React.PureComponent<CombinedProps, any> {
 
         const {
             item: {
-                id,
+                _id,
                 content,
                 title,
                 slug
@@ -57,7 +57,7 @@ export class Post extends React.PureComponent<CombinedProps, any> {
         } = this.props;
 
         return <article
-            id={ `post-${id}` }
+            id={ `post-${_id}` }
         >
             <Header
                 titleText={ title }

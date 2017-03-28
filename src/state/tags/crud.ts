@@ -3,9 +3,8 @@ import { CRUD } from 'utils';
 // Models
 import { ITag, ITags } from 'models/content';
 
-const { asyncActions, reducer } = new CRUD<ITags, ITag>('tags', { fetch: true });
+const tagsService = new CRUD<ITags, ITag>({ serviceName: 'tags' });
 
 export {
-    asyncActions,
-    reducer
+    tagsService
 }

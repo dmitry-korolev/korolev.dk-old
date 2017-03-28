@@ -4,11 +4,11 @@ import { UserRoles } from 'utils/user';
 import { ICommonReducer } from 'models/flux';
 
 export interface IUserData {
+    _id?: string;
     level: UserRoles;
     username?: string;
     url?: string;
     email?: string;
-    id?: number;
 }
 
 export interface IUser extends ICommonReducer, IUserData {

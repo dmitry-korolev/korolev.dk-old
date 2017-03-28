@@ -1,7 +1,7 @@
 import { ICommonReducer } from 'models/flux';
 
 export interface IHeadline {
-    id?: number;
+    _id?: string;
     content: string;
     created?: string;
     updated?: string;
@@ -10,7 +10,7 @@ export interface IHeadline {
 export interface IHeadlines extends ICommonReducer  {
     headlines: number[];
     headlinesById: {
-        [K: number]: IHeadline
+        [K: string]: IHeadline
     };
     current: IHeadline;
 }

@@ -1,8 +1,8 @@
-import { asyncActions } from './crud';
+import { postsService } from './crud';
 
 /* Async action creators */
-const getPosts = asyncActions.find;
-const getPost = asyncActions.get;
+const getPosts = postsService.find;
+const getPost = postsService.get;
 
 export {
     getPosts,

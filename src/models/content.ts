@@ -7,7 +7,6 @@ export interface IPost {
     created: string;
     excerpt: string;
     format: 'standard';
-    id: number;
     modified?: string;
     slug: string;
     status: 'draft' | 'publish';
@@ -21,7 +20,7 @@ export interface IPost {
 export interface IPosts extends ICommonReducer {
     posts: number[];
     postsById: {
-        [K: number]: IPost
+        [K: string]: IPost
     };
     total: number;
 }
@@ -31,7 +30,6 @@ export interface ITag {
     count: number;
     created: string;
     description?: string;
-    id: number;
     modified?: string;
     slug: string;
     taxonomy: 'categories' | 'tags';
@@ -41,7 +39,7 @@ export interface ITag {
 export interface ITags extends ICommonReducer {
     tags: number[];
     tagsById: {
-        [K: number]: ITag
+        [K: string]: ITag
     };
 }
 

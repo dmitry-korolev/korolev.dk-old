@@ -1,7 +1,7 @@
-import { asyncActions } from './crud';
+import { tagsService } from './crud';
 
 /* Async action creator */
-const getTags = asyncActions.find;
+const getTags = tagsService.find;
 getTags.onlyServer = true;
 
 export {

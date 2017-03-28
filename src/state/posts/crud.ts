@@ -3,12 +3,8 @@ import { CRUD } from 'utils';
 // Models
 import { IPost, IPosts } from 'models/content';
 
-const {
-    asyncActions,
-    reducer
-} = new CRUD<IPosts, IPost>('posts', { fetch: true });
+const postsService = new CRUD<IPosts, IPost>({ serviceName: 'posts' });
 
 export {
-    asyncActions,
-    reducer
+    postsService
 };

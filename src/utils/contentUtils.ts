@@ -19,6 +19,6 @@ export const getPostFromState = ({ posts, tags }: IStore, postId: number): {
 
     return {
         post,
-        tags: map((id: number) => path(['tagsById', id], tags), prop('tags', post))
+        tags: map((_id: number) => path(['tagsById', _id], tags), prop('tags', post))
     };
 };

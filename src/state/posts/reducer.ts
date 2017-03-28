@@ -1,4 +1,4 @@
-import { reducer } from './crud';
+import { postsService } from './crud';
 import { POSTS_SET_TOTAL } from './types';
 
 // Models
@@ -22,7 +22,7 @@ function postsReducer(state: IPosts = initialState, action: IAction): IPosts {
             };
 
         default:
-            return reducer(state, action);
+            return postsService.reducer(state, action);
     }
 }
 

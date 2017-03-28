@@ -6,7 +6,7 @@ import { reducer } from 'redux-connect';
 import { applicationReducer } from 'state/application';
 import { headlinesReducer } from 'state/headlines';
 import { postsReducer } from 'state/posts';
-import { tagsReducer } from 'state/tags';
+import { tagsService } from 'state/tags';
 import { userReducer } from 'state/user';
 
 // Types
@@ -18,7 +18,7 @@ const rootReducer: Reducer<IStore> = combineReducers<IStore>({
     posts: postsReducer,
     reduxAsyncConnect: reducer,
     routing: routerReducer,
-    tags: tagsReducer,
+    tags: tagsService.reducer,
     user: userReducer
 });
 

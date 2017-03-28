@@ -1,8 +1,8 @@
 import { createAction } from 'utils';
-import { asyncActions } from './crud';
+import { headlinesService } from './crud';
 import { HEADLINES_SET } from './types';
 
-const getHeadlines = asyncActions.find;
+const getHeadlines = headlinesService.find;
 getHeadlines.onlyServer = true;
 
 /* Action creators */

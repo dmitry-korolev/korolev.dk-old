@@ -13,7 +13,13 @@ const initialState: IUser = {
     level: UserRoles.anonymous
 };
 
-const pickUserdata = pick(['level', 'username', 'url', 'email', 'id']);
+const pickUserdata = pick([
+    '_id',
+    'email',
+    'level',
+    'url',
+    'username'
+]);
 
 export const userReducer = (state: IUser = initialState, action: IAction): IUser => {
     switch (action.type) {
