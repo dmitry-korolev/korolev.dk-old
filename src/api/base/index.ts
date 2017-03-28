@@ -1,7 +1,6 @@
 import * as debug from 'debug';
 import { Unprocessable } from 'feathers-errors';
 import { Service } from 'feathers-nedb';
-import * as NeDB from 'nedb';
 
 const assocPath = require('ramda/src/assocPath');
 const lens = require('ramda/src/lens');
@@ -29,10 +28,6 @@ interface ICreateServiceOptions {
 
     Model: any;
     pagination?: any;
-}
-interface ICreateBaseServiceOptions {
-    name: string;
-    validator?: ValidateFunction;
 }
 
 const sortL = lens(path(['query', '$sort']), assocPath(['query', '$sort']));
@@ -108,7 +103,7 @@ export class BaseService extends Service {
         return result;
     }
 
-    public async get(_id: string, params: any): Promise<IJSONData> {
+    public async get(_id: string, params?: any): Promise<IJSONData> {
         const key = JSON.stringify([_id, params]);
 
         if (this.cacheable && this.cachedQueries.get.has(key)) {
@@ -128,15 +123,14 @@ export class BaseService extends Service {
     }
 
     public async create(data: any, params: any): Promise<IJSONData> {
-        data._created = new Date();
-
-        this.logInfo('POST', data, params);
-
         const valid = this.validator(data);
 
         if (!valid) {
             throw new Unprocessable('Check data!', this.validator.errors);
         }
+
+        data._created = new Date();
+        this.logInfo('POST', data, params);
 
         const result = await super.create(data, params);
         await this.clearCache();
@@ -145,6 +139,16 @@ export class BaseService extends Service {
     }
 
     public async update(_id: string, data: any, params: any): Promise<IJSONData> {
+        const entity = await this.get(_id, params);
+        const valid = this.validator({
+            ...entity,
+            ...data
+        });
+
+        if (!valid) {
+            throw new Unprocessable('Check data!', this.validator.errors);
+        }
+
         data._updated = new Date();
         this.logInfo('PUT', _id, data, params);
 
@@ -154,7 +158,17 @@ export class BaseService extends Service {
         return result;
     }
 
-    public async patch(_id: number, data: any, params: any): Promise<IJSONData> {
+    public async patch(_id: string, data: any, params: any): Promise<IJSONData> {
+        const entity = await this.get(_id, params);
+        const valid = this.validator({
+            ...entity,
+            ...data
+        });
+
+        if (!valid) {
+            throw new Unprocessable('Check data!', this.validator.errors);
+        }
+
         this.logInfo('PATCH', _id, data, params);
 
         const result = await super.patch(_id, data, params);
@@ -176,17 +190,3 @@ export class BaseService extends Service {
         this.optionsService = app.service('/api/options');
     }
 }
-
-export const createBaseService = ({ name, validator }: ICreateBaseServiceOptions): any => {
-    const db = new NeDB({
-        filename: `db/${process.env.NODE_ENV === 'production' ? 'prod' : 'dev'}/${name}`,
-        autoload: true
-    });
-
-    return new BaseService({
-        serviceName: name,
-        incremental: true,
-        validator,
-        Model: db
-    });
-};

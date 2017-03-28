@@ -10,9 +10,9 @@
         }
     },
     "properties": {
-        "_id": { "type": "string" },
         "_created": {},
-        "_updated": { "type": "string", "format": "date-time" },
+        "_id": { "type": "string" },
+        "_updated": {},
         "author": { "type": "string" },
         "content": { "type": "string" },
         "excerpt": { "type": "string" },
@@ -26,9 +26,7 @@
         "type": { "enum": [ "page", "post" ], "type": "string" }
     },
     "required": [
-        "content",
-        "status",
-        "type"
+        "content"
     ],
     "type": "object"
 }

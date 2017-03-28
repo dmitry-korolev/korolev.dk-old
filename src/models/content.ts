@@ -1,13 +1,13 @@
 import { ICommonReducer } from 'models/flux';
 
 export interface IPost {
+    _created: string;
     _id: string;
+    _updated?: string;
     author: string;
     content: string;
-    created: string;
     excerpt?: string;
     format: 'standard';
-    modified?: string;
     slug: string;
     status: 'draft' | 'publish';
     sticky: boolean;
@@ -26,11 +26,12 @@ export interface IPosts extends ICommonReducer {
 }
 
 export interface ITag {
+    _count: number;
+    _created: string;
     _id: string;
-    count: number;
-    created: string;
+    _updated?: string;
+    author: string;
     description?: string;
-    modified?: string;
     slug: string;
     taxonomy: 'categories' | 'tags';
     title: string;

@@ -10,7 +10,9 @@ const pick = require('ramda/src/pick');
 const initialState: IUser = {
     isFetching: false,
     isLoggedIn: false,
-    level: UserRoles.anonymous
+    userData: {
+        level: UserRoles.anonymous
+    }
 };
 
 const pickUserdata = pick([

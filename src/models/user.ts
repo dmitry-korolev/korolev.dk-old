@@ -4,15 +4,18 @@ import { UserRoles } from 'utils/user';
 import { ICommonReducer } from 'models/flux';
 
 export interface IUserData {
+    _created?: string;
     _id?: string;
-    level: UserRoles;
-    username?: string;
-    url?: string;
+    _updated?: string;
     email?: string;
+    level: UserRoles;
+    url?: string;
+    username?: string;
 }
 
-export interface IUser extends ICommonReducer, IUserData {
+export interface IUser extends ICommonReducer {
     isLoggedIn: boolean;
+    userData: IUserData;
 }
 
 export interface IUserCredentials {

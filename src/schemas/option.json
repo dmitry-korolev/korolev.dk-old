@@ -1,15 +1,17 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Tag",
+    "title": "Option",
     "additionalProperties": false,
     "properties": {
         "_created": {},
         "_id": { "type": "string" },
+        "_internal": { "type": "boolean" },
         "_updated": {},
-        "content": { "type": "string" }
+        "value": {}
     },
     "required": [
-        "content"
+        "_id",
+        "value"
     ],
     "type": "object"
 }

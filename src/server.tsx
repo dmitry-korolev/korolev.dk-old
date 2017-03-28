@@ -110,3 +110,8 @@ function renderHTML(markup: string, store: any): string {
 
     return `<!doctype html> ${html}`;
 }
+
+process.on('unhandledRejection', (reason: Error): void => {
+    logError(reason);
+    process.exit(1);
+});

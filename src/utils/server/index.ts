@@ -1,1 +1,1 @@
-export { validatePost, validateTag } from 'utils/server/validator';
+export { validateHeadline, validateOption, validatePost, validateTag, validateUser } from 'utils/server/validator';

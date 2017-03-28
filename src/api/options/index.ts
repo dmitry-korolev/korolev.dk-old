@@ -1,8 +1,12 @@
 import { BaseService } from 'api/base';
 import * as NeDB from 'nedb';
 
+import { restrictToAdmin } from 'api/hooks';
+import { combineHooks } from 'utils';
+import { validateOption } from 'utils/server';
+
 // Models
-import { IJSONData } from 'models/api';
+import { IHooks, IJSONData } from 'models/api';
 
 const optionsServiceName = 'options';
 
@@ -12,6 +16,10 @@ const optionsDb = new NeDB({
 });
 
 class OptionsService extends BaseService {
+    public before: IHooks = combineHooks(
+        restrictToAdmin()
+    );
+
     public find(params: any): Promise<IJSONData[]> {
         // Remove internal options from response
         params.query.internal = {
@@ -20,24 +28,13 @@ class OptionsService extends BaseService {
 
         return super.find(params);
     }
-
-    public create(data: any, params: any): Promise<IJSONData> {
-        if (!data._id) {
-            throw new Error('ID parameter is mandatory!');
-        }
-
-        return super.create(data, params);
-    }
 }
 
 const optionsService = (): any => new OptionsService({
     serviceName: optionsServiceName,
+    validator: validateOption,
     Model: optionsDb
 });
-
-export {
-    optionsBeforeHooks
-} from './hooks';
 
 export {
     optionsService,
