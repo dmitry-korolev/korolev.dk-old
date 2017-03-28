@@ -5,7 +5,7 @@ export interface IPost {
     author: string;
     content: string;
     created: string;
-    excerpt: string;
+    excerpt?: string;
     format: 'standard';
     modified?: string;
     slug: string;
