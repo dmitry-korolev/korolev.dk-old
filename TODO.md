@@ -1,7 +1,7 @@
 ## Todo
 - Content:
     - ~~Schema~~
-    - Validate schema in db services
+    - ~~Validate schema in db services~~
     - Add mocks
     - Think of url schema
     - Add pagination
