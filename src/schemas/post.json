@@ -22,8 +22,7 @@
         "sticky": { "type": "boolean" },
         "subtitle": { "type": "string" },
         "tags": { "$ref": "#/definitions/tags" },
-        "title": { "type": "string" },
-        "type": { "enum": [ "page", "post" ], "type": "string" }
+        "title": { "type": "string" }
     },
     "required": [
         "content"

@@ -25,6 +25,24 @@ export interface IPosts extends ICommonReducer {
     total: number;
 }
 
+export interface IPage {
+    _created: string;
+    _id: string;
+    _updated?: string;
+    author: string;
+    content: string;
+    slug: string;
+    status: 'draft' | 'publish';
+    title?: string;
+}
+
+export interface IPages extends ICommonReducer {
+    pages: number[];
+    pagesById: {
+        [K: string]: IPage
+    };
+}
+
 export interface ITag {
     _count: number;
     _created: string;

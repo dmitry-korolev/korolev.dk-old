@@ -5,6 +5,7 @@ import { createAction, toCamelCase } from 'utils';
 const descend = require('ramda/src/descend');
 const forEach = require('ramda/src/forEach');
 const indexBy = require('ramda/src/indexBy');
+const keys = require('ramda/src/keys');
 const map = require('ramda/src/map');
 const pipe = require('ramda/src/pipe');
 const prop = require('ramda/src/prop');
@@ -20,6 +21,7 @@ import { Dispatch } from 'redux';
 
 interface ICrudOptions<IState> {
     serviceName: string;
+    incremental?: boolean;
     initialState?: IState;
 }
 
@@ -85,17 +87,21 @@ const makeSortedArray = pipe(
 export class CRUD<IState, IItem> {
     private serviceName: string;
     private initialState: IState;
+    private incremental: boolean;
     private types: ICrudActionTypes;
     private actions: ICrudActionCreators<IItem>;
     private logInfo: IDebugger;
     private logError: IDebugger;
 
-    public constructor({
+    constructor({
         serviceName,
-        initialState
+        initialState,
+        incremental = false
     }: ICrudOptions<IState>) {
         this.serviceName = serviceName;
         this.initialState = initialState;
+        this.incremental = incremental;
+
         this.logInfo = debug(`k:crud:${serviceName}:info`);
         this.logError = debug(`k:crud:${serviceName}:error`);
 
@@ -122,6 +128,7 @@ export class CRUD<IState, IItem> {
         const collection = this.serviceName;
         const collectionById = `${this.serviceName}ById`;
         const types = this.types;
+        const makeNewArray = this.incremental ? makeSortedArray : keys;
 
         const actionHandlers = {
             [types.fetchStart]: (): IState => Object.assign({}, state, {
@@ -137,7 +144,7 @@ export class CRUD<IState, IItem> {
                 return Object.assign({}, state, {
                     isFetching: false,
                     error: false,
-                    [collection]: makeSortedArray(newItemsById),
+                    [collection]: makeNewArray(newItemsById),
                     [collectionById]: newItemsById
                 });
             },

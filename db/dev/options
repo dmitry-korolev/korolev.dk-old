@@ -1,3 +1,2 @@
-{"_id":"blogname","value":"test","_created":{"$$date":1490725919643}}
-{"value":41,"internal":true,"_updated":{"$$date":1490637389435},"_id":"last_id"}
 {"value":"test","_updated":{"$$date":1490727528164},"_id":"blogname"}
+{"value":41,"internal":true,"_updated":{"$$date":1490637389435},"_id":"last_id"}
