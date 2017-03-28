@@ -23,47 +23,15 @@ describe('Validators', () => {
         expect(validatePost({})).to.equal(false);
 
         expect(validatePost({
-            _id: 'nulla enim',
-            author: 56006760,
-            content: 'cupidatat reprehen',
-            created: '3441-04-21T01:38:54.614Z',
-            excerpt: 'ad laborum elit Duis',
-            format: 'quote',
-            id: -95740141,
-            slug: 'ea Duis proident',
-            status: 'publish',
-            sticky: true,
-            tags: [
-                59976191,
-                6569315,
-                40547114,
-                88260907
-            ],
-            title: 'magna aliqua amet',
-            type: 'page',
-            modified: '3743-06-27T17:40:49.331Z'
+            content: 'officia',
+            status: 'draft',
+            type: 'page'
         })).to.equal(true);
 
         expect(validatePost({
-            _id: 'nulla enim',
-            author: 56006760,
-            content: 'cupidatat reprehen',
-            created: '3441-04-21T01:38:54.614Z',
-            excerpt: 'ad laborum elit Duis',
-            format: 'quote',
-            id: -95740141,
-            slug: 'ea Duis proident',
-            status: 'publish',
-            sticky: true,
-            tags: [
-                59976191,
-                6569315,
-                40547114,
-                88260907
-            ],
-            title: 'magna aliqua amet',
-            type: 'page',
-            modified: '3743-06-27T17:40:49.331Z'
+            content: 'officia',
+            status: 'draft2',
+            type: 'page'
         })).to.equal(false);
     });
 });
