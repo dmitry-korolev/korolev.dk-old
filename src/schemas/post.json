@@ -3,22 +3,20 @@
     "title": "Post",
     "additionalProperties": false,
     "definitions": {
-        "minInt": { "type": "integer", "minimum": 0 },
         "tags": {
-            "items": { "$ref": "#/definitions/minInt" },
+            "items": { "type": "string" },
             "uniqueItems": true,
             "type": "array"
         }
     },
     "properties": {
         "_id": { "type": "string" },
-        "author": { "$ref": "#/definitions/minInt" },
+        "_created": { "type": "string", "format": "date-time" },
+        "_updated": { "type": "string", "format": "date-time" },
+        "author": { "type": "string" },
         "content": { "type": "string" },
-        "created": { "type": "string", "format": "date-time" },
         "excerpt": { "type": "string" },
         "format": { "enum": [ "quote", "standard" ], "type": "string" },
-        "id": { "$ref": "#/definitions/minInt" },
-        "modified": { "type": "string", "format": "date-time" },
         "slug": { "type": "string" },
         "status": { "enum": [ "draft", "publish"], "type": "string" },
         "sticky": { "type": "boolean" },
@@ -28,18 +26,8 @@
         "type": { "enum": [ "page", "post" ], "type": "string" }
     },
     "required": [
-        "_id",
-        "author",
         "content",
-        "created",
-        "excerpt",
-        "format",
-        "id",
-        "slug",
         "status",
-        "sticky",
-        "tags",
-        "title",
         "type"
     ],
     "type": "object"

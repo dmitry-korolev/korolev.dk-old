@@ -6,15 +6,10 @@
         "_id": { "type": "string" },
         "_created": { "type": "string", "format": "date-time" },
         "_updated": { "type": "string", "format": "date-time" },
-        "count": { "type": "integer" },
-        "description": { "type": "string" },
-        "slug": { "type": "string" },
-        "taxonomy": { "enum": [ "categories", "tags" ], "type": "string" },
-        "title": { "type": "string" }
+        "content": { "type": "string" }
     },
     "required": [
-        "taxonomy",
-        "title"
+        "content"
     ],
     "type": "object"
 }
