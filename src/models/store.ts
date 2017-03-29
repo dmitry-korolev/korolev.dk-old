@@ -13,8 +13,9 @@ export interface IStore {
 }
 
 interface IRouteParams {
-    postId?: number;
-    tagName?: string;
+    tagId?: string;
+    postId?: string;
+    pageId?: string;
     pageNumber?: number;
 }
 
