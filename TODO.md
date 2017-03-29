@@ -2,8 +2,9 @@
 - Content:
     - ~~Schema~~
     - ~~Validate schema in db services~~
+    - ~~Think of url schema~~
+    - Use entities slugs as ids
     - Add mocks
-    - Think of url schema
     - Add pagination
     - Add markdown support
 - Authentication
