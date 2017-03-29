@@ -9,9 +9,9 @@ import rootReducer from './reducers';
 
 const appConfig = require('../../config/main');
 
-export function configureStore(history: History, initialState?: IStore): Store<IStore> {
+export function configureStore(history: any, initialState?: IStore): Store<IStore> {
     const middlewares: Middleware[] = [
-        routerMiddleware(history as any),
+        routerMiddleware(history),
         thunk
     ];
 

@@ -24,9 +24,11 @@ interface IPostProps {
 
 type CombinedProps = IProps & IPostProps;
 
-const renderArticle = (html: string): JSX.Element => <div
-    dangerouslySetInnerHTML={ { __html: html } }
-/>;
+const renderArticle = (html: string): JSX.Element => (
+    <div
+        dangerouslySetInnerHTML={ { __html: html } }
+    />
+);
 const getPart = curry((mode: string, html: string): string => {
     if (mode === 'full') {
         return html;
@@ -56,21 +58,23 @@ export class Post extends React.PureComponent<CombinedProps, any> {
             isSingle
         } = this.props;
 
-        return <article
-            id={ `post-${_id}` }
-        >
-            <Header
-                titleText={ title }
-                titleLink={ slug }
-                titleTag={ isSingle ? 'h1' : 'h2' }
-            />
+        return (
+            <article
+                id={ `post-${_id}` }
+            >
+                <Header
+                    titleText={ title }
+                    titleLink={ slug }
+                    titleTag={ isSingle ? 'h1' : 'h2' }
+                />
 
-            {
-                pipe(
-                    getPart(isSingle ? 'full' : 'excerpt'),
-                    renderArticle
-                )(content)
-            }
-        </article>;
+                {
+                    pipe(
+                        getPart(isSingle ? 'full' : 'excerpt'),
+                        renderArticle
+                    )(content)
+                }
+            </article>
+        );
     }
 }

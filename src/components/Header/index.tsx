@@ -27,27 +27,31 @@ const Header: React.StatelessComponent<IProps> = (props: IProps): JSX.Element =>
         mod = 'post'
     } = props;
 
-    return <div
-        className={ s.header }
-    >
-        <Title
-            tag={ titleTag }
-            className={ cn({
-                [s.header__title]: true,
-                [getTitleClass(mod)]: true
-            }) }
+    return (
+        <div
+            className={ s.header }
         >
-            <Link to={ titleLink } unstyled>
-                { titleText }
-            </Link>
-        </Title>
-        { subtitle && <Title
-            tag='h3'
-            className={ s.header__subtitle }
-        >
-            { subtitle }
-        </Title> }
-    </div>;
+            <Title
+                tag={ titleTag }
+                className={ cn({
+                    [s.header__title]: true,
+                    [getTitleClass(mod)]: true
+                }) }
+            >
+                <Link to={ titleLink } unstyled={ true }>
+                    { titleText }
+                </Link>
+            </Title>
+            { subtitle && (
+                <Title
+                    tag='h3'
+                    className={ s.header__subtitle }
+                >
+                    { subtitle }
+                </Title>
+            ) }
+        </div>
+    );
 };
 
 Header.displayName = 'Header';

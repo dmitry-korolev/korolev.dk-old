@@ -19,6 +19,12 @@
     - Posts styling
 - Other
     - ~~Add caching to common NeDB querying~~
+    - (!) Change react-css-modules to babel-plugin-react-css-modules
     - Rearrange application setup in server.ts, 'cause mother of god, it's so shitty right 
     - (?) Try to switch ts compiler to native modules (to enable some useful babel plugins)
     - (?) Move shouldRunAction from globalActions.ts to a middleware
+- Update
+    - react-router
+    - react-helmet
+    - redux-logger
+    - (?) tslint

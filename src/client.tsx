@@ -17,7 +17,7 @@ const store = configureStore(
     browserHistory as any,
     window['__INITIAL_STATE__'] // tslint:disable-line no-string-literal
 );
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(browserHistory as any, store);
 const connectedCmp = (props: any): any => <ReduxAsyncConnect { ...props } />;
 
 if (process.env.NODE_ENV !== 'production') {
@@ -42,13 +42,15 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 ReactDOM.render(
-    <Provider store={ store } key='provider'>
-        <Router
-            history={ history }
-            render={ connectedCmp }
-        >
-            { routes }
-        </Router>
-    </Provider>,
+    (
+        <Provider store={ store } key='provider'>
+            <Router
+                history={ history as any }
+                render={ connectedCmp }
+            >
+                { routes }
+            </Router>
+        </Provider>
+    ),
     document.getElementById('app')
 );

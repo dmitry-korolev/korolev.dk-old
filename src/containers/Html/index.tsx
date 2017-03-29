@@ -6,7 +6,7 @@ import { Store } from 'redux';
 import { IStore } from 'models/store';
 
 interface IHtmlProps {
-    manifest?: Object;
+    manifest?: object;
     markup?: string;
     store?: Store<IStore>;
 }
@@ -33,14 +33,16 @@ class Html extends React.Component<IHtmlProps, {}> {
             <script src={ src } key={ i } />
         );
 
-        const initialState = <script
-            dangerouslySetInnerHTML={
-                {
-                    __html: `window.__INITIAL_STATE__=${JSON.stringify(store.getState())};`
+        const initialState = (
+            <script
+                dangerouslySetInnerHTML={
+                    {
+                        __html: `window.__INITIAL_STATE__=${JSON.stringify(store.getState())};`
+                    }
                 }
-            }
-            charSet='UTF-8'
-        />;
+                charSet='UTF-8'
+            />
+        );
 
         return (
             <html>

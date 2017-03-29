@@ -91,21 +91,23 @@ const Flex: React.StatelessComponent<IFlexContainerProps> = ({
 }: IFlexContainerProps = {}): JSX.Element => {
     const Container = is || 'div';
 
-    return <Container
-        className={ cn({
-            [s.flex]: true,
-            [className]: !!className
-        }) }
-        style={ {
-        ...getDirection(props),
-        ...getWrap(props),
-        ...getJustify(props),
-        ...getAlignItems(props),
-        ...getAlignContent(props)
-    } }
-    >
-        { props.children }
-    </Container>;
+    return (
+        <Container
+            className={ cn({
+                [s.flex]: true,
+                [className]: !!className
+            }) }
+            style={ {
+                ...getDirection(props),
+                ...getWrap(props),
+                ...getJustify(props),
+                ...getAlignItems(props),
+                ...getAlignContent(props)
+            } }
+        >
+            { props.children }
+        </Container>
+    );
 };
 
 Flex.displayName = 'Flex';

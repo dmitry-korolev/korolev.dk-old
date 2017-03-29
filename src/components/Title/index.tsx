@@ -11,11 +11,13 @@ const Title: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => 
         ...htmlProps
     } = props;
 
-    return <Component
-        { ...htmlProps }
-    >
-        { children }
-    </Component>;
+    return (
+        <Component
+            { ...htmlProps }
+        >
+            { children }
+        </Component>
+    );
 };
 
 Title.displayName = 'Title';

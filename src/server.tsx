@@ -70,7 +70,7 @@ app.get('*', (req: any, res: any) => {
     const location = req.url;
     const memoryHistory = createMemoryHistory(req.originalUrl);
     const store = configureStore(memoryHistory as any);
-    const history = syncHistoryWithStore(memoryHistory, store);
+    const history: any = syncHistoryWithStore(memoryHistory as any, store);
 
     match({ history, routes, location },
         (error: Error, redirectLocation: any, renderProps: any) => {
@@ -82,11 +82,11 @@ app.get('*', (req: any, res: any) => {
                 const asyncRenderData = Object.assign({}, renderProps, { store });
 
                 loadOnServer(asyncRenderData).then(() => {
-                    const markup = ReactDOMServer.renderToString(
+                    const markup = ReactDOMServer.renderToString((
                         <Provider store={ store } key='provider'>
                             <ReduxAsyncConnect { ...renderProps } />
                         </Provider>
-                    );
+                    ));
                     res.status(200).send(renderHTML(markup, store));
                 });
             } else {

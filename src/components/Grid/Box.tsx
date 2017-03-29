@@ -22,9 +22,9 @@ interface IFlex {
 }
 
 interface IFlexAlign {
-    WebkitAlignSelf?: string;
-    msFlexItemAlign?: string;
-    alignSelf?: string;
+    WebkitAlignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
+    msFlexItemAlign?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
+    alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
 }
 
 const getOrder = ({ o }: IFlexItemProps): IFlexOrder => o ? {
@@ -53,19 +53,21 @@ const getSelfAlign = ({ a = 'auto' }: IFlexItemProps): IFlexAlign => a !== 'auto
 const Box: React.StatelessComponent<IFlexItemProps> = ({
     className = '',
     ...props
-}: IFlexItemProps = {}): JSX.Element => <div
-    style={ {
-        ...getOrder(props),
-        ...getFlex(props),
-        ...getSelfAlign(props)
-    } }
-    className={ cn({
-        [s.box]: true,
-        [className]: !!className
-    }) }
->
-    { props.children }
-</div>;
+}: IFlexItemProps = {}): JSX.Element => (
+    <div
+        style={ {
+            ...getOrder(props),
+            ...getFlex(props),
+            ...getSelfAlign(props)
+        } }
+        className={ cn({
+            [s.box]: true,
+            [className]: !!className
+        }) }
+    >
+        { props.children }
+    </div>
+);
 
 Box.displayName = 'Box';
 

@@ -20,16 +20,18 @@ const Link: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => {
 
     const Component = isHome ? IndexLink : RouterLink;
 
-    return <Component
-        activeClassName={ s.link_active }
-        className={ cn({
-            [s.link]: true,
-            [s.link_unstyled]: unstyled
-        }) }
-        { ...linkProps }
-    >
-        { children }
-    </Component>;
+    return (
+        <Component
+            activeClassName={ s.link_active }
+            className={ cn({
+                [s.link]: true,
+                [s.link_unstyled]: unstyled
+            }) }
+            { ...linkProps }
+        >
+            { children }
+        </Component>
+    );
 };
 
 Link.displayName = 'Link';
