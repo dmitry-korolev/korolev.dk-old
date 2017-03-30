@@ -3,7 +3,7 @@
     - ~~Schema~~
     - ~~Validate schema in db services~~
     - ~~Think of url schema~~
-    - Use entities slugs as ids
+    - ~~Use entities slugs as ids~~
     - Add mocks
     - Add pagination
     - Add markdown support

@@ -11,13 +11,12 @@ const T = require('ramda/src/T');
 
 // Models
 import { ValidateFunction } from 'ajv/lib/ajv';
-import { IJSONData } from 'models/api';
 import IDebugger = debug.IDebugger;
 
 type IMapCache<T> = Map<string, T>;
-interface ICachedQueries {
-    find: IMapCache<IJSONData[]>;
-    get: IMapCache<IJSONData>;
+interface ICachedQueries<IType> {
+    find: IMapCache<IType[]>;
+    get: IMapCache<IType>;
 }
 
 interface ICreateServiceOptions {
@@ -31,8 +30,9 @@ interface ICreateServiceOptions {
 }
 
 const sortL = lens(path(['query', '$sort']), assocPath(['query', '$sort']));
+const methods = ['find', 'get'];
 
-export class BaseService extends Service {
+export class BaseService<IType> extends Service {
     private logInfo: IDebugger;
     private logError: IDebugger;
     private serviceName: string;
@@ -40,7 +40,7 @@ export class BaseService extends Service {
     private cacheable: boolean;
     private optionsService: any;
     private validator: ValidateFunction;
-    private cachedQueries: ICachedQueries;
+    private cachedQueries: ICachedQueries<IType>;
 
     constructor({
         serviceName,
@@ -64,21 +64,15 @@ export class BaseService extends Service {
 
         this.logInfo = debug(`k:db:${serviceName}:info`);
         this.logError = debug(`k:db:${serviceName}:error`);
-
-        this.clearCache = this.clearCache.bind(this);
     }
 
-    private clearCache(data?: any): any {
-        const methods = ['find', 'get'];
-
+    private clearCache(): void {
         methods.forEach((method: string): void => {
             this.cachedQueries[method].clear();
         });
-
-        return data;
     }
 
-    public async find(params?: any): Promise<IJSONData[]> {
+    public async find(params?: any): Promise<IType[]> {
         if (this.incremental && !view(sortL, params)) {
             params = set(sortL, {
                 created: -1
@@ -103,7 +97,7 @@ export class BaseService extends Service {
         return result;
     }
 
-    public async get(_id: string, params?: any): Promise<IJSONData> {
+    public async get(_id: string, params?: any): Promise<IType> {
         const key = JSON.stringify([_id, params]);
 
         if (this.cacheable && this.cachedQueries.get.has(key)) {
@@ -122,7 +116,7 @@ export class BaseService extends Service {
         return result;
     }
 
-    public async create(data: any, params: any): Promise<IJSONData> {
+    public async create(data: any, params: any): Promise<IType> {
         const valid = this.validator(data);
 
         if (!valid) {
@@ -133,17 +127,14 @@ export class BaseService extends Service {
         this.logInfo('POST', data, params);
 
         const result = await super.create(data, params);
-        await this.clearCache();
+        this.clearCache();
 
         return result;
     }
 
-    public async update(_id: string, data: any, params: any): Promise<IJSONData> {
+    public async update(_id: string, data: any, params: any): Promise<IType> {
         const entity = await this.get(_id, params);
-        const valid = this.validator({
-            ...entity,
-            ...data
-        });
+        const valid = this.validator(Object.assign({}, entity, data));
 
         if (!valid) {
             throw new Unprocessable('Check data!', this.validator.errors);
@@ -153,17 +144,14 @@ export class BaseService extends Service {
         this.logInfo('PUT', _id, data, params);
 
         const result = await super.update(_id, data, params);
-        await this.clearCache();
+        this.clearCache();
 
         return result;
     }
 
-    public async patch(_id: string, data: any, params: any): Promise<IJSONData> {
+    public async patch(_id: string, data: any, params: any): Promise<IType> {
         const entity = await this.get(_id, params);
-        const valid = this.validator({
-            ...entity,
-            ...data
-        });
+        const valid = this.validator(Object.assign({}, entity, data));
 
         if (!valid) {
             throw new Unprocessable('Check data!', this.validator.errors);
@@ -172,16 +160,16 @@ export class BaseService extends Service {
         this.logInfo('PATCH', _id, data, params);
 
         const result = await super.patch(_id, data, params);
-        await this.clearCache();
+        this.clearCache();
 
         return result;
     }
 
-    public async remove(_id: number, params: any): Promise<IJSONData> {
+    public async remove(_id: number, params: any): Promise<IType> {
         this.logInfo('DELETE', _id, params);
 
         const result = await super.remove(_id, params);
-        await this.clearCache();
+        this.clearCache();
 
         return result;
     }

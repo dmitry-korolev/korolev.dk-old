@@ -6,7 +6,8 @@ import { combineHooks } from 'utils';
 import { validateOption } from 'utils/server';
 
 // Models
-import { IHooks, IJSONData } from 'models/api';
+import { IHooks } from 'models/api';
+import { IOption } from 'models/option';
 
 const optionsServiceName = 'options';
 
@@ -15,12 +16,12 @@ const optionsDb = new NeDB({
     autoload: true
 });
 
-class OptionsService extends BaseService {
+class OptionsService extends BaseService<IOption> {
     public before: IHooks = combineHooks(
         restrictToAdmin()
     );
 
-    public find(params: any): Promise<IJSONData[]> {
+    public find(params: any): Promise<IOption[]> {
         // Remove internal options from response
         params.query.internal = {
             $ne: true

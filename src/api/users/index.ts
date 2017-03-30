@@ -7,6 +7,7 @@ import { validateUser } from 'utils/server';
 
 // Models
 import { IHooks } from 'models/api';
+import { IUser } from 'models/user';
 
 const usersServiceName = 'users';
 
@@ -15,7 +16,7 @@ const db = new NeDB({
     autoload: true
 });
 
-class UsersService extends BaseService {
+class UsersService extends BaseService<IUser> {
     public before: IHooks = combineHooks(
         restrictToAdmin()
     );

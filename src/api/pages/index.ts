@@ -1,12 +1,11 @@
 import * as NeDB from 'nedb';
-import { slugify } from 'transliteration';
 
 import { BaseService } from 'api/base';
-import { associateUser, restrictToAdmin } from 'api/hooks';
+import { associateUser, createSlug, restrictToAdmin } from 'api/hooks';
 import { combineHooks } from 'utils';
 import { validatePage } from 'utils/server';
 
-import { IHooks, IJSONData } from 'models/api';
+import { IHooks } from 'models/api';
 import { IPage } from 'models/content';
 
 const pagesServiceName = 'pages';
@@ -15,17 +14,16 @@ const db = new NeDB({
     autoload: true
 });
 
-class PagesService extends BaseService {
+class PagesService extends BaseService<IPage> {
     public before: IHooks = combineHooks(
+        {
+            create: [createSlug]
+        },
         restrictToAdmin(),
         associateUser()
     );
 
-    public create(data: IPage, params: any): Promise<IJSONData> {
-        if (!data.slug) {
-            data.slug = data.title ? slugify(data.title) : slugify(data.content.slice(0, 30));
-        }
-
+    public create(data: IPage, params: any): Promise<IPage> {
         if (!data.status) {
             data.status = 'publish';
         }

@@ -52,8 +52,7 @@ export class Post extends React.PureComponent<CombinedProps, any> {
             item: {
                 _id,
                 content,
-                title,
-                slug
+                title
             },
             isSingle
         } = this.props;
@@ -64,7 +63,7 @@ export class Post extends React.PureComponent<CombinedProps, any> {
             >
                 <Header
                     titleText={ title }
-                    titleLink={ slug }
+                    titleLink={ _id }
                     titleTag={ isSingle ? 'h1' : 'h2' }
                 />
 

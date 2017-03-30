@@ -8,7 +8,6 @@ export interface IPost {
     content: string;
     excerpt?: string;
     format: 'standard';
-    slug: string;
     status: 'draft' | 'publish';
     sticky: boolean;
     subtitle?: string;
@@ -31,7 +30,6 @@ export interface IPage {
     _updated?: string;
     author: string;
     content: string;
-    slug: string;
     status: 'draft' | 'publish';
     title?: string;
 }
@@ -50,7 +48,6 @@ export interface ITag {
     _updated?: string;
     author: string;
     description?: string;
-    slug: string;
     taxonomy: 'categories' | 'tags';
     title: string;
 }

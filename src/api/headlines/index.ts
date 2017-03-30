@@ -7,6 +7,7 @@ import { validateHeadline } from 'utils/server';
 
 // Models
 import { IHooks } from 'models/api';
+import { IHeadline } from 'models/headlines';
 
 const headlinesServiceName = 'headlines';
 
@@ -15,7 +16,7 @@ const db = new NeDB({
     autoload: true
 });
 
-class HeadlinesService extends BaseService {
+class HeadlinesService extends BaseService<IHeadline> {
     public before: IHooks = combineHooks(
         restrictToAdmin()
     );

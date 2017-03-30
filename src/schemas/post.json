@@ -17,7 +17,6 @@
         "content": { "type": "string" },
         "excerpt": { "type": "string" },
         "format": { "enum": [ "quote", "standard" ], "type": "string" },
-        "slug": { "type": "string" },
         "status": { "enum": [ "draft", "publish"], "type": "string" },
         "sticky": { "type": "boolean" },
         "subtitle": { "type": "string" },

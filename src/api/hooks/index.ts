@@ -1,2 +1,3 @@
-export { associateUser } from 'api/hooks/associateUser';
-export { restrictToAdmin } from 'api/hooks/restrictToAdmin';
+export { associateUser } from './associateUser';
+export { restrictToAdmin } from './restrictToAdmin';
+export { createSlug } from './createSlug';
