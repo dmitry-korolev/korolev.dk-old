@@ -24,6 +24,10 @@ class PostsService extends BaseService<IPost> {
     );
 
     public create(data: IPost, params: any): Promise<IPost> {
+        if (!data.excerpt) {
+            data.excerpt = (data.content.length > 300 ? data.content.slice(0, 300) + '...' : data.content);
+        }
+
         if (!data.format) {
             data.format = 'standard';
         }
@@ -34,10 +38,6 @@ class PostsService extends BaseService<IPost> {
 
         if (!data.tags) {
             data.tags = [];
-        }
-
-        if (!data.type) {
-            data.type = 'post';
         }
 
         return super.create(data, params);

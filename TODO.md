@@ -5,6 +5,9 @@
     - ~~Think of url schema~~
     - ~~Use entities slugs as ids~~
     - Add mocks
+        - ~~Tags~~
+        - ~~Posts~~
+        - Pages
     - Add pagination
     - Add markdown support
 - Authentication

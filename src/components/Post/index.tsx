@@ -18,7 +18,7 @@ interface IProps extends React.HTMLProps<HTMLElement> {
 }
 
 interface IPostProps {
-    item?: IPost;
+    post?: IPost;
     tags?: ITag[];
 }
 
@@ -44,12 +44,12 @@ const mapStateToProps =
 @connect<{}, {}, IProps>(mapStateToProps)
 export class Post extends React.PureComponent<CombinedProps, any> {
     public render(): JSX.Element | null {
-        if (!this.props.item) {
+        if (!this.props.post) {
             return null;
         }
 
         const {
-            item: {
+            post: {
                 _id,
                 content,
                 title
