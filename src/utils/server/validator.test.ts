@@ -24,8 +24,7 @@ describe('Validators', () => {
 
         expect(validatePost({
             content: 'officia',
-            status: 'draft',
-            type: 'page'
+            status: 'draft'
         })).to.equal(true);
 
         expect(validatePost({
