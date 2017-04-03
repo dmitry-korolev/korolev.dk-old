@@ -3,7 +3,6 @@
     --baseLineHeight: 1.5; /* 24 */
     --leading: calc(var(--baseLineHeight) * 1rem);
     --scale: 1.414;
-
     --gutter: 8px;
     --baseColumnWidth: 66.666px;
     --columnWidth: calc(var(--baseColumnWidth) + var(--gutter) * 2);

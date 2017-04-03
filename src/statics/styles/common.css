@@ -1,3 +1,4 @@
+/* stylelint-disable selector-no-type, selector-no-combinator */
 @import './variables.css';
 
 * {
@@ -16,7 +17,8 @@ p {
     margin-bottom: 0;
 }
 
-ul, ol {
+ul,
+ol {
     margin-top: var(--leading);
     margin-bottom: var(--leading);
 
@@ -24,7 +26,8 @@ ul, ol {
         line-height: var(--leading);
     }
 
-    & ul, & ol {
+    & ul,
+    & ol {
         margin-top: 0;
         margin-bottom: 0;
     }
@@ -36,10 +39,15 @@ blockquote {
     margin-bottom: var(--leading);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     clear: both;
-    font-family: "Comfortaa", Georgia, serif;
-    font-weight: bold;
+    font-family: Comfortaa, Georgia, serif;
+    font-weight: 700;
     margin-top: var(--leading);
     margin-bottom: 0;
     line-height: 1;
@@ -58,9 +66,10 @@ table {
     border-spacing: 0;
     border-collapse: collapse;
 
-    td, th {
+    td,
+    th {
         padding: 0;
-        line-height: calc(var(--baseLineHeight) * var(--baseFontSize) - 0px);
+        line-height: calc(var(--baseLineHeight) * var(--baseFontSize) * 1px);
     }
 }
 
