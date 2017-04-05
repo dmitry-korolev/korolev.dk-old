@@ -1,11 +1,10 @@
 import * as Ajv from 'ajv';
-
-const headline = require('schemas/headline.json');
-const option = require('schemas/option.json');
-const page = require('schemas/page.json');
-const post = require('schemas/post.json');
-const tag = require('schemas/tag.json');
-const user = require('schemas/user.json');
+import * as headline from 'schemas/headline.json';
+import * as option from 'schemas/option.json';
+import * as page from 'schemas/page.json';
+import * as post from 'schemas/post.json';
+import * as tag from 'schemas/tag.json';
+import * as user from 'schemas/user.json';
 
 const ajv = new Ajv();
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
-const s = require('./style.css');
+
+import * as s from './style.css';
 
 class About extends React.Component<any, any> {
     public render(): JSX.Element {

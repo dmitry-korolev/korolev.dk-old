@@ -8,9 +8,10 @@ import { getPostFromState, makeExcerpt } from 'utils';
 import { IPost, ITag } from 'models/content';
 import { IStore } from 'models/store';
 
+// import * as s from './style.css';
+
 const pipe = require('ramda/src/pipe');
 
-// const s = require('./style.css');
 interface IProps extends React.HTMLProps<HTMLElement> {
     itemId: number;
     isSingle?: boolean;
@@ -30,7 +31,7 @@ const insertHtml = (html: string): JSX.Element => (
 );
 
 const getContent = (content: string, excerpt: string, isSingle: boolean): string => {
-    if (!isSingle) {
+    if (isSingle) {
         return content;
     }
 

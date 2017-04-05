@@ -1,7 +1,7 @@
 import { Box, Flex, Header, Link } from 'components';
 import * as React from 'react';
 
-const s = require('./style.css');
+import * as s from './style.css';
 
 interface IProps {
     headline: string;

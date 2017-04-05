@@ -13,7 +13,7 @@ import { IAsyncConnectArguments, IStore } from 'models/store';
 import { Dispatch } from 'redux';
 
 // Styles
-const s = require('./style.css');
+import * as s from './style.css';
 
 const path = require('ramda/src/path');
 

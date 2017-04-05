@@ -1,7 +1,7 @@
 import * as cn from 'classnames';
 import * as React from 'react';
 
-const s = require('./style.css');
+import * as s from './style.css';
 
 interface IFlexItemProps extends React.HTMLProps<HTMLElement> {
     o?: number; // Order

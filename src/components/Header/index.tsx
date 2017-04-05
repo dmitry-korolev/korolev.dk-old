@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { Link, Title } from 'components';
 
-const s = require('./style.css');
+import * as s from './style.css';
 
 interface IProps extends React.HTMLProps<HTMLElement> {
     titleText: string;

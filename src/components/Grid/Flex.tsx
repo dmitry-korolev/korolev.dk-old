@@ -1,7 +1,7 @@
 import * as cn from 'classnames';
 import * as React from 'react';
 
-const s = require('./style.css');
+import * as s from './style.css';
 
 interface IFlexContainerProps extends React.HTMLProps<HTMLElement> {
     is?: string; // Container
