@@ -6,8 +6,7 @@ import { getPosts } from 'state/posts';
 
 // Components
 import { PostList } from 'components';
-import { IStore } from 'models/store';
-import { Dispatch } from 'redux';
+import { IAsyncConnectArguments, IStore } from 'models/store';
 
 interface IProps {
     posts: number[];
@@ -15,8 +14,10 @@ interface IProps {
 
 @asyncConnect(
     [{
-        promise: ({ store: { dispatch } }: { store: { dispatch: Dispatch<any> } }): Promise<void> =>
-            dispatch(getPosts())
+        promise: ({ store: { dispatch }, params: { pageNumber } }: IAsyncConnectArguments): Promise<void> =>
+            dispatch(getPosts({
+                page: pageNumber || 1
+            }))
     }],
     ({
         posts

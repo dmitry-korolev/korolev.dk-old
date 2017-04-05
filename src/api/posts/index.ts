@@ -3,7 +3,7 @@ import * as NeDB from 'nedb';
 import { BaseService } from 'api/base';
 import { associateUser, createSlug, restrictToAdmin } from 'api/hooks';
 import { combineHooks } from 'utils';
-import { validatePost } from 'utils/server';
+import { calcPage, validatePost } from 'utils/server';
 
 import { IHooks } from 'models/api';
 import { IPost } from 'models/content';
@@ -17,7 +17,26 @@ const db = new NeDB({
 class PostsService extends BaseService<IPost> {
     public before: IHooks = combineHooks(
         {
-            create: [createSlug]
+            create: [createSlug],
+            find: [
+                (hook: any): void => {
+                    console.log(hook.params);
+
+                    if (!hook.params.query || !hook.params.query.page) {
+                        return;
+                    }
+
+                    const page = hook.params.query.page;
+                    delete hook.params.query.page;
+
+                    hook.params.query = {
+                        ...hook.params.query,
+                        ...calcPage(10, page)
+                    };
+
+                    console.log(hook.params.query);
+                }
+            ]
         },
         restrictToAdmin(),
         associateUser()
@@ -47,6 +66,9 @@ class PostsService extends BaseService<IPost> {
 const postsService = (): any => new PostsService({
     serviceName: postsServiceName,
     validator: validatePost,
+    paginate: {
+        default: 10
+    },
     Model: db
 });
 

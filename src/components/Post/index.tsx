@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 // import { postUrlTemplate } from 'utils';
 import { getPostFromState } from 'utils';
 
-const curry = require('ramda/src/curry');
-const pipe = require('ramda/src/pipe');
-
 // Types
 import { IPost, ITag } from 'models/content';
 import { IStore } from 'models/store';
@@ -29,13 +26,6 @@ const renderArticle = (html: string): JSX.Element => (
         dangerouslySetInnerHTML={ { __html: html } }
     />
 );
-const getPart = curry((mode: string, html: string): string => {
-    if (mode === 'full') {
-        return html;
-    }
-
-    return (html || '').split('<p><!--more--></p>')[0];
-});
 
 const mapStateToProps =
     (state: IStore, { itemId }: IProps): IPostProps =>
@@ -52,6 +42,7 @@ export class Post extends React.PureComponent<CombinedProps, any> {
             post: {
                 _id,
                 content,
+                excerpt,
                 title
             },
             isSingle
@@ -67,12 +58,7 @@ export class Post extends React.PureComponent<CombinedProps, any> {
                     titleTag={ isSingle ? 'h1' : 'h2' }
                 />
 
-                {
-                    pipe(
-                        getPart(isSingle ? 'full' : 'excerpt'),
-                        renderArticle
-                    )(content)
-                }
+                { renderArticle(isSingle ? content : excerpt ) }
             </article>
         );
     }

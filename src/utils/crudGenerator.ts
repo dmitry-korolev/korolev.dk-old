@@ -38,8 +38,15 @@ interface ICrudActionTypes {
 }
 
 interface IQuery {
-    query: any;
+    page?: number;
 }
+
+// interface IPaginated<IItem> {
+//     total: number;
+//     limit: number;
+//     skip: number;
+//     data: IItem[];
+// }
 
 const fetchTypes = ['FETCH_START', 'FETCH_SUCCESS', 'FETCH_ERROR'];
 const updateTypes = ['UPDATE_START', 'UPDATE_SUCCESS', 'UPDATE_ERROR'];
@@ -136,16 +143,19 @@ export class CRUD<IState, IItem> {
                 error: false
             }),
             [types.fetchSuccess]: (): IState => {
+                const paginated = !!action.payload.data;
+
                 const newItemsById = {
                     ...state[collectionById],
-                    ...indexBy(prop('_id'), action.payload)
+                    ...indexBy(prop('_id'), paginated ? action.payload.data : action.payload)
                 };
 
                 return Object.assign({}, state, {
                     isFetching: false,
                     error: false,
                     [collection]: makeNewArray(newItemsById),
-                    [collectionById]: newItemsById
+                    [collectionById]: newItemsById,
+                    total: paginated ? action.payload.total : action.payload.length
                 });
             },
             [types.fetchError]: (): IState => Object.assign({}, state, {
@@ -165,11 +175,12 @@ export class CRUD<IState, IItem> {
     public find: IAsyncActionCreator<IQuery> = (query?: IQuery): IAsyncAction => {
         return async (dispatch: Dispatch<IStore>): Promise<void> => {
             const service = app.service(`api/${this.serviceName}`);
+            // const state: IStore = getState();
 
             dispatch(this.actions.fetchStart());
 
             try {
-                const result: IItem[] = await service.find(query);
+                const result: IItem[] = await service.find({ query });
                 await dispatch(this.actions.fetchSuccess(result));
             } catch (error) {
                 this.logError(error);
@@ -181,7 +192,7 @@ export class CRUD<IState, IItem> {
     public get: IAsyncActionCreator<number | string> = (_id: number | string): IAsyncAction => {
         return async (dispatch: Dispatch<IStore>, getState: IGetState): Promise<void> => {
             const service = app.service(`api/${this.serviceName}`);
-            const state = getState();
+            const state: IStore = getState();
 
             if (state.posts.postsById[_id]) {
                 return;

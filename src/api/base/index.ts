@@ -11,6 +11,7 @@ const T = require('ramda/src/T');
 
 // Models
 import { ValidateFunction } from 'ajv/lib/ajv';
+import { IPaginate } from 'models/paginate';
 import IDebugger = debug.IDebugger;
 
 type IMapCache<T> = Map<string, T>;
@@ -26,7 +27,7 @@ interface ICreateServiceOptions {
     validator?: ValidateFunction;
 
     Model: any;
-    pagination?: any;
+    paginate?: IPaginate;
 }
 
 const sortL = lens(path(['query', '$sort']), assocPath(['query', '$sort']));
@@ -47,10 +48,10 @@ export class BaseService<IType> extends Service {
         incremental = false,
         cacheable = true,
         validator = T,
-        pagination,
+        paginate,
         Model
     }: ICreateServiceOptions) {
-        super({ Model, pagination });
+        super({ Model, paginate });
 
         this.serviceName = serviceName;
         this.incremental = incremental;

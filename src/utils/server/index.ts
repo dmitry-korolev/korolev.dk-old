@@ -6,3 +6,4 @@ export {
     validateTag,
     validateUser
 } from 'utils/server/validator';
+export { calcPage } from './calcPage';
