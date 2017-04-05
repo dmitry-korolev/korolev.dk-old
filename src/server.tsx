@@ -33,6 +33,9 @@ const favicon = require('serve-favicon');
 const logInfo = debug('k:server:info');
 const logError = debug('k:server:error');
 
+console.log = debug('k:server:console:info');
+console.error = debug('k:server:console:error');
+
 app.configure(rest());
 app.configure(hooks());
 app.use(bodyParser.json());
