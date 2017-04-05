@@ -11,7 +11,7 @@ const apiEndpoint = (serviceName: string): string => `/api/${serviceName}`;
 
 export const setupApplication = (app: any): void => {
     app.configure(authentication({
-        userEndpoint: `/api/${usersServiceName}`
+        userEndpoint: apiEndpoint(usersServiceName)
     }));
 
     app.use(apiEndpoint(usersServiceName), usersService());
