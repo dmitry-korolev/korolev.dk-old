@@ -6,7 +6,7 @@ import { getPost } from 'state/posts';
 
 // Components
 import { Post } from 'components';
-import { IAsyncConnectArguments, IAsyncConnectOwnProps, IStore } from 'models/store';
+import { IConnectArguments, IAsyncConnectOwnProps, IStore } from 'models/store';
 
 interface IProps {
     postId: number;
@@ -14,7 +14,7 @@ interface IProps {
 
 @asyncConnect(
     [{
-        promise: ({ store: { dispatch }, params: { postId } }: IAsyncConnectArguments): Promise<void> =>
+        promise: ({ store: { dispatch }, params: { postId } }: IConnectArguments): Promise<void> =>
             dispatch(getPost(postId))
     }],
     (_: IStore, { params }: IAsyncConnectOwnProps) => ({

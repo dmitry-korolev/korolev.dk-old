@@ -22,7 +22,7 @@ const runGlobalActions =
         for (const step of actions) {
             const actionsToDo = step.filter(shouldRunAction);
 
-            await Promise.all(actionsToDo.map((action: IActionCreator<any>) => {
+            await Promise.all(actionsToDo.map((action: IActionCreator<void>) => {
                 logInfo(`Processing:`, action.actionName || action.name);
                 doneActions.add(action);
                 return dispatch(action());

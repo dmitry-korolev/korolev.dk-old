@@ -1,11 +1,11 @@
 import * as React from 'react';
-
-import * as s from './style.css';
+//
+// import * as s from './style.css';
 
 class About extends React.Component<any, any> {
     public render(): JSX.Element {
         return (
-            <div className={ s.about }>
+            <div>
                 <h4>About</h4>
             </div>
         );

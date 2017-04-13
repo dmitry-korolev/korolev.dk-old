@@ -1,4 +1,5 @@
-import { IPost, IPosts, ITag } from 'models/content';
+import { IPost, IPosts } from 'models/posts';
+import { ITag } from 'models/tags';
 import { IStore } from 'models/store';
 
 const find = require('ramda/src/find');
@@ -8,7 +9,7 @@ const prop = require('ramda/src/prop');
 const propEq = require('ramda/src/propEq');
 const map = require('ramda/src/map');
 
-const postOrEmpty = (postId: number, posts: IPosts): IPost => pathOr({ tags: [] }, ['postsById', postId], posts);
+const postOrEmpty = (postId: number, posts: IPosts): IPost => pathOr({ tags: [] }, ['itemsById', postId], posts);
 
 export const getTagBySlug =
     (slug: string, tags: ITag[]): ITag =>
@@ -22,6 +23,6 @@ export const getPostFromState = ({ posts, tags }: IStore, postId: number): {
 
     return {
         post,
-        tags: map((_id: number) => path(['tagsById', _id], tags), prop('tags', post))
+        tags: map((_id: number) => path(['itemsById', _id], tags), prop('tags', post))
     };
 };

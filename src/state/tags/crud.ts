@@ -1,9 +1,9 @@
-import { CRUD } from 'utils';
+import { crud } from 'utils';
 
 // Models
-import { ITag, ITags } from 'models/content';
+import { ITag } from 'models/tags';
 
-const tagsService = new CRUD<ITags, ITag>({
+const tagsService = crud<ITag>({
     serviceName: 'tags'
 });
 

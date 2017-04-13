@@ -1,7 +1,7 @@
 import { UserRoles } from 'utils/user';
 
 // Models
-import { ICommonReducer } from 'models/flux';
+import { ICommonFetch } from 'models/flux';
 
 export interface IUserData {
     _created?: string;
@@ -13,7 +13,7 @@ export interface IUserData {
     username?: string;
 }
 
-export interface IUser extends ICommonReducer {
+export interface IUser extends ICommonFetch {
     isLoggedIn: boolean;
     userData: IUserData;
 }

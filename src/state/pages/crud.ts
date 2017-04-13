@@ -1,9 +1,9 @@
-import { CRUD } from 'utils';
+import { crud } from 'utils';
 
 // Models
-import { IPage, IPages } from 'models/content';
+import { IPage } from 'models/pages';
 
-const pagesService = new CRUD<IPages, IPage>({
+const pagesService = crud<IPage>({
     serviceName: 'pages'
 });
 

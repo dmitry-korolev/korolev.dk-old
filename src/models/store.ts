@@ -1,11 +1,16 @@
 import { IApplication } from 'models/appication';
-import { IPosts, ITags } from 'models/content';
 import { IHeadlines } from 'models/headlines';
+import { IPages } from 'models/pages';
+import { IPaginationReducerState } from 'models/pagination';
+import { IPosts } from 'models/posts';
+import { ITags } from 'models/tags';
 import { IUser } from 'models/user';
 import { Store } from 'redux';
 
 export interface IStore {
     headlines: IHeadlines;
+    pages: IPages;
+    pagination: IPaginationReducerState;
     posts: IPosts;
     tags: ITags;
     application: IApplication;
@@ -19,9 +24,9 @@ interface IRouteParams {
     pageNumber?: number;
 }
 
-export interface IAsyncConnectArguments {
+export interface IConnectArguments {
     store: Store<IStore>;
-    params?: IRouteParams;
+    params: IRouteParams;
 }
 
 export interface IAsyncConnectOwnProps {

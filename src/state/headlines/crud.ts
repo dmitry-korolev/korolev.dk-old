@@ -1,9 +1,9 @@
-import { CRUD } from 'utils';
+import { crud } from 'utils';
 
 // Models
-import { IHeadline, IHeadlines } from 'models/headlines';
+import { IHeadline } from 'models/headlines';
 
-const headlinesService = new CRUD<IHeadlines, IHeadline>({
+const headlinesService = crud<IHeadline>({
     serviceName: 'headlines'
 });
 

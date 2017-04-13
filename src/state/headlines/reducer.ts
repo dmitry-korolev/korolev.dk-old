@@ -1,4 +1,4 @@
-import { randomFromArray } from 'utils';
+import { randomFromObject } from 'utils';
 import { headlinesService } from './crud';
 import { HEADLINES_SET } from './types';
 
@@ -9,8 +9,7 @@ import { IHeadlines } from 'models/headlines';
 /** Initial IState */
 const initialState: IHeadlines = {
     isFetching: false,
-    headlines: [],
-    headlinesById: {},
+    itemsById: {},
     current: { content: 'На последнем издыхании я проклинаю нелетающих тварей, называющих себя пингвинами!' }
 };
 
@@ -20,7 +19,7 @@ function headlinesReducer(state: IHeadlines = initialState, action: IAction): IH
         case HEADLINES_SET:
             return {
                 ...state,
-                current: state.headlinesById[randomFromArray(state.headlines)]
+                current: randomFromObject(state.itemsById)
             };
 
         default:

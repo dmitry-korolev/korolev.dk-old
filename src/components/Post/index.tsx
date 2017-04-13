@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { getPostFromState, makeExcerpt } from 'utils';
 
 // Types
-import { IPost, ITag } from 'models/content';
+import { IPost } from 'models/posts';
+import { ITag } from 'models/tags';
 import { IStore } from 'models/store';
 
 // import * as s from './style.css';

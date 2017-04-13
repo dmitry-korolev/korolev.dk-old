@@ -20,4 +20,10 @@ export interface IApplication {
     };
     localApi: string;
     wpApi: string;
+    location: {
+        basepath: string;
+        pathname: string;
+        query: object;
+        search: string;
+    };
 }

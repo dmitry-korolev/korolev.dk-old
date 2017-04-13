@@ -1,5 +1,5 @@
 import { UserRoles } from 'utils/user';
-import { USER_LOGIN_FAIL, USER_LOGIN_START, USER_LOGIN_SUCCESS } from './types';
+import { USER_LOGIN_ERROR, USER_LOGIN_START, USER_LOGIN_SUCCESS } from './types';
 
 // Models
 import { IAction } from 'models/flux';
@@ -39,7 +39,7 @@ export const userReducer = (state: IUser = initialState, action: IAction): IUser
                 ...pickUserdata(action.payload)
             };
 
-        case USER_LOGIN_FAIL:
+        case USER_LOGIN_ERROR:
             return {
                 ...state,
                 isFetching: false,

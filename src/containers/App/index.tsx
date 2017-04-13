@@ -9,7 +9,7 @@ import { getTags } from 'state/tags';
 
 // Models
 import { IApplication } from 'models/appication';
-import { IAsyncConnectArguments, IStore } from 'models/store';
+import { IConnectArguments, IStore } from 'models/store';
 import { Dispatch } from 'redux';
 
 // Styles
@@ -32,7 +32,7 @@ const headlinePath = path(['current', 'content']);
 @asyncConnect(
     [{
         promise:
-            ({ store: { dispatch } }: IAsyncConnectArguments): Promise<void> => runGlobalActions(
+            ({ store: { dispatch } }: IConnectArguments): Promise<void> => runGlobalActions(
                 dispatch,
                 [
                     getHeadlines,

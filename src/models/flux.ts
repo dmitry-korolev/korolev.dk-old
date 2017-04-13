@@ -8,20 +8,27 @@ export interface IAction extends Action {
 }
 
 export type IAsyncAction = (dispatch: Dispatch<IStore>, getState: IGetState) => Promise<void>;
+export type IReducer<IState> = (state: IState, action: IAction) => IState;
 
-export interface ICommonActionCreator<T, O> {
-    (options?: O): T;
+export interface ICommonActionCreator<TResult, Options> {
+    (options?: Options): TResult;
     actionName?: string;
     once?: boolean;
     onlyServer?: boolean;
     onlyClient?: boolean;
 }
 
-export type IAsyncActionCreator<O> = ICommonActionCreator<IAsyncAction, O>;
-export type IActionCreator<O> = ICommonActionCreator<IAction, O>;
+export type IAsyncActionCreator<Options> = ICommonActionCreator<IAsyncAction, Options>;
+export type IActionCreator<Options> = ICommonActionCreator<IAction, Options>;
 
-export interface ICommonReducer {
-    isFetching: boolean;
+export interface ICommonFetch {
+    isFetching?: boolean;
     error?: boolean;
     errorMessage?: Error;
+}
+
+export interface ICommonReducerState<IItem> extends ICommonFetch {
+    itemsById?: {
+        [K: string]: IItem
+    };
 }

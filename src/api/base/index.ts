@@ -2,16 +2,18 @@ import * as debug from 'debug';
 import { Unprocessable } from 'feathers-errors';
 import { Service } from 'feathers-nedb';
 
-const assocPath = require('ramda/src/assocPath');
-const lens = require('ramda/src/lens');
-const path = require('ramda/src/path');
-const set = require('ramda/src/set');
-const view = require('ramda/src/view');
-const T = require('ramda/src/T');
+import {
+    assocPath,
+    lens,
+    path,
+    set,
+    T,
+    view
+} from 'utils/server/ramda';
 
 // Models
 import { ValidateFunction } from 'ajv/lib/ajv';
-import { IPaginate } from 'models/paginate';
+import { IPaginationOptions } from 'models/pagination';
 import IDebugger = debug.IDebugger;
 
 type IMapCache<T> = Map<string, T>;
@@ -27,7 +29,7 @@ interface ICreateServiceOptions {
     validator?: ValidateFunction;
 
     Model: any;
-    paginate?: IPaginate;
+    paginate?: IPaginationOptions;
 }
 
 const sortL = lens(path(['query', '$sort']), assocPath(['query', '$sort']));

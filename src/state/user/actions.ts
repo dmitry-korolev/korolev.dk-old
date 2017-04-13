@@ -1,7 +1,7 @@
 import * as debug from 'debug';
 import { app } from 'services';
 import { createAction } from 'utils';
-import { USER_LOGIN_FAIL, USER_LOGIN_START, USER_LOGIN_SUCCESS } from './types';
+import { USER_LOGIN_ERROR, USER_LOGIN_START, USER_LOGIN_SUCCESS } from './types';
 
 // Models
 import { IAsyncAction, IAsyncActionCreator } from 'models/flux';
@@ -13,7 +13,7 @@ const logError = debug('k:auth:error');
 
 const userLoginStart = createAction(USER_LOGIN_START);
 const userLoginSuccess = createAction(USER_LOGIN_SUCCESS);
-const userLoginError = createAction(USER_LOGIN_FAIL);
+const userLoginError = createAction(USER_LOGIN_ERROR);
 
 interface IAuthResult {
     data: IUserData;

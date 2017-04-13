@@ -9,6 +9,9 @@
         - ~~Posts~~
         - Pages
     - Add pagination
+        - Split crud generator into several modules. Maybe get rid of class?
+        - Find a way to dispatch async actions BEFORE location change.
+        - Add loaders.
     - Add markdown support
 - Authentication
     - ~~Add feathers-client to client bundle~~

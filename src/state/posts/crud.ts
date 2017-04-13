@@ -1,10 +1,9 @@
-import { CRUD } from 'utils';
+import { crud } from 'utils';
 
 // Models
-import { IPost, IPosts } from 'models/content';
+import { IPost } from 'models/posts';
 
-const postsService = new CRUD<IPosts, IPost>({
-    incremental: true,
+const postsService = crud<IPost>({
     serviceName: 'posts'
 });
 

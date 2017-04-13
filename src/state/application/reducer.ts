@@ -1,4 +1,5 @@
 import { IApplication } from 'models/appication';
+import { IAction } from 'models/flux';
 
 const initialState: IApplication = {
     title: 'Пингвин Рыба Есть',
@@ -28,7 +29,13 @@ const initialState: IApplication = {
         ]
     },
     localApi: process.env.LOCAL_API || 'http://localhost:8889/api/',
-    wpApi: process.env.WP_API || 'https://agenius.ru/wp-json/wp/v2/'
+    wpApi: process.env.WP_API || 'https://agenius.ru/wp-json/wp/v2/',
+    location: {
+        basepath: '/',
+        pathname: '/',
+        query: {},
+        search: ''
+    }
 };
 
 // Add grid in dev mode
@@ -40,6 +47,19 @@ if (process.env.NODE_ENV !== 'production') {
     });
 }
 
-export const applicationReducer = (state: IApplication = initialState): IApplication => {
+const pageRegExp = /\/page\/\d*/;
+const getBasePath = (pathname: string): string => pathname.replace(pageRegExp, '/');
+
+export const applicationReducer = (state: IApplication = initialState, action: IAction): IApplication => {
+    if (action.type === '@@router/LOCATION_CHANGE') {
+        return {
+            ...state,
+            location: {
+                ...action.payload,
+                basepath: getBasePath(action.payload.pathname)
+            }
+        };
+    }
+
     return state;
 };

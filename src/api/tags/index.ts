@@ -6,7 +6,7 @@ import { combineHooks } from 'utils';
 import { validateTag } from 'utils/server';
 
 import { IHooks } from 'models/api';
-import { ITag } from 'models/content';
+import { ITag } from 'models/tags';
 
 const tagsServiceName = 'tags';
 const db = new NeDB({

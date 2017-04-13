@@ -6,7 +6,7 @@ import { combineHooks } from 'utils';
 import { calcPage, validatePost } from 'utils/server';
 
 import { IHooks } from 'models/api';
-import { IPost } from 'models/content';
+import { IPost } from 'models/posts';
 
 const postsServiceName = 'posts';
 const db = new NeDB({
@@ -20,8 +20,6 @@ class PostsService extends BaseService<IPost> {
             create: [createSlug],
             find: [
                 (hook: any): void => {
-                    console.log(hook.params);
-
                     if (!hook.params.query || !hook.params.query.page) {
                         return;
                     }
@@ -33,8 +31,6 @@ class PostsService extends BaseService<IPost> {
                         ...hook.params.query,
                         ...calcPage(10, page)
                     };
-
-                    console.log(hook.params.query);
                 }
             ]
         },

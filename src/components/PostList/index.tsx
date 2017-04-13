@@ -14,7 +14,7 @@ const renderPost = (itemId: number): JSX.Element => (
 );
 
 const PostList: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => {
-    const { itemIds } = props;
+    const { itemIds = [] } = props;
 
     return (
         <div>

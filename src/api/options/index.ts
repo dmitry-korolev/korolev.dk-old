@@ -9,7 +9,7 @@ import { optionsServiceName } from './serviceName';
 
 // Models
 import { IHooks } from 'models/api';
-import { IOption } from 'models/option';
+import { IOption } from 'models/options';
 
 class OptionsService extends BaseService<IOption> {
     public before: IHooks = combineHooks(

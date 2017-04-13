@@ -6,7 +6,7 @@ import { combineHooks } from 'utils';
 import { validatePage } from 'utils/server';
 
 import { IHooks } from 'models/api';
-import { IPage } from 'models/content';
+import { IPage } from 'models/pages';
 
 const pagesServiceName = 'pages';
 const db = new NeDB({
