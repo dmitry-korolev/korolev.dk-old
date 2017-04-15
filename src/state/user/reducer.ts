@@ -1,11 +1,10 @@
-import { UserRoles } from 'utils/user';
+import { UserRoles } from 'utils';
+import { pick } from 'utils/ramda';
 import { USER_LOGIN_ERROR, USER_LOGIN_START, USER_LOGIN_SUCCESS } from './types';
 
 // Models
 import { IAction } from 'models/flux';
 import { IUser } from 'models/user';
-
-const pick = require('ramda/src/pick');
 
 const initialState: IUser = {
     isFetching: false,

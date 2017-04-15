@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
 import { asyncConnect } from 'redux-connect';
+import { path } from 'utils/ramda';
 
 import { SiteHeader } from 'components';
 import { runGlobalActions } from 'state/globalActions';
@@ -14,8 +15,6 @@ import { Dispatch } from 'redux';
 
 // Styles
 import * as s from './style.css';
-
-const path = require('ramda/src/path');
 
 interface IProps {
     dispatch: Dispatch<IStore>;

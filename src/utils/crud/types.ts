@@ -1,10 +1,8 @@
 import { toCamelCase } from 'utils';
+import { forEach, zipObj } from 'utils/ramda';
 import { allTypes } from './constants';
 
 import { ICrudActionTypes } from 'models/crud';
-
-const forEach = require('ramda/src/forEach');
-const zipObj = require('ramda/src/zipObj');
 
 export const generateTypes = (serviceName: string): ICrudActionTypes => {
     const tKeys = [];

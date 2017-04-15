@@ -1,13 +1,15 @@
+import {
+    find,
+    map,
+    path,
+    pathOr,
+    prop,
+    propEq
+} from 'utils/ramda';
+
 import { IPost, IPosts } from 'models/posts';
 import { ITag } from 'models/tags';
 import { IStore } from 'models/store';
-
-const find = require('ramda/src/find');
-const path = require('ramda/src/path');
-const pathOr = require('ramda/src/pathOr');
-const prop = require('ramda/src/prop');
-const propEq = require('ramda/src/propEq');
-const map = require('ramda/src/map');
 
 const postOrEmpty = (postId: number, posts: IPosts): IPost => pathOr({ tags: [] }, ['itemsById', postId], posts);
 

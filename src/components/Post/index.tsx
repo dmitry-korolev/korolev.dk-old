@@ -3,6 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 // import { postUrlTemplate } from 'utils';
 import { getPostFromState, makeExcerpt } from 'utils';
+import { pipe } from 'utils/ramda';
 
 // Types
 import { IPost } from 'models/posts';
@@ -10,8 +11,6 @@ import { ITag } from 'models/tags';
 import { IStore } from 'models/store';
 
 // import * as s from './style.css';
-
-const pipe = require('ramda/src/pipe');
 
 interface IProps extends React.HTMLProps<HTMLElement> {
     itemId: number;

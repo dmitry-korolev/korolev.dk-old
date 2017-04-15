@@ -1,9 +1,11 @@
-const pipe = require('ramda/src/pipe');
-const join = require('ramda/src/join');
-const map = require('ramda/src/map');
-const split = require('ramda/src/split');
-const toUpper = require('ramda/src/toUpper');
-const toLower = require('ramda/src/toLower');
+import {
+    join,
+    map,
+    pipe,
+    split,
+    toLower,
+    toUpper
+} from 'utils/ramda';
 
 type IToCamelCase = (input: string) => string;
 

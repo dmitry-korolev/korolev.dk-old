@@ -1,5 +1,6 @@
+import { identity } from 'utils/ramda';
+
 import { IAction, IActionCreator } from 'models/flux';
-const identity = require('ramda/src/identity');
 
 type IPayloadHandler = (...payload: any[]) => any;
 
