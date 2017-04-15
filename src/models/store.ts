@@ -25,12 +25,12 @@ interface IRouteParams {
 }
 
 export interface IConnectArguments {
-    store: Store<IStore>;
-    params: IRouteParams;
+    store?: Store<IStore>;
+    params?: IRouteParams;
 }
 
 export interface IAsyncConnectOwnProps {
-    params: IRouteParams;
+    params?: IRouteParams;
 }
 
 export type IGetState = () => IStore;

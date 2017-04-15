@@ -14,7 +14,7 @@ export interface ICrudActionCreators<IItem> {
 }
 
 export interface IQuery {
-    page?: number;
+    pageNumber?: number;
 }
 
 export interface ICrudOptions<IReducerState> {

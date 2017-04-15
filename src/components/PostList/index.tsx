@@ -3,10 +3,10 @@ import * as React from 'react';
 import { Post } from 'components';
 
 interface IProps {
-    itemIds: number[];
+    itemIds: string[];
 }
 
-const renderPost = (itemId: number): JSX.Element => (
+const renderPost = (itemId: string): JSX.Element => (
     <Post
         key={ itemId }
         itemId={ itemId }

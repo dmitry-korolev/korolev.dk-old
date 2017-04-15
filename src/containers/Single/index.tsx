@@ -9,7 +9,7 @@ import { Post } from 'components';
 import { IConnectArguments, IAsyncConnectOwnProps, IStore } from 'models/store';
 
 interface IProps {
-    postId: number;
+    postId: string;
 }
 
 @asyncConnect(
@@ -17,7 +17,7 @@ interface IProps {
         promise: ({ store: { dispatch }, params: { postId } }: IConnectArguments): Promise<void> =>
             dispatch(getPost(postId))
     }],
-    (_: IStore, { params }: IAsyncConnectOwnProps) => ({
+    (_: IStore, { params }: IAsyncConnectOwnProps = {}) => ({
         postId: params.postId
     })
 )

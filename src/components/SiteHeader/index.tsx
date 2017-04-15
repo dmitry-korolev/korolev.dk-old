@@ -9,7 +9,7 @@ interface IProps {
 
 const SiteHeader: React.StatelessComponent<IProps> = ({ headline }: IProps): JSX.Element => (
     <Flex
-        is='header'
+        is='div'
         className={ s.site_header }
         ai='center'
     >

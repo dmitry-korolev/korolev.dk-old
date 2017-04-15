@@ -1,0 +1,9 @@
+.pagination {
+    &_item {
+        display: inline-block;
+    }
+
+    &_active {
+        color: red;
+    }
+}

@@ -4,13 +4,13 @@ import { PAGINATION_CLEAR, PAGINATION_UPDATE } from './types';
 
 const paginationClear = (): IPaginationReducerState => ({});
 const paginationUpdate = (state: IPaginationReducerState, action: IAction): IPaginationReducerState => {
-    const { key, total, pageNumber, itemsList } = action.payload;
+    const { key, totalPages, pageNumber, itemsList } = action.payload;
 
     return {
         ...state,
         [key]: {
             ...state[key],
-            total,
+            totalPages,
             [pageNumber]: itemsList
         }
     };

@@ -5,3 +5,4 @@ export { Title } from './Title';
 export { Flex, Box } from './Grid';
 export { Post } from './Post';
 export { PostList } from './PostList';
+export { Pagination } from './Pagination/Pagination';

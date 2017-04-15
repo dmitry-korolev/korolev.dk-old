@@ -34,6 +34,9 @@
         "jsx-no-multiline-js": [
             false
         ],
+        "jsx-wrap-multiline": [
+            false
+        ],
         "max-classes-per-file": [
             true,
             1

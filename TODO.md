@@ -9,8 +9,8 @@
         - ~~Posts~~
         - Pages
     - Add pagination
-        - Split crud generator into several modules. Maybe get rid of class?
-        - Find a way to dispatch async actions BEFORE location change.
+        - ~~Split crud generator into several modules. Maybe get rid of class?~~
+        - Find a way to dispatch async actions BEFORE location change. Or something like that.
         - Add loaders.
     - Add markdown support
 - Authentication
@@ -24,6 +24,8 @@
     - Editing posts and tags on front
 - Styling
     - Posts styling
+        - Posts footer
+        - Posts content
 - Other
     - ~~Add caching to common NeDB querying~~
     - (!) Change react-css-modules to babel-plugin-react-css-modules
@@ -31,7 +33,7 @@
     - (?) Try to switch ts compiler to native modules (to enable some useful babel plugins)
     - (?) Move shouldRunAction from globalActions.ts to a middleware
 - Update
-    - react-router
+    - (?) react-router. I should probably write my own router.
     - react-helmet
     - redux-logger
     - (?) tslint

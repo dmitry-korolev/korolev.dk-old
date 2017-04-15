@@ -96,27 +96,18 @@ describe('handleFetchSuccess', () => {
 
         const action = {
             type: 'example/FETCH_SUCCESS',
-            payload: {
-                total: 20,
-                limit: 2,
-                skip: 4,
-                data: [
-                    {
-                        _id: '5',
-                        content: 'Burn the Heretic! Kill the Mutant! Purge the Penguin!',
-                        _created: '2017-02-23T14:24:04.211Z'
-                    },
-                    {
-                        _id: '6',
-                        content: 'Знаете, что меня подбадривает? Издевательство над чужими неудачами.',
-                        _created: '2017-02-25T14:24:04.225Z'
-                    }
-                ],
-                pagination: {
-                    key: '/',
-                    pageNumber: 3
+            payload: [
+                {
+                    _id: '5',
+                    content: 'Burn the Heretic! Kill the Mutant! Purge the Penguin!',
+                    _created: '2017-02-23T14:24:04.211Z'
+                },
+                {
+                    _id: '6',
+                    content: 'Знаете, что меня подбадривает? Издевательство над чужими неудачами.',
+                    _created: '2017-02-25T14:24:04.225Z'
                 }
-            }
+            ]
         };
 
         const expected = {
@@ -158,27 +149,18 @@ describe('handleFetchSuccess', () => {
 
         const action = {
             type: 'example/FETCH_SUCCESS',
-            payload: {
-                total: 20,
-                limit: 2,
-                skip: 2,
-                data: [
-                    {
-                        _id: '7',
-                        content: 'Знаете, что меня подбадривает? Издевательство над чужими неудачами.',
-                        _created: '2017-02-27T14:24:04.225Z'
-                    },
-                    {
-                        _id: '8',
-                        content: 'Знаете, что меня подбадривает? Издевательство над чужими неудачами.',
-                        _created: '2017-02-28T14:24:04.225Z'
-                    }
-                ],
-                pagination: {
-                    key: '/',
-                    pageNumber: 2
+            payload: [
+                {
+                    _id: '7',
+                    content: 'Знаете, что меня подбадривает? Издевательство над чужими неудачами.',
+                    _created: '2017-02-27T14:24:04.225Z'
+                },
+                {
+                    _id: '8',
+                    content: 'Знаете, что меня подбадривает? Издевательство над чужими неудачами.',
+                    _created: '2017-02-28T14:24:04.225Z'
                 }
-            }
+            ]
         };
 
         const expected = {

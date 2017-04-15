@@ -11,13 +11,13 @@ import { IPost, IPosts } from 'models/posts';
 import { ITag } from 'models/tags';
 import { IStore } from 'models/store';
 
-const postOrEmpty = (postId: number, posts: IPosts): IPost => pathOr({ tags: [] }, ['itemsById', postId], posts);
+const postOrEmpty = (postId: string, posts: IPosts): IPost => pathOr({ tags: [] }, ['itemsById', postId], posts);
 
 export const getTagBySlug =
     (slug: string, tags: ITag[]): ITag =>
         find(propEq('slug', slug), tags);
 
-export const getPostFromState = ({ posts, tags }: IStore, postId: number): {
+export const getPostFromState = ({ posts, tags }: IStore, postId: string): {
     post: IPost,
     tags: ITag[]
 } => {

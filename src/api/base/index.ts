@@ -33,6 +33,10 @@ interface ICreateServiceOptions {
 }
 
 const sortL = lens(path(['query', '$sort']), assocPath(['query', '$sort']));
+const viewSort = view(sortL);
+const setSort = set(sortL, {
+    _created: -1
+});
 const methods = ['find', 'get'];
 
 export class BaseService<IType> extends Service {
@@ -76,10 +80,8 @@ export class BaseService<IType> extends Service {
     }
 
     public async find(params?: any): Promise<IType[]> {
-        if (this.incremental && !view(sortL, params)) {
-            params = set(sortL, {
-                created: -1
-            }, params);
+        if (this.incremental && !viewSort(params)) {
+            params = setSort(params);
         }
 
         const key = JSON.stringify(params);

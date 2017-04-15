@@ -20,12 +20,12 @@ class PostsService extends BaseService<IPost> {
             create: [createSlug],
             find: [
                 (hook: any): void => {
-                    if (!hook.params.query || !hook.params.query.page) {
+                    if (!hook.params.query || !hook.params.query.pageNumber) {
                         return;
                     }
 
-                    const page = hook.params.query.page;
-                    delete hook.params.query.page;
+                    const page = hook.params.query.pageNumber;
+                    delete hook.params.query.pageNumber;
 
                     hook.params.query = {
                         ...hook.params.query,
@@ -58,6 +58,7 @@ class PostsService extends BaseService<IPost> {
 const postsService = (): any => new PostsService({
     serviceName: postsServiceName,
     validator: validatePost,
+    incremental: true,
     paginate: {
         default: 10
     },

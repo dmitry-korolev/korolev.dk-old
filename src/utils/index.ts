@@ -10,3 +10,5 @@ export { randomFromMap } from './randomFromMap';
 export { randomFromObject } from './randomFromObject';
 export { toCamelCase } from './toCamelCase';
 export { UserRoles } from './user';
+export { replace } from './replace';
+export { dateFormat } from './dateFormat';

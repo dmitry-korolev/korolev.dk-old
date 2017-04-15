@@ -14,7 +14,7 @@ export interface IPaginationUpdateOptions {
     itemsList: string[];
     key: string;
     pageNumber: number;
-    total: number;
+    totalPages: number;
 }
 
 export interface IPaginationQuery {

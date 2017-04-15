@@ -25,6 +25,8 @@ export const generateFind =
                         if (path(['pagination', pagination.key, pagination.pageNumber], getState())) {
                             return;
                         }
+
+                        query.pageNumber = pagination.pageNumber;
                     }
 
                     await dispatch(actions.fetchStart());
@@ -37,11 +39,12 @@ export const generateFind =
 
                         if (pagination) {
                             const { key, pageNumber } = pagination;
-                            const { total } = result;
+                            const { total, limit } = result;
+                            const totalPages = Math.ceil(total / limit);
 
                             await dispatch(paginationUpdate({
                                 key,
-                                total,
+                                totalPages,
                                 itemsList: mapItemsToIds(items),
                                 pageNumber
                             }));

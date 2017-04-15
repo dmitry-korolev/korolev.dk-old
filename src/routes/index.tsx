@@ -6,9 +6,9 @@ export default (
     <Route path='/' component={ App }>
         <IndexRoute component={ Archive } />
         <Redirect from='blog' to='/' />
-        <Route path='blog/page/:pageNumber' component={ Archive } />
+        <Route path='page/:pageNumber' component={ Archive } />
+        <Route path='blog/:postId' component={ Single } />
         <Route path='blog/:tagId/page/:pageNumber' component={ Archive } />
-        <Route path='blog/:tagId/:postId' component={ Single } />
         <Route path=':pageId' component={ About } />
     </Route>
 );
