@@ -13,10 +13,6 @@ if (process.env.BROWSER) {
         .configure(rest(host).fetch(fetch))
         .configure(hooks())
         .configure(authentication());
-
-    if (process.env.NODE_ENV !== 'production') {
-        window['app'] = app; // tslint:disable-line
-    }
 } else {
     app = require('../app/app').default;
 }
