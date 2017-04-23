@@ -69,8 +69,10 @@ const config = {
                         options: {
                             modules: true,
                             importLoaders: 2,
-                            localIdentName: 'c_[hash:base64:6]'
-                        }
+                            localIdentName: process.env.NODE_ENV === 'production' ?
+                                'c_[hash:base64:6]' :
+                                'c_[name]_[local]_[hash:base64:6]'
+}
                     },
                     { loader: 'postcss-loader' }
                 ]
