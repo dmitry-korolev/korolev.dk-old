@@ -6,7 +6,7 @@ const replace = (formatString: string, data: { [K: string]: string | number }): 
     let result = formatString;
 
     forEachObjIndexed((value: string, key: string) => {
-        const regExp = new RegExp(`{${key}}`, 'g');
+        const regExp = new RegExp(`${key}`, 'g');
 
         result = result.replace(regExp, value);
     }, data);

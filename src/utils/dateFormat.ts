@@ -1,22 +1,9 @@
 import * as leftPad from 'left-pad';
+
 import { curry } from 'utils/ramda';
+import { replace } from './replace';
 
-export interface IFormatterOptions {
-    YYYY: string;
-    YY: string;
-    M: string;
-    MM: string;
-    D: string;
-    DD: string;
-    h: string;
-    hh: string;
-    m: string;
-    mm: string;
-    s: string;
-    ss: string;
-}
-
-type IFormatter = (options: IFormatterOptions) => string;
+type IFormatter = string;
 
 const dateFormat = curry((formatter: IFormatter, _date: Date | string): string => {
     const date = typeof _date === 'string' ? new Date(_date) : _date;
@@ -33,19 +20,19 @@ const dateFormat = curry((formatter: IFormatter, _date: Date | string): string =
     const s = `${date.getSeconds()}`;
     const ss = leftPad(s, 2, '0');
 
-    return formatter({
+    return replace(formatter, {
         YYYY,
         YY,
-        M,
         MM,
-        D,
+        M,
         DD,
-        h,
+        D,
         hh,
-        m,
+        h,
         mm,
-        s,
-        ss
+        m,
+        ss,
+        s
     });
 });
 

@@ -6,7 +6,6 @@ import { dateFormat } from 'utils';
 // Types
 import { IPost } from 'models/posts';
 import { ITag } from 'models/tags';
-import { IFormatterOptions } from 'utils/dateFormat';
 
 import * as styles from './style.css';
 
@@ -15,7 +14,7 @@ interface IProps {
     tags?: ITag[];
 }
 
-const formatCreatedDate = dateFormat(({ YYYY, MM, DD }: IFormatterOptions): string => `${YYYY}/${MM}/${DD}`);
+const formatCreatedDate = dateFormat('YYYY/MM/DD');
 
 export const PostFooter = ({ post, tags = [] }: IProps): JSX.Element => {
     if (!post) {
