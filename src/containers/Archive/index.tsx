@@ -60,7 +60,7 @@ class Archive extends React.PureComponent<IProps, any> {
             return basePath;
         }
 
-        return `${basePath}page/${pageNumber}`;
+        return `${basePath}page/${pageNumber}/`;
     }
 
     public render(): JSX.Element {

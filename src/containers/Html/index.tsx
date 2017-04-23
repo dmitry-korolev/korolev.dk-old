@@ -11,7 +11,7 @@ interface IHtmlProps {
     store?: Store<IStore>;
 }
 
-class Html extends React.Component<IHtmlProps, {}> {
+class Html extends React.PureComponent<IHtmlProps, {}> {
     private resolve(files: any[]): any[] {
         return files.map((src: string) => {
             if (!this.props.manifest[src]) { return; }

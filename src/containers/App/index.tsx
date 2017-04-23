@@ -51,7 +51,7 @@ const headlinePath = path(['current', 'content']);
         application
     })
 )
-class App extends React.Component<IProps, {}> {
+class App extends React.PureComponent<IProps, {}> {
     public render(): JSX.Element {
         const {
             headline,

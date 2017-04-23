@@ -21,7 +21,7 @@ interface IProps {
         postId: params.postId
     })
 )
-class Single extends React.Component<IProps, any> {
+class Single extends React.PureComponent<IProps, any> {
     public render(): JSX.Element {
         const { postId } = this.props;
 
