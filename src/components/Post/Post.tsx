@@ -10,8 +10,8 @@ import { IPost } from 'models/posts';
 import { ITag } from 'models/tags';
 import { IStore } from 'models/store';
 
-// import * as styles from './style.css';
 import { PostFooter } from './PostFooter';
+import * as style from './Post.css';
 
 interface IProps extends React.HTMLProps<HTMLElement> {
     itemId: string;
@@ -27,6 +27,7 @@ type CombinedProps = IProps & IPostProps;
 
 const insertHtml = (html: string): JSX.Element => (
     <div
+        className={ style.post_content }
         dangerouslySetInnerHTML={ { __html: html } }
     />
 );
@@ -48,7 +49,7 @@ const mapStateToProps =
     (state: IStore, { itemId }: IProps): IPostProps =>
         getPostFromState(state, itemId);
 
-export const Post = connect(mapStateToProps)(({ post, tags, isSingle }: CombinedProps): JSX.Element => {
+export const Post = connect(mapStateToProps)(({ post, tags, isSingle, className }: CombinedProps): JSX.Element => {
     if (!post) {
         return null;
     }
@@ -66,8 +67,11 @@ export const Post = connect(mapStateToProps)(({ post, tags, isSingle }: Combined
     return (
         <article
             id={ `post-${_id}` }
+            className={ className }
         >
-            <header>
+            <header
+                className={ style.post_header }
+            >
                 <Header
                     titleText={ title }
                     titleLink={ postUrl }
@@ -79,6 +83,7 @@ export const Post = connect(mapStateToProps)(({ post, tags, isSingle }: Combined
             { renderArticle(content, excerpt, isSingle) }
 
             <PostFooter
+                className={ style.post_footer }
                 post={ post }
                 tags={ tags }
             />

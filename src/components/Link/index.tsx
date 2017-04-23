@@ -15,6 +15,7 @@ const Link: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => {
         unstyled,
         children,
         isHome,
+        className,
         ...linkProps
     } = props;
 
@@ -24,6 +25,7 @@ const Link: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => {
         <Component
             activeClassName={ s.link_active }
             className={ cn({
+                [className]: !!className,
                 [s.link]: true,
                 [s.link_unstyled]: unstyled
             }) }

@@ -7,16 +7,16 @@ import { dateFormat } from 'utils';
 import { IPost } from 'models/posts';
 import { ITag } from 'models/tags';
 
-import * as styles from './style.css';
+import * as styles from './PostFooter.css';
 
-interface IProps {
+interface IProps extends React.HTMLProps<any> {
     post: IPost;
     tags?: ITag[];
 }
 
 const formatCreatedDate = dateFormat('YYYY/MM/DD');
 
-export const PostFooter = ({ post, tags = [] }: IProps): JSX.Element => {
+export const PostFooter = ({ post, tags = [], className }: IProps): JSX.Element => {
     if (!post) {
         return null;
     }
@@ -30,31 +30,35 @@ export const PostFooter = ({ post, tags = [] }: IProps): JSX.Element => {
     const postUrl = postUrlTemplate(_id);
 
     return (
-        <footer>
-            <ul>
-                <li>
-                    <Link to={ postUrl } >
-                        <time dateTime={ _created }>
-                            { formatCreatedDate(_created) }
-                        </time>
-                        { _updated ? <time
-                            className={ styles.footer_updated }
-                            dateTime={ _updated }
-                        /> : null }
-                    </Link>
-                </li>
-                {
-                    tags.map((tag: ITag): JSX.Element => {
-                        const { _id: tagId, title } = tag;
+        <footer
+            className={ className }
+        >
+            <nav className={ styles.footer }>
+                <Link
+                    to={ postUrl }
+                    className={ styles.footer_item }
+                >
+                    <time dateTime={ _created }>
+                        { formatCreatedDate(_created) }
+                    </time>
+                    { _updated ? <time
+                        className={ styles.footer_updated }
+                        dateTime={ _updated }
+                    /> : null }
+                </Link>
+                { tags.length ? tags.map((tag: ITag): JSX.Element => {
+                    const { _id: tagId, title } = tag;
 
-                        return <li
-                            key={ tagId }
-                        >
-                            <Link to={ tagUrlTemplate(tagId) } rel='tag'>{ title }</Link>
-                        </li>;
-                    })
-                }
-            </ul>
+                    return <Link
+                        key={ tagId }
+                        to={ tagUrlTemplate(tagId) }
+                        rel='tag'
+                        className={ styles.footer_item }
+                    >
+                        { title }
+                    </Link>;
+                }) : null }
+            </nav>
         </footer>
     );
 };

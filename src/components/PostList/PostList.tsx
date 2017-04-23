@@ -2,12 +2,15 @@ import * as React from 'react';
 
 import { Post } from 'components';
 
+import * as styles from './PostList.css';
+
 interface IProps {
     itemIds: string[];
 }
 
 const renderPost = (itemId: string): JSX.Element => (
     <Post
+        className={ styles.postlist_item }
         key={ itemId }
         itemId={ itemId }
     />
@@ -17,7 +20,9 @@ const PostList: React.StatelessComponent<IProps> = (props: IProps): JSX.Element 
     const { itemIds = [] } = props;
 
     return (
-        <div>
+        <div
+            className={ styles.postlist }
+        >
             { itemIds.map(renderPost) }
         </div>
     );

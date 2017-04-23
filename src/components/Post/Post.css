@@ -1,0 +1,15 @@
+@import '../../statics/styles/variables.css';
+
+.post {
+    &_header {
+        margin-bottom: var(--leading);
+    }
+
+    &_content {
+        margin-bottom: var(--leading);
+    }
+
+    &_footer {
+        margin-bottom: var(--leading);
+    }
+}

@@ -1,0 +1,13 @@
+@import '../../statics/styles/variables.css';
+
+.footer {
+    display: flex;
+
+    &_item {
+        margin-right: calc(var(--gutter) * 3);
+    }
+
+    &_updated {
+        display: none;
+    }
+}

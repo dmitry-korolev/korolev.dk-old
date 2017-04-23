@@ -1,0 +1,7 @@
+@import '../../statics/styles/variables.css';
+
+.postlist {
+    &_item {
+        margin-bottom: var(--leading);
+    }
+}
