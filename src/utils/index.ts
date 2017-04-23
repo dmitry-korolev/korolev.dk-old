@@ -4,7 +4,7 @@ export { crud } from './crud/crudGenerator';
 export { getPostFromState, getTagBySlug } from './contentUtils'
 export { makeExcerpt } from './makeExcerpt';
 export { mapItemsToIds } from './mapItemsToIds';
-export { postUrlTemplate } from './urlTemplates';
+export { postUrlTemplate, pageUrlTemplate, tagUrlTemplate } from './urlTemplates';
 export { randomFromArray } from './randomFromArray';
 export { randomFromMap } from './randomFromMap';
 export { randomFromObject } from './randomFromObject';
