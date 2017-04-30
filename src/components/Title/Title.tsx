@@ -3,7 +3,7 @@ import * as cn from 'classnames';
 
 import * as styles from './Title.css';
 
-export type TitleSize = 32 | 24 | 16 | 10 | 8;
+export type TitleSize = 32 | 24 | 20 | 16 | 10 | 8;
 
 interface IProps extends React.HTMLProps<HTMLElement> {
     big?: boolean;

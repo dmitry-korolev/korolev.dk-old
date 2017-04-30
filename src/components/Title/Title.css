@@ -11,6 +11,7 @@
 
 .size_32 { font-size: calc(var(--size__scale) * 2rem); }
 .size_24 { font-size: calc(var(--size__scale) * 1.5rem); }
+.size_20 { font-size: calc(var(--size__scale) * 1.25rem); }
 .size_16 { font-size: calc(var(--size__scale) * 1rem); }
 .size_10 { font-size: calc(var(--size__scale) / 1.6 * 1rem); }
 .size_8 { font-size: calc(var(--size__scale) / 2 * 1rem); }
