@@ -17,6 +17,7 @@ interface IProps extends React.HTMLProps<any> {
 }
 
 const formatCreatedDate = dateFormat('YYYY/MM/DD');
+const isofyDate = (date: string): string => (new Date(date)).toISOString();
 
 export const PostFooter = ({ post, tags = [], className }: IProps): JSX.Element => {
     if (!post) {
@@ -38,12 +39,12 @@ export const PostFooter = ({ post, tags = [], className }: IProps): JSX.Element 
                     to={ postUrl }
                     className={ styles.footer_item }
                 >
-                    <time dateTime={ _created }>
+                    <time dateTime={ isofyDate(_created) }>
                         { formatCreatedDate(_created) }
                     </time>
                     { _updated ? <time
                         className={ styles.footer_updated }
-                        dateTime={ _updated }
+                        dateTime={ isofyDate(_updated) }
                     /> : null }
                 </Link>
                 { tags.length ? tags.map((tag: ITag): JSX.Element => {
