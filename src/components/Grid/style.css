@@ -2,9 +2,9 @@
 
 .flex {
     display: flex;
-    margin: 0 calc(0 - var(--gutter)) var(--leading);
+    margin: 0 calc(0 - var(--size__gutter)) var(--size__leading);
 }
 
 .box {
-    padding: 0 var(--gutter) 0 var(--gutter);
+    padding: 0 var(--size__gutter) 0 var(--size__gutter);
 }

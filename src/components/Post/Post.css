@@ -2,14 +2,14 @@
 
 .post {
     &_header {
-        margin-bottom: var(--leading);
+        margin-bottom: var(--size__leading);
     }
 
     &_content {
-        margin-bottom: var(--leading);
+        margin-bottom: var(--size__leading);
     }
 
     &_footer {
-        margin-bottom: var(--leading);
+        margin-bottom: var(--size__leading);
     }
 }

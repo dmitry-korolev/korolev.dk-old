@@ -2,6 +2,6 @@
 
 .postlist {
     &_item {
-        margin-bottom: var(--leading);
+        margin-bottom: var(--size__leading);
     }
 }

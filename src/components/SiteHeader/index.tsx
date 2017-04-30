@@ -4,10 +4,11 @@ import * as React from 'react';
 import * as s from './style.css';
 
 interface IProps {
+    isMainPage: boolean;
     headline: string;
 }
 
-const SiteHeader: React.StatelessComponent<IProps> = ({ headline }: IProps): JSX.Element => (
+const SiteHeader: React.StatelessComponent<IProps> = ({ headline, isMainPage }: IProps): JSX.Element => (
     <Flex
         is='div'
         className={ s.site_header }
@@ -25,7 +26,8 @@ const SiteHeader: React.StatelessComponent<IProps> = ({ headline }: IProps): JSX
                 titleLink='/'
                 titleText='Пингвин Рыба Есть'
                 subtitle={ headline }
-                mod='site'
+                titleLevel={ isMainPage ? 1 : 2 }
+                titleSize={ 24 }
             />
         </Box>
     </Flex>

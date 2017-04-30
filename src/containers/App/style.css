@@ -3,7 +3,7 @@
 .appContainer {
     display: block;
     margin: 0 auto;
-    width: var(--siteWidth);
+    width: var(--size__site-width);
     position: relative;
     transition: left 0.3s ease-out;
 }

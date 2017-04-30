@@ -1,5 +1,7 @@
-import { Link } from 'components';
 import * as React from 'react';
+import * as cn from 'classnames';
+
+import { Link } from 'components';
 import { postUrlTemplate, tagUrlTemplate } from 'utils';
 import { dateFormat } from 'utils';
 
@@ -30,10 +32,8 @@ export const PostFooter = ({ post, tags = [], className }: IProps): JSX.Element 
     const postUrl = postUrlTemplate(_id);
 
     return (
-        <footer
-            className={ className }
-        >
-            <nav className={ styles.footer }>
+        <footer>
+            <nav className={ cn(className, styles.footer) }>
                 <Link
                     to={ postUrl }
                     className={ styles.footer_item }

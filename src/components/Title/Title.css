@@ -1,0 +1,16 @@
+@import '../../statics/styles/variables.css';
+
+.title {
+    clear: both;
+    font-family: var(--font__headings);
+    font-weight: 700;
+    text-rendering: optimizeLegibility;
+    margin-bottom: 0;
+    line-height: 1;
+}
+
+.size_32 { font-size: calc(var(--size__scale) * 2rem); }
+.size_24 { font-size: calc(var(--size__scale) * 1.5rem); }
+.size_16 { font-size: calc(var(--size__scale) * 1rem); }
+.size_10 { font-size: calc(var(--size__scale) / 1.6 * 1rem); }
+.size_8 { font-size: calc(var(--size__scale) / 2 * 1rem); }

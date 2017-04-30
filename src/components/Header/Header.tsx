@@ -1,42 +1,36 @@
-import * as cn from 'classnames';
 import * as React from 'react';
 
 import { Link, Title } from 'components';
 
-import * as s from './style.css';
+import * as styles from './Header.css';
+
+import { TitleSize } from 'components/Title/Title';
 
 interface IProps extends React.HTMLProps<HTMLElement> {
     titleText: string;
     titleLink: string;
-    titleTag?: 'h1' | 'h2' | 'h3';
+    titleLevel: 1 | 2 | 3;
+    titleSize: TitleSize;
     subtitle?: string;
-    mod?: 'site' | 'post';
 }
-
-const getTitleClass = (mod: string): string => ({
-    site: s.header__title_site,
-    post: s.header__title_post
-}[mod]);
 
 const Header: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => {
     const {
         titleText,
         titleLink,
-        titleTag = 'h2',
-        subtitle,
-        mod = 'post'
+        titleLevel,
+        titleSize,
+        subtitle
     } = props;
 
     return (
         <div
-            className={ s.header }
+            className={ styles.header }
         >
             <Title
-                tag={ titleTag }
-                className={ cn({
-                    [s.header__title]: true,
-                    [getTitleClass(mod)]: true
-                }) }
+                level={ titleLevel }
+                size={ titleSize }
+                className={ styles.header__title }
             >
                 <Link to={ titleLink } unstyled={ true }>
                     { titleText }
@@ -44,8 +38,8 @@ const Header: React.StatelessComponent<IProps> = (props: IProps): JSX.Element =>
             </Title>
             { subtitle && (
                 <Title
-                    tag='h3'
-                    className={ s.header__subtitle }
+                    level={ 3 }
+                    size={ 10 }
                 >
                     { subtitle }
                 </Title>

@@ -20,9 +20,7 @@ interface IProps {
     dispatch: Dispatch<IStore>;
     headline: string;
     application: IApplication;
-    location: {
-        pathname: string;
-    };
+    isMainPage: boolean;
     changeHeadline(): void;
 }
 
@@ -48,7 +46,8 @@ const headlinePath = path(['current', 'content']);
         application
     }: IStore) => ({
         headline: headlinePath(headlines),
-        application
+        application,
+        isMainPage: application.location.pathname === '/'
     })
 )
 class App extends React.PureComponent<IProps, {}> {
@@ -56,6 +55,7 @@ class App extends React.PureComponent<IProps, {}> {
         const {
             headline,
             children,
+            isMainPage,
             application: {
                 title,
                 titleTemplate,
@@ -75,6 +75,7 @@ class App extends React.PureComponent<IProps, {}> {
                     link={ link }
                 />
                 <SiteHeader
+                    isMainPage={ isMainPage }
                     headline={ headline }
                 />
                 { children }

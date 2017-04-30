@@ -7,23 +7,23 @@
 
 html {
     font-family: 'Open Sans', sans-serif;
-    font-size: calc(var(--baseFontSize) / 16 * 100%);
+    font-size: calc(var(--size__base-font) / 16 * 100%);
     -webkit-font-smoothing: antialiased;
 }
 
 p {
-    line-height: var(--leading);
-    margin-top: var(--leading);
+    line-height: var(--size__leading);
+    margin-top: var(--size__leading);
     margin-bottom: 0;
 }
 
 ul,
 ol {
-    margin-top: var(--leading);
-    margin-bottom: var(--leading);
+    margin-top: var(--size__leading);
+    margin-bottom: var(--size__leading);
 
     & li {
-        line-height: var(--leading);
+        line-height: var(--size__leading);
     }
 
     & ul,
@@ -34,42 +34,21 @@ ol {
 }
 
 blockquote {
-    line-height: var(--leading);
-    margin-top: var(--leading);
-    margin-bottom: var(--leading);
+    line-height: var(--size__leading);
+    margin-top: var(--size__leading);
+    margin-bottom: var(--size__leading);
 }
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    clear: both;
-    font-family: Comfortaa, Georgia, serif;
-    font-weight: 700;
-    margin-top: var(--leading);
-    margin-bottom: 0;
-    line-height: 1;
-}
-
-h1 { font-size: calc(2 * var(--scale) * 1rem); }
-h2 { font-size: calc(1.5 * var(--scale) * 1rem); }
-h3 { font-size: calc(1 * var(--scale) * 1rem); }
-h4 { font-size: calc(var(--scale) / 1.5 * 1rem); }
-h5 { font-size: calc(var(--scale) / 2 * 1rem); }
-h6 { font-size: calc(var(--scale) / 3 * 1rem); }
 
 /* Tables */
 table {
-    margin-top: var(--leading);
+    margin-top: var(--size__leading);
     border-spacing: 0;
     border-collapse: collapse;
 
     td,
     th {
         padding: 0;
-        line-height: calc(var(--baseLineHeight) * var(--baseFontSize) * 1px);
+        line-height: calc(var(--size__base-line-height) * var(--size__base-font) * 1px);
     }
 }
 

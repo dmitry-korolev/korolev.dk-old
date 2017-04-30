@@ -75,7 +75,8 @@ export const Post = connect(mapStateToProps)(({ post, tags, isSingle, className 
                 <Header
                     titleText={ title }
                     titleLink={ postUrl }
-                    titleTag={ isSingle ? 'h1' : 'h2' }
+                    titleLevel={ isSingle ? 1 : 2 }
+                    titleSize={ 24 }
                     subtitle={ subtitle }
                 />
             </header>
