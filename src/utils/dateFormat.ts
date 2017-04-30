@@ -7,17 +7,18 @@ type IFormatter = string;
 
 const dateFormat = curry((formatter: IFormatter, _date: Date | string): string => {
     const date = typeof _date === 'string' ? new Date(_date) : _date;
-    const YYYY = `${date.getFullYear()}`;
+
+    const YYYY = `${date.getUTCFullYear()}`;
     const YY = YYYY.slice(2);
-    const M = `${date.getMonth() + 1}`;
+    const M = `${date.getUTCMonth() + 1}`;
     const MM = leftPad(M, 2, '0');
-    const D = `${date.getDate()}`;
+    const D = `${date.getUTCDate()}`;
     const DD = leftPad(D, 2, '0');
-    const h = `${date.getHours()}`;
+    const h = `${date.getUTCHours()}`;
     const hh = leftPad(h, 2, '0');
-    const m = `${date.getMinutes()}`;
+    const m = `${date.getUTCMinutes()}`;
     const mm = leftPad(m, 2, '0');
-    const s = `${date.getSeconds()}`;
+    const s = `${date.getUTCSeconds()}`;
     const ss = leftPad(s, 2, '0');
 
     return replace(formatter, {
