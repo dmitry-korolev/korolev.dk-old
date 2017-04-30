@@ -11,20 +11,25 @@ import { getTags } from 'state/tags';
 // Models
 import { IApplication } from 'models/appication';
 import { IConnectArguments, IStore } from 'models/store';
-import { Dispatch } from 'redux';
 
 // Styles
 import * as s from './style.css';
 
 interface IProps {
-    dispatch: Dispatch<IStore>;
     headline: string;
     application: IApplication;
     isMainPage: boolean;
-    changeHeadline(): void;
 }
 
 const headlinePath = path(['current', 'content']);
+const mapState = ({
+      headlines,
+      application
+}: IStore): IProps => ({
+    headline: headlinePath(headlines),
+    application,
+    isMainPage: application.location.pathname === '/'
+});
 
 @asyncConnect(
     [{
@@ -41,16 +46,9 @@ const headlinePath = path(['current', 'content']);
             )
 
     }],
-    ({
-        headlines,
-        application
-    }: IStore) => ({
-        headline: headlinePath(headlines),
-        application,
-        isMainPage: application.location.pathname === '/'
-    })
+    mapState
 )
-class App extends React.PureComponent<IProps, {}> {
+class App extends React.PureComponent<IProps, object> {
     public render(): JSX.Element {
         const {
             headline,
