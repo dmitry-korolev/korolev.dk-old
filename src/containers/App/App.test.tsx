@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { renderComponent } from 'helpers/TestHelper';
-import { App } from './index';
+import { App } from './App';
 
 import * as s from './App.css';
 

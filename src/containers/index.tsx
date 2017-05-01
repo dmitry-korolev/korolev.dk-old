@@ -1,5 +1,5 @@
 export { Html } from './Html/Html';
-export { App } from './App';
-export { Archive } from './Archive';
-export { About } from './About';
-export { Single } from './Single';
+export { App } from './App/App';
+export { Archive } from './Archive/Archive';
+export { Page } from './Page/Page';
+export { Single } from './Single/Single';

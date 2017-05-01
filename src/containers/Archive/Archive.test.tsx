@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import { renderComponent } from 'helpers/TestHelper';
-import { Single } from './index';
+import { Archive } from './Archive';
 
-import * as s from './style.css';
+import * as s from './Archive.css';
 
-describe('<Single />', () => {
-    const component = renderComponent(Single, {}, { params: { postId: 1 } });
+xdescribe('<Archive />', () => {
+    const component = renderComponent(Archive);
 
     xit('Renders with correct style', () => {
         expect(component.find(s.home)).to.exist;
