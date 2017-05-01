@@ -1,4 +1,6 @@
 ## Todo
+- FIXES
+    - API path in production mode
 - Content:
     - ~~Schema~~
     - ~~Validate schema in db services~~
