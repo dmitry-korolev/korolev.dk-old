@@ -1,11 +1,24 @@
-.link {
-    text-decoration: none;
+@import '../../statics/styles/variables.css';
+@import '../../statics/styles/mixins.css';
 
-    &_active {
-        color: green;
+.link {
+    color: var(--color__link);
+    text-decoration: none;
+    border-bottom: 1px solid;
+    transition: color var(--duration__opacity-transition) ease-out;
+
+    &:visited {
+        color: var(--color__link-visited);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: var(--color__link-hover);
     }
 
     &_unstyled {
         color: inherit;
+        border-bottom: none;
     }
 }

@@ -4,13 +4,13 @@ import { Link, Title } from 'components';
 
 import * as styles from './Header.css';
 
-import { TitleSize } from 'components/Title/Title';
+import { TextSize } from 'components/Text/Text';
 
 interface IProps extends React.HTMLProps<HTMLElement> {
     titleText: string;
     titleLink: string;
     titleLevel: 1 | 2 | 3;
-    titleSize: TitleSize;
+    titleSize: TextSize;
     subtitle?: string;
 }
 
@@ -39,7 +39,7 @@ const Header: React.StatelessComponent<IProps> = (props: IProps): JSX.Element =>
             { subtitle && (
                 <Title
                     level={ 3 }
-                    size={ 10 }
+                    size={ 18 }
                 >
                     { subtitle }
                 </Title>

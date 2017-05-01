@@ -1,0 +1,21 @@
+@import './variables.css';
+
+:root {
+    --mixin-transparent: {
+        opacity: 0.7;
+        transition: opacity var(--duration__opacity-transition) ease-out;
+
+        &:hover {
+            opacity: 1;
+        }
+    };
+
+    --mixin__anti-transparent: {
+        opacity: 1;
+        transition: opacity var(--duration__opacity-transition) ease-out;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+}

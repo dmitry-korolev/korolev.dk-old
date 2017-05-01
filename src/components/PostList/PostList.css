@@ -2,6 +2,6 @@
 
 .postlist {
     &_item {
-        margin-bottom: var(--size__leading);
+        margin-bottom: calc(var(--size__leading) * 2);
     }
 }

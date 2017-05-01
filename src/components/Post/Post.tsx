@@ -25,6 +25,9 @@ interface IPostProps {
 
 type CombinedProps = IProps & IPostProps;
 
+// TODO: move this to settings db
+const MAX_EXCERPT_LENGTH = 300;
+
 const insertHtml = (html: string): JSX.Element => (
     <div
         className={ style.post_content }
@@ -32,12 +35,14 @@ const insertHtml = (html: string): JSX.Element => (
     />
 );
 
+const makeExcerptN = makeExcerpt(MAX_EXCERPT_LENGTH);
+
 const getContent = (content: string, excerpt: string, isSingle: boolean): string => {
     if (isSingle) {
         return content;
     }
 
-    return excerpt || makeExcerpt(content);
+    return excerpt || makeExcerptN(content);
 };
 
 const renderArticle: (content: string, excerpt: string, isSingle: boolean) => JSX.Element = pipe(
@@ -76,7 +81,7 @@ const Post = connect(mapStateToProps)(({ post, tags, isSingle, className }: Comb
                     titleText={ title }
                     titleLink={ postUrl }
                     titleLevel={ isSingle ? 1 : 2 }
-                    titleSize={ 20 }
+                    titleSize={ 28 }
                     subtitle={ subtitle }
                 />
             </header>

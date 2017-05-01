@@ -1,4 +1,6 @@
 :root {
+
+    /* Sizes */
     --size__base-font: 16;
     --size__base-line-height: 1.5; /* 24 */
     --size__leading: calc(var(--size__base-line-height) * 1rem);
@@ -44,5 +46,8 @@
     --color__border-button-focus: #aaa #bbb #bbb;
     --color__border-input: #ccc;
     --color__border-abbr: #666;
+
+    /* Misc */
+    --duration__opacity-transition: 0.3s;
 }
 

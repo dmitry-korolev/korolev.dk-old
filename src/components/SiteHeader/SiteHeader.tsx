@@ -27,7 +27,7 @@ const SiteHeader: React.StatelessComponent<IProps> = ({ headline, isMainPage }: 
                 titleText='Пингвин Рыба Есть'
                 subtitle={ headline }
                 titleLevel={ isMainPage ? 1 : 2 }
-                titleSize={ 24 }
+                titleSize={ 28 }
             />
         </Box>
     </Flex>
