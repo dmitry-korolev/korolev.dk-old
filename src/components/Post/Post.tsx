@@ -66,7 +66,7 @@ export const Post = connect(mapStateToProps)(({ post, tags, isSingle, className 
 
     return (
         <article
-            id={ `post-${_id}` }
+            id={ _id }
             className={ className }
         >
             <header
