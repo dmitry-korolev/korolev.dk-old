@@ -70,8 +70,8 @@ const config = {
                             modules: true,
                             importLoaders: 2,
                             localIdentName: process.env.NODE_ENV === 'production' ?
-                                'c_[hash:base64:6]' :
-                                'c_[name]_[local]_[hash:base64:6]'
+                                '[hash:base64:6]' :
+                                '[name]_[local]_[hash:base64:6]'
 }
                     },
                     { loader: 'postcss-loader' }

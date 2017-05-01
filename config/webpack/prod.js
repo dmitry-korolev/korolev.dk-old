@@ -69,7 +69,7 @@ const config = {
                                 modules: true,
                                 importLoaders: 2,
                                 minimize: true,
-                                localIdentName: 'c_[hash:base64:5]'
+                                localIdentName: '[hash:base64:5]'
                             }
                         },
                         { loader: 'postcss-loader' }
