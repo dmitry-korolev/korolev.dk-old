@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as Helmet from 'react-helmet';
 import { Store } from 'redux';
 
+import * as styles from './Html.css';
+
 // Types
 import { IStore } from 'models/store';
 
@@ -23,8 +25,8 @@ class Html extends React.PureComponent<IHtmlProps, {}> {
         const head = Helmet.rewind();
         const { markup, store } = this.props;
 
-        const styles = this.resolve(['vendor.css', 'app.css']);
-        const renderStyles = styles.map((src: string, i: number) =>
+        const css = this.resolve(['vendor.css', 'app.css']);
+        const renderCss = css.map((src: string, i: number) =>
             <link key={ i } rel='stylesheet' type='text/css' href={ src } />
         );
 
@@ -53,11 +55,15 @@ class Html extends React.PureComponent<IHtmlProps, {}> {
                 { head.link.toComponent() }
                 { head.script.toComponent() }
 
-                { renderStyles }
+                { renderCss }
                 <link rel='shortcut icon' href='/favicon.ico' />
             </head>
             <body>
-            <main id='app' dangerouslySetInnerHTML={ { __html: markup } } />
+            <main
+                id='app'
+                className={ styles.main }
+                dangerouslySetInnerHTML={ { __html: markup } }
+            />
             { initialState }
             { renderScripts }
             </body>

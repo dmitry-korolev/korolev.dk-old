@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { renderComponent } from 'helpers/TestHelper';
 import { App } from './index';
 
-import * as s from './style.css';
+import * as s from './App.css';
 
 describe('<App />', () => {
 

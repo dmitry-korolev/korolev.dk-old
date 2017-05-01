@@ -13,7 +13,7 @@ import { IApplication } from 'models/appication';
 import { IConnectArguments, IStore } from 'models/store';
 
 // Styles
-import * as s from './style.css';
+import * as styles from './App.css';
 
 interface IProps {
     headline: string;
@@ -65,7 +65,7 @@ class App extends React.PureComponent<IProps, object> {
         } = this.props;
 
         return (
-            <div className={ s.appContainer }>
+            <div className={ styles.appContainer }>
                 <Helmet
                     title={ title }
                     titleTemplate={ titleTemplate }
