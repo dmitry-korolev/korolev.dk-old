@@ -1,8 +1,10 @@
 import * as NeDB from 'nedb';
+import { dbPath } from 'utils/server';
+
 import { optionsServiceName } from './serviceName';
 
 const optionsDb = new NeDB({
-    filename: `db/${process.env.NODE_ENV === 'production' ? 'prod' : 'dev'}/${optionsServiceName}`,
+    filename: dbPath(optionsServiceName),
     autoload: true
 });
 

@@ -3,14 +3,14 @@ import * as NeDB from 'nedb';
 import { BaseService } from 'api/base';
 import { associateUser, createSlug, restrictToAdmin } from 'api/hooks';
 import { combineHooks } from 'utils';
-import { calcPage, validatePost } from 'utils/server';
+import { calcPage, dbPath, validatePost } from 'utils/server';
 
 import { IHooks } from 'models/api';
 import { IPost } from 'models/posts';
 
 const postsServiceName = 'posts';
 const db = new NeDB({
-    filename: `db/${process.env.NODE_ENV === 'production' ? 'prod' : 'dev'}/${postsServiceName}`,
+    filename: dbPath(postsServiceName),
     autoload: true
 });
 

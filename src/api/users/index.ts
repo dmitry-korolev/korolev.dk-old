@@ -3,7 +3,7 @@ import * as NeDB from 'nedb';
 import { BaseService } from 'api/base';
 import { restrictToAdmin } from 'api/hooks';
 import { combineHooks } from 'utils';
-import { validateUser } from 'utils/server';
+import { dbPath, validateUser } from 'utils/server';
 
 // Models
 import { IHooks } from 'models/api';
@@ -12,7 +12,7 @@ import { IUser } from 'models/user';
 const usersServiceName = 'users';
 
 const db = new NeDB({
-    filename: `db/${process.env.NODE_ENV === 'production' ? 'prod' : 'dev'}/${usersServiceName}`,
+    filename: dbPath(usersServiceName),
     autoload: true
 });
 
