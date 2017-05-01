@@ -1,7 +1,7 @@
 import { Box, Flex, Header, Link } from 'components';
 import * as React from 'react';
 
-import * as s from './style.css';
+import * as s from './SiteHeader.css';
 
 interface IProps {
     isMainPage: boolean;

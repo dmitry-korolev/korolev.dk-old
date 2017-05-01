@@ -2,7 +2,7 @@ import * as cn from 'classnames';
 import * as React from 'react';
 import { IndexLink, Link as RouterLink, LinkProps } from 'react-router';
 
-import * as s from './style.css';
+import * as s from './Link.css';
 
 interface IProps extends LinkProps {
     to: string;

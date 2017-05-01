@@ -49,7 +49,7 @@ const mapStateToProps =
     (state: IStore, { itemId }: IProps): IPostProps =>
         getPostFromState(state, itemId);
 
-export const Post = connect(mapStateToProps)(({ post, tags, isSingle, className }: CombinedProps): JSX.Element => {
+const Post = connect(mapStateToProps)(({ post, tags, isSingle, className }: CombinedProps): JSX.Element => {
     if (!post) {
         return null;
     }
@@ -91,3 +91,7 @@ export const Post = connect(mapStateToProps)(({ post, tags, isSingle, className 
         </article>
     );
 });
+
+Post.displayName = 'Post';
+
+export { Post }

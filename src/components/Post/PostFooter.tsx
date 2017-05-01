@@ -19,7 +19,7 @@ interface IProps extends React.HTMLProps<any> {
 const formatCreatedDate = dateFormat('YYYY/MM/DD');
 const isofyDate = (date: string): string => (new Date(date)).toISOString();
 
-export const PostFooter = ({ post, tags = [], className }: IProps): JSX.Element => {
+const PostFooter: React.StatelessComponent<IProps> = ({ post, tags = [], className }: IProps): JSX.Element => {
     if (!post) {
         return null;
     }
@@ -63,3 +63,7 @@ export const PostFooter = ({ post, tags = [], className }: IProps): JSX.Element 
         </footer>
     );
 };
+
+PostFooter.displayName = 'PostFooter';
+
+export { PostFooter }
