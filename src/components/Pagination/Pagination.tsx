@@ -19,7 +19,7 @@ const renderItems =
                 <PaginationItem
                     key={ pageNumber }
                     pageNumber={ pageNumber }
-                    isActive={ pageNumber === currentPage }
+                    isActive={ pageNumber === +currentPage }
                     href={ linkBuilder(pageNumber) }
                 />
             );
