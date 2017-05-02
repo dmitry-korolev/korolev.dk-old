@@ -13,7 +13,24 @@ export interface ICrudActionCreators<IItem> {
     fetchError: IActionCreator<Error>;
 }
 
+interface IOperators {
+    $lt?: number;
+    $lte?: number;
+    $gt?: number;
+    $gte?: number;
+    $in?: Array<string | number>;
+    $nin?: Array<string | number>;
+    $ne?: string | number;
+    $exists?: boolean;
+    $size?: number;
+    $elemMatch?: string;
+    $or?: IOperators;
+    $and?: IOperators;
+    $not?: IOperators;
+}
+
 export interface IQuery {
+    tags?: IOperators;
     pageNumber?: number;
 }
 

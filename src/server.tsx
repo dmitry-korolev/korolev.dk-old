@@ -12,7 +12,7 @@ import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 
 import { setupApplication } from 'api';
 import { Html } from 'containers';
-import routes from 'routes';
+import routes from 'routes/Routes';
 import { configureStore } from 'state/store';
 
 const manifest = require('../build/manifest.json');

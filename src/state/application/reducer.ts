@@ -1,3 +1,5 @@
+import { pageRegExp } from 'utils';
+
 import { IApplication } from 'models/appication';
 import { IAction } from 'models/flux';
 
@@ -47,7 +49,6 @@ if (process.env.NODE_ENV !== 'production') {
     });
 }
 
-const pageRegExp = /\/page\/\d*/;
 const getBasePath = (pathname: string): string => pathname.replace(pageRegExp, '/');
 
 export const applicationReducer = (state: IApplication = initialState, action: IAction): IApplication => {

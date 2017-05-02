@@ -7,7 +7,9 @@ import { getPosts } from 'state/posts';
 
 // Components
 import { PostList, Pagination } from 'components';
+import { IQuery } from 'models/crud';
 import { IConnectArguments, IStore } from 'models/store';
+import { paginatedTemplate } from 'utils';
 
 interface IProps {
     itemIds: string[];
@@ -21,14 +23,25 @@ const pageNumberP = pathOr(1, ['params', 'pageNumber']);
 
 @asyncConnect(
     [{
-        promise: ({ store: { dispatch, getState }, params: { pageNumber } }: IConnectArguments ): Promise<void> => {
+        promise: ({ store, params }: IConnectArguments ): Promise<void> => {
+            const { dispatch, getState } = store;
+            const { pageNumber, tagId } = params;
             const { application } = getState();
+            const pagination = {
+                pageNumber: pageNumber || 1,
+                key: basepathP(application)
+            };
+            const query: IQuery = {};
+
+            if (tagId) {
+                query.tags = {
+                    $elemMatch: tagId
+                };
+            }
 
             return dispatch(getPosts({
-                pagination: {
-                    pageNumber: pageNumber || 1,
-                    key: basepathP(application)
-                }
+                query,
+                pagination
             }));
         }
     }],
@@ -60,7 +73,7 @@ class Archive extends React.PureComponent<IProps, any> {
             return basePath;
         }
 
-        return `${basePath}page/${pageNumber}/`;
+        return paginatedTemplate(pageNumber)(basePath);
     }
 
     public render(): JSX.Element {
