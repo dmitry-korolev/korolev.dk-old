@@ -2,6 +2,8 @@ import * as React from 'react';
 import { times } from 'utils/ramda';
 import { Flex } from 'components';
 
+import * as styles from './Pagination.css';
+
 import { PaginationItem } from './PaginationItem';
 
 interface IProps extends React.HTMLProps<HTMLElement> {
@@ -32,6 +34,7 @@ const Pagination: React.StatelessComponent<IProps> = (props: IProps): JSX.Elemen
 
     return (
         <Flex
+            className={ styles.pagination }
             is='nav'
             j='center'
         >

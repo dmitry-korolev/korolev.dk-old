@@ -14,6 +14,7 @@ const pathOr = require('ramda/src/pathOr');
 const pick = require('ramda/src/pick');
 const pipe = require('ramda/src/pipe');
 const prop = require('ramda/src/prop');
+const propOr = require('ramda/src/propOr');
 const propEq = require('ramda/src/propEq');
 const sort = require('ramda/src/sort');
 const split = require('ramda/src/split');
@@ -39,6 +40,7 @@ export {
     pick,
     pipe,
     prop,
+    propOr,
     propEq,
     sort,
     split,

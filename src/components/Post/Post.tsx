@@ -55,7 +55,7 @@ const mapStateToProps =
         getPostFromState(state, itemId);
 
 const Post = connect(mapStateToProps)(({ post, tags, isSingle, className }: CombinedProps): JSX.Element => {
-    if (!post) {
+    if (!post._id) {
         return null;
     }
 

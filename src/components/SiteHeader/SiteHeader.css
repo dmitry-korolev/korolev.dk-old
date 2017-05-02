@@ -2,6 +2,7 @@
 
 .site_header {
     height: calc(var(--size__gutter) * 12);
+    margin-bottom: var(--size__leading);
 }
 
 .site_logo {

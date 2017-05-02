@@ -3,7 +3,7 @@ import {
     map,
     path,
     pathOr,
-    prop,
+    propOr,
     propEq
 } from 'utils/ramda';
 
@@ -11,7 +11,7 @@ import { IPost, IPosts } from 'models/posts';
 import { ITag } from 'models/tags';
 import { IStore } from 'models/store';
 
-const postOrEmpty = (postId: string, posts: IPosts): IPost => pathOr({ tags: [] }, ['itemsById', postId], posts);
+const postOrEmpty = (postId: string, posts: IPosts): IPost => pathOr({}, ['itemsById', postId], posts);
 
 export const getTagBySlug =
     (slug: string, tags: ITag[]): ITag =>
@@ -25,6 +25,6 @@ export const getPostFromState = ({ posts, tags }: IStore, postId: string): {
 
     return {
         post,
-        tags: map((_id: number) => path(['itemsById', _id], tags), prop('tags', post))
+        tags: map((_id: number) => path(['itemsById', _id], tags), propOr([], 'tags', post))
     };
 };

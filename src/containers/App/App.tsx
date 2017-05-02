@@ -3,7 +3,7 @@ import * as Helmet from 'react-helmet';
 import { asyncConnect } from 'redux-connect';
 import { path } from 'utils/ramda';
 
-import { SiteHeader } from 'components';
+import { SiteHeader, SiteFooter } from 'components';
 import { runGlobalActions } from 'state/globalActions';
 import { getHeadlines, headlinesSet } from 'state/headlines';
 import { getTags } from 'state/tags';
@@ -77,6 +77,7 @@ class App extends React.PureComponent<IProps, object> {
                     headline={ headline }
                 />
                 { children }
+                <SiteFooter />
             </div>
         );
     }

@@ -1,6 +1,8 @@
 @import '../../statics/styles/variables.css';
 
 .pagination {
+    margin-bottom: calc(var(--size__leading) * 2);
+
     &_item {
         height: calc(var(--size__base-line-height) * 1rem);
         width: calc(var(--size__base-line-height) * 1rem);
