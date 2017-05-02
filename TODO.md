@@ -2,23 +2,14 @@
 - FIXES
     - API path in production mode
 - Content:
-    - ~~Schema~~
-    - ~~Validate schema in db services~~
-    - ~~Think of url schema~~
-    - ~~Use entities slugs as ids~~
-    - Add mocks
-        - ~~Tags~~
-        - ~~Posts~~
+    - 404 page
+    - Mocks
         - Pages
-    - Add pagination
-        - ~~Split crud generator into several modules. Maybe get rid of class?~~
+    - Pagination
         - Find a way to dispatch async actions BEFORE location change. Or something like that.
         - Add loaders.
     - Add markdown support
 - Authentication
-    - ~~Add feathers-client to client bundle~~
-    - ~~Add basic client auth~~
-    - ~~Reduxify this s**t~~
     - Add automatic logout on timeout
 - Admin
     - Move settings to the backend
@@ -29,7 +20,6 @@
         - Posts footer
         - Posts content
 - Other
-    - ~~Add caching to common NeDB querying~~
     - (!) Change react-css-modules to babel-plugin-react-css-modules
     - Rearrange application setup in server.ts, 'cause mother of god, it's so shitty right now
     - (?) Try to switch ts compiler to native modules (to enable some useful babel plugins)
