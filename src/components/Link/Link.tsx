@@ -2,7 +2,7 @@ import * as cn from 'classnames';
 import * as React from 'react';
 import { IndexLink, Link as RouterLink, LinkProps } from 'react-router';
 
-import * as s from './Link.css';
+import * as styles from './Link.css';
 
 interface IProps extends LinkProps {
     to: string;
@@ -23,11 +23,9 @@ const Link: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => {
 
     return (
         <Component
-            activeClassName={ s.link_active }
-            className={ cn({
-                [className]: !!className,
-                [s.link]: true,
-                [s.link_unstyled]: unstyled
+            activeClassName={ styles.link_active }
+            className={ cn(styles.link, className, {
+                [styles.link_unstyled]: unstyled
             }) }
             { ...linkProps }
         >

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { times } from 'utils/ramda';
+import { Flex } from 'components';
 
 import { PaginationItem } from './PaginationItem';
-import * as styles from './Pagination.css';
 
 interface IProps extends React.HTMLProps<HTMLElement> {
     pageCount: number;
@@ -31,9 +31,12 @@ const Pagination: React.StatelessComponent<IProps> = (props: IProps): JSX.Elemen
     }
 
     return (
-        <nav className={ styles.pagination }>
+        <Flex
+            is='nav'
+            j='center'
+        >
             { renderItems(props) }
-        </nav>
+        </Flex>
     );
 };
 

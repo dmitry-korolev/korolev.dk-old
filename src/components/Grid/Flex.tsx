@@ -1,5 +1,10 @@
 import * as cn from 'classnames';
 import * as React from 'react';
+import {
+    pick,
+    pipe,
+    memoize
+} from 'utils/ramda';
 
 import * as s from './style.css';
 
@@ -84,6 +89,17 @@ const getAlignContent = ({ ac = 'flex-start' }: IFlexContainerProps): IFlexAlign
     aAlignContent: ac
 } : {};
 
+const getStyle = pipe(
+    pick(['d', 'w', 'j', 'ai', 'ac']),
+    memoize((props: IFlexContainerProps): object => ({
+        ...getDirection(props),
+        ...getWrap(props),
+        ...getJustify(props),
+        ...getAlignItems(props),
+        ...getAlignContent(props)
+    }))
+);
+
 const Flex: React.StatelessComponent<IFlexContainerProps> = ({
     is,
     className = '',
@@ -93,17 +109,8 @@ const Flex: React.StatelessComponent<IFlexContainerProps> = ({
 
     return (
         <Container
-            className={ cn({
-                [s.flex]: true,
-                [className]: !!className
-            }) }
-            style={ {
-                ...getDirection(props),
-                ...getWrap(props),
-                ...getJustify(props),
-                ...getAlignItems(props),
-                ...getAlignContent(props)
-            } }
+            className={ cn(s.flex, className) }
+            style={ getStyle(props) }
         >
             { props.children }
         </Container>

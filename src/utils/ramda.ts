@@ -8,6 +8,7 @@ const identity = require('ramda/src/identity');
 const indexBy = require('ramda/src/indexBy');
 const join = require('ramda/src/join');
 const map = require('ramda/src/map');
+const memoize = require('ramda/src/memoize');
 const path = require('ramda/src/path');
 const pathOr = require('ramda/src/pathOr');
 const pick = require('ramda/src/pick');
@@ -32,6 +33,7 @@ export {
     indexBy,
     join,
     map,
+    memoize,
     path,
     pathOr,
     pick,

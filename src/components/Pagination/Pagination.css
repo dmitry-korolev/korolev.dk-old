@@ -1,9 +1,15 @@
+@import '../../statics/styles/variables.css';
+
 .pagination {
     &_item {
-        display: inline-block;
+        height: calc(var(--size__base-line-height) * 1rem);
+        width: calc(var(--size__base-line-height) * 1rem);
+        font-size: 1rem;
+        text-align: center;
+        line-height: var(--size__base-line-height);
     }
 
     &_active {
-        color: red;
+        color: black;
     }
 }

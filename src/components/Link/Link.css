@@ -20,5 +20,12 @@
     &_unstyled {
         color: inherit;
         border-bottom: none;
+
+        &:visited,
+        &:hover,
+        &:focus,
+        &:active {
+            color: inherit;
+        }
     }
 }

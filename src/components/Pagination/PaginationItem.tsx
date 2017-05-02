@@ -2,7 +2,7 @@ import * as cn from 'classnames';
 import * as React from 'react';
 import { Link } from 'components';
 
-import * as s from './Pagination.css';
+import * as styles from './Pagination.css';
 
 interface IProps extends React.HTMLProps<HTMLElement> {
     pageNumber: number;
@@ -19,13 +19,13 @@ const PaginationItem: React.StatelessComponent<IProps> = (props: IProps): JSX.El
 
     return (
         <span
-            className={ cn({
-                [s.pagination_item]: true,
-                [s.pagination_active]: isActive
+            className={ cn(styles.pagination_item, {
+                [styles.pagination_active]: isActive
             }) }
         >
             <Link
                 to={ href }
+                unstyled={ true }
             >
                 { pageNumber }
             </Link>
