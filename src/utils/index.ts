@@ -18,3 +18,8 @@ export { toCamelCase } from './toCamelCase';
 export { UserRoles } from './user';
 export { replace } from './replace';
 export { dateFormat } from './dateFormat';
+export {
+    scrollTo,
+    scrollBy,
+    scrollIntoView
+} from './scrollTo';

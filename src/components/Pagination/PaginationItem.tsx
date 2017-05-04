@@ -1,6 +1,7 @@
 import * as cn from 'classnames';
 import * as React from 'react';
 import { Link } from 'components';
+import { scrollTo } from 'utils';
 
 import * as styles from './Pagination.css';
 
@@ -9,6 +10,8 @@ interface IProps extends React.HTMLProps<HTMLElement> {
     isActive: boolean;
     href: string;
 }
+
+const scrollToTop = (): void => scrollTo(0);
 
 const PaginationItem: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => {
     const {
@@ -26,6 +29,7 @@ const PaginationItem: React.StatelessComponent<IProps> = (props: IProps): JSX.El
             <Link
                 to={ href }
                 unstyled={ true }
+                onClick= { scrollToTop }
             >
                 { pageNumber }
             </Link>

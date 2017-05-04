@@ -1,5 +1,7 @@
 import * as e6p from 'es6-promise';
+import * as smoothScroll from 'smoothscroll-polyfill';
 (e6p as any).polyfill();
+(smoothScroll as any).polyfill();
 import 'isomorphic-fetch';
 
 import * as debug from 'debug';
