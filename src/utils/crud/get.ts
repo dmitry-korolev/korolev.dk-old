@@ -7,13 +7,18 @@ import { ICrudActionCreators, IQuery } from 'models/crud';
 import { IAsyncAction, IAsyncActionCreator, ICommonReducerState } from 'models/flux';
 import { IGetState, IStore } from 'models/store';
 import { Dispatch } from 'redux';
+import { Service } from 'feathers';
 
 export const generateGet =
-    <IItem>(serviceName: string, app: any, actions: ICrudActionCreators<IItem>): IAsyncActionCreator<IQuery> => {
+    <IItem>(
+        serviceName: string,
+        getService: () => Service<IItem>,
+        actions: ICrudActionCreators<IItem>
+    ): IAsyncActionCreator<IQuery> => {
         const logError: IDebugger = debug(`k:crud:${serviceName}:error`);
 
         const get: IAsyncActionCreator<string> = (_id: string): IAsyncAction => {
-            const service = app.service(`api/${serviceName}`);
+            const service = getService();
 
             return async (dispatch: Dispatch<ICommonReducerState<IItem>>, getState: IGetState): Promise<void> => {
                 const state: IStore = getState();

@@ -9,6 +9,7 @@ import { generateTypes } from './types';
 // Models
 import { ICRUD, ICrudActionCreators, ICrudActionTypes, ICrudOptions, IQuery } from 'models/crud';
 import { IAsyncActionCreator, ICommonReducerState, IReducer } from 'models/flux';
+import { Service } from 'feathers';
 
 export const crud = <IItem>({
     serviceName,
@@ -20,11 +21,12 @@ export const crud = <IItem>({
         error: false,
         itemsById: {}
     };
+    const getService = (): Service<IItem> => app.service(`api/${serviceName}`);
     const types: ICrudActionTypes = generateTypes(serviceName);
     const actions: ICrudActionCreators<IItem> = generateActions<IItem>(serviceName);
     const reducer: IReducer<ICommonReducerState<IItem>> = generateReducer<IItem>(types, innerInitialState);
-    const find: IAsyncActionCreator<IQuery> = generateFind<IItem>(serviceName, app, actions);
-    const get: IAsyncActionCreator<string> = generateGet<IItem>(serviceName, app, actions);
+    const find: IAsyncActionCreator<IQuery> = generateFind<IItem>(serviceName, getService, actions);
+    const get: IAsyncActionCreator<string> = generateGet<IItem>(serviceName, getService, actions);
 
     return {
         reducer,

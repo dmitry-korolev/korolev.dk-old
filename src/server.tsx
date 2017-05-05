@@ -3,22 +3,16 @@ import * as e6p from 'es6-promise';
 import 'isomorphic-fetch';
 
 import * as debug from 'debug';
-import * as React from 'react';
-import * as ReactDOMServer from 'react-dom/server';
-import { Provider } from 'react-redux';
 import { createMemoryHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
-
 import { setupApplication } from 'api';
-import { Html } from 'containers';
 import routes from 'routes/Routes';
+import { matchCallback } from 'server/matchCallback';
 import { configureStore } from 'state/store';
 
-const manifest = require('../build/manifest.json');
 const appConfig = require('../config/main');
 
-import app from 'app/app';
+import { app } from 'services/api';
 
 // Server stuff
 const feathers = require('feathers');
@@ -75,27 +69,10 @@ app.get('*', (req: any, res: any) => {
     const store = configureStore(memoryHistory as any);
     const history: any = syncHistoryWithStore(memoryHistory as any, store);
 
-    match({ history, routes, location },
-        (error: Error, redirectLocation: any, renderProps: any) => {
-            if (error) {
-                res.status(500).send(error.message);
-            } else if (redirectLocation) {
-                res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-            } else if (renderProps) {
-                const asyncRenderData = Object.assign({}, renderProps, { store });
-
-                loadOnServer(asyncRenderData).then(() => {
-                    const markup = ReactDOMServer.renderToString((
-                        <Provider store={ store } key='provider'>
-                            <ReduxAsyncConnect { ...renderProps } />
-                        </Provider>
-                    ));
-                    res.status(200).send(renderHTML(markup, store));
-                });
-            } else {
-                res.status(404).send('Not Found?');
-            }
-        });
+    match(
+        { history, routes, location },
+        matchCallback(res, store)
+    );
 });
 
 app.listen(appConfig.port, appConfig.host, (err: Error): void => {
@@ -105,14 +82,6 @@ app.listen(appConfig.port, appConfig.host, (err: Error): void => {
         logInfo(`\n\n💂  Listening at http://${appConfig.host}:${appConfig.port}\n`);
     }
 });
-
-function renderHTML(markup: string, store: any): string {
-    const html = ReactDOMServer.renderToString(
-        <Html markup={ markup } manifest={ manifest } store={ store } />
-    );
-
-    return `<!doctype html> ${html}`;
-}
 
 process.on('unhandledRejection', (reason: Error): void => {
     logError(reason);

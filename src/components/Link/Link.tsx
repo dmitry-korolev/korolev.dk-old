@@ -1,10 +1,10 @@
 import * as cn from 'classnames';
 import * as React from 'react';
-import { IndexLink, Link as RouterLink, LinkProps } from 'react-router';
+import { IndexLink, Link as RouterLink, IndexLinkProps } from 'react-router';
 
 import * as styles from './Link.css';
 
-interface IProps extends LinkProps {
+interface IProps extends IndexLinkProps {
     to: string;
     unstyled?: boolean;
     isHome?: boolean;
@@ -16,7 +16,8 @@ const Link: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => {
         children,
         isHome,
         className,
-        ...linkProps
+        to,
+        ...htmlProps
     } = props;
 
     const Component = isHome ? IndexLink : RouterLink;
@@ -27,7 +28,8 @@ const Link: React.StatelessComponent<IProps> = (props: IProps): JSX.Element => {
             className={ cn(styles.link, className, {
                 [styles.link_unstyled]: unstyled
             }) }
-            { ...linkProps }
+            to={ to }
+            { ...htmlProps }
         >
             { children }
         </Component>

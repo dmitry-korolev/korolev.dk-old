@@ -14,7 +14,8 @@ if (process.env.BROWSER) {
         .configure(hooks())
         .configure(authentication());
 } else {
-    app = require('../app/app').default;
+    const feathers = require('feathers');
+    app = feathers();
 }
 
 export {

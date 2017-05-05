@@ -11,14 +11,25 @@ import { ICrudActionCreators, IFindOptions, IQuery } from 'models/crud';
 import { IAsyncAction, IAsyncActionCreator, ICommonReducerState } from 'models/flux';
 import { IGetState } from 'models/store';
 import { Dispatch } from 'redux';
+import { Pagination, Service } from 'feathers';
+
+const isPaginated = <T>(pet: T | T[] | Pagination<T>): pet is Pagination<T> => {
+    return (pet as Pagination<T>).data !== undefined;
+};
+
+const toArray = <T>(source: T | T[]): T[] => Array.isArray(source) ? source : [source];
 
 export const generateFind =
-    <IItem>(serviceName: string, app: any, actions: ICrudActionCreators<IItem>): IAsyncActionCreator<IQuery> => {
+    <IItem>(
+        serviceName: string,
+        getService: () => Service<IItem>,
+        actions: ICrudActionCreators<IItem>
+    ): IAsyncActionCreator<IQuery> => {
         const logError: IDebugger = debug(`k:crud:${serviceName}:error`);
 
         const find: IAsyncActionCreator<IFindOptions> =
             ({ query = {}, pagination }: IFindOptions = {}): IAsyncAction => {
-                const service = app.service(`api/${serviceName}`);
+                const service = getService();
 
                 return async (dispatch: Dispatch<ICommonReducerState<IItem>>, getState: IGetState): Promise<void> => {
                     if (pagination) {
@@ -29,18 +40,22 @@ export const generateFind =
                         query.pageNumber = pagination.pageNumber;
                     }
 
+                    if (path([serviceName, 'itemsById', 'length'], getState())) {
+                        return;
+                    }
+
                     await dispatch(actions.fetchStart());
 
                     try {
                         const result = await service.find({ query });
-                        const items = pagination ? result.data : result;
+                        const items = isPaginated(result) ? result.data : result;
 
-                        await dispatch(actions.fetchSuccess(items));
+                        await dispatch(actions.fetchSuccess(toArray(items)));
 
                         if (pagination) {
                             const { key, pageNumber } = pagination;
-                            const { total, limit } = result;
-                            const totalPages = Math.ceil(total / limit);
+                            const { total, limit } = result as Pagination<IItem>;
+                            const totalPages = Math.ceil(+total / +limit);
 
                             await dispatch(paginationUpdate({
                                 key,
