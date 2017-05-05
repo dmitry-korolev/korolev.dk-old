@@ -1,12 +1,13 @@
-import { Header } from 'components';
+import { Header, NotFound } from 'components';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { postUrlTemplate } from 'utils';
-import { getPostFromState, makeExcerpt } from 'utils';
+import { getPostFromState, getPageFromState, makeExcerpt } from 'utils';
 import { pipe } from 'utils/ramda';
 
 // Types
 import { IPost } from 'models/posts';
+import { IPage } from 'models/pages';
 import { ITag } from 'models/tags';
 import { IStore } from 'models/store';
 
@@ -16,10 +17,11 @@ import * as style from './Post.css';
 interface IProps extends React.HTMLProps<HTMLElement> {
     itemId: string;
     isSingle?: boolean;
+    mod: 'post' | 'page';
 }
 
 interface IPostProps {
-    post: IPost;
+    item: IPost | IPage;
     tags?: ITag[];
 }
 
@@ -50,13 +52,18 @@ const renderArticle: (content: string, excerpt: string, isSingle: boolean) => JS
     insertHtml
 );
 
-const mapStateToProps =
-    (state: IStore, { itemId }: IProps): IPostProps =>
-        getPostFromState(state, itemId);
+const getItem = {
+    post: getPostFromState,
+    page: getPageFromState
+};
 
-const Post = connect(mapStateToProps)(({ post, tags, isSingle, className }: CombinedProps): JSX.Element => {
-    if (!post._id) {
-        return null;
+const mapStateToProps =
+    (state: IStore, { itemId, mod }: IProps): IPostProps =>
+        getItem[mod](state, itemId);
+
+const Post = connect(mapStateToProps)(({ item, tags, mod, isSingle, className }: CombinedProps): JSX.Element => {
+    if (!item._id) {
+        return <NotFound />;
     }
 
     const {
@@ -65,7 +72,7 @@ const Post = connect(mapStateToProps)(({ post, tags, isSingle, className }: Comb
         excerpt,
         title,
         subtitle
-    } = post;
+    } = item as IPost;
 
     const postUrl = postUrlTemplate(_id);
 
@@ -90,8 +97,9 @@ const Post = connect(mapStateToProps)(({ post, tags, isSingle, className }: Comb
 
             <PostFooter
                 className={ style.post_footer }
-                post={ post }
+                item={ item }
                 tags={ tags }
+                mod={ mod }
             />
         </article>
     );

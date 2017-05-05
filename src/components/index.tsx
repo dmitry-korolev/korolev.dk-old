@@ -8,3 +8,4 @@ export { Post } from './Post/Post';
 export { PostList } from './PostList/PostList';
 export { Pagination } from './Pagination/Pagination';
 export { SiteFooter } from './SiteFooter/SiteFooter';
+export { NotFound } from './NotFound/NotFound';

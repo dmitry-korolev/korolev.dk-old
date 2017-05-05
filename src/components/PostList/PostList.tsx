@@ -13,6 +13,7 @@ const renderPost = (itemId: string): JSX.Element => (
         className={ styles.postlist_item }
         key={ itemId }
         itemId={ itemId }
+        mod='post'
     />
 );
 

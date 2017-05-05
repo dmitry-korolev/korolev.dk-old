@@ -1,30 +1,30 @@
 import {
-    find,
     map,
     path,
     pathOr,
-    propOr,
-    propEq
+    propOr
 } from 'utils/ramda';
 
 import { IPost, IPosts } from 'models/posts';
+import { IPage, IPages } from 'models/pages';
 import { ITag } from 'models/tags';
 import { IStore } from 'models/store';
 
 const postOrEmpty = (postId: string, posts: IPosts): IPost => pathOr({}, ['itemsById', postId], posts);
-
-export const getTagBySlug =
-    (slug: string, tags: ITag[]): ITag =>
-        find(propEq('slug', slug), tags);
+const pageOrEmpty = (pageId: string, pages: IPages): IPage => pathOr({}, ['itemsById', pageId], pages);
 
 export const getPostFromState = ({ posts, tags }: IStore, postId: string): {
-    post: IPost,
+    item: IPost,
     tags: ITag[]
 } => {
-    const post = postOrEmpty(postId, posts);
+    const item = postOrEmpty(postId, posts);
 
     return {
-        post,
-        tags: map((_id: number) => path(['itemsById', _id], tags), propOr([], 'tags', post))
+        item,
+        tags: map((_id: number) => path(['itemsById', _id], tags), propOr([], 'tags', item))
     };
 };
+
+export const getPageFromState = ({ pages }: IStore, pageId: string): { item: IPage } => ({
+    item: pageOrEmpty(pageId, pages)
+});

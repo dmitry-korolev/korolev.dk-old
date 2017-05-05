@@ -7,35 +7,33 @@ import { dateFormat } from 'utils';
 
 // Types
 import { IPost } from 'models/posts';
+import { IPage } from 'models/pages';
 import { ITag } from 'models/tags';
 
 import * as styles from './PostFooter.css';
 
 interface IProps extends React.HTMLProps<any> {
-    post: IPost;
+    item: IPost | IPage;
     tags?: ITag[];
+    mod: 'post' | 'page';
 }
 
 const formatCreatedDate = dateFormat('YYYY/MM/DD');
 const isofyDate = (date: string): string => (new Date(date)).toISOString();
 
-const PostFooter: React.StatelessComponent<IProps> = ({ post, tags = [], className }: IProps): JSX.Element => {
-    if (!post) {
-        return null;
-    }
-
+const PostFooter: React.StatelessComponent<IProps> = ({ item, tags = [], mod, className }: IProps): JSX.Element => {
     const {
         _id,
         _created,
         _updated
-    } = post;
+    } = item;
 
     const postUrl = postUrlTemplate(_id);
 
     return (
         <footer>
             <nav className={ cn(className, styles.footer) }>
-                <Link
+                { mod === 'post' && <Link
                     to={ postUrl }
                     className={ styles.footer_item }
                 >
@@ -46,7 +44,7 @@ const PostFooter: React.StatelessComponent<IProps> = ({ post, tags = [], classNa
                         className={ styles.footer_updated }
                         dateTime={ isofyDate(_updated) }
                     /> : null }
-                </Link>
+                </Link> }
                 { tags.length ? tags.map((tag: ITag): JSX.Element => {
                     const { _id: tagId, title } = tag;
 

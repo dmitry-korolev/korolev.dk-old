@@ -15,7 +15,7 @@ import { IConnectArguments, IStore } from 'models/store';
 // Styles
 import * as styles from './App.css';
 
-interface IProps {
+interface IProps extends React.HTMLProps<HTMLDivElement> {
     headline: string;
     application: IApplication;
     isMainPage: boolean;
@@ -31,7 +31,7 @@ const mapState = ({
     isMainPage: application.location.pathname === '/'
 });
 
-@asyncConnect(
+const aConnect = asyncConnect(
     [{
         promise:
             ({ store: { dispatch } }: IConnectArguments): Promise<void> => runGlobalActions(
@@ -47,40 +47,41 @@ const mapState = ({
 
     }],
     mapState
-)
-class App extends React.PureComponent<IProps, object> {
-    public render(): JSX.Element {
-        const {
-            headline,
-            children,
-            isMainPage,
-            application: {
-                title,
-                titleTemplate,
-                head: {
-                    meta,
-                    link
-                }
-            }
-        } = this.props;
+);
 
-        return (
-            <div className={ styles.appContainer }>
-                <Helmet
-                    title={ title }
-                    titleTemplate={ titleTemplate }
-                    meta={ meta }
-                    link={ link }
-                />
-                <SiteHeader
-                    isMainPage={ isMainPage }
-                    headline={ headline }
-                />
-                { children }
-                <SiteFooter />
-            </div>
-        );
-    }
-}
+const App = aConnect((props: IProps): JSX.Element => {
+    const {
+        headline,
+        children,
+        isMainPage,
+        application: {
+            title,
+            titleTemplate,
+            head: {
+                meta,
+                link
+            }
+        }
+    } = props;
+
+    return (
+        <div className={ styles.appContainer }>
+            <Helmet
+                title={ title }
+                titleTemplate={ titleTemplate }
+                meta={ meta }
+                link={ link }
+            />
+            <SiteHeader
+                isMainPage={ isMainPage }
+                headline={ headline }
+            />
+            { children }
+            <SiteFooter />
+        </div>
+    );
+});
+
+App.displayName = 'App';
 
 export { App }

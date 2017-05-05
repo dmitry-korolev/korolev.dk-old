@@ -1,7 +1,10 @@
 export { combineHooks } from './combineHooks';
 export { createAction } from './createAction';
 export { crud } from './crud/crudGenerator';
-export { getPostFromState, getTagBySlug } from './contentUtils'
+export {
+    getPostFromState,
+    getPageFromState
+} from './contentUtils'
 export { makeExcerpt } from './makeExcerpt';
 export { mapItemsToIds } from './mapItemsToIds';
 export {
