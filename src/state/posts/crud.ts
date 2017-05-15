@@ -1,12 +1,12 @@
-import { crud } from 'utils';
+import { crud } from 'utils'
 
 // Models
-import { IPost } from 'models/posts';
+import { IPost } from 'models/posts'
 
 const postsService = crud<IPost>({
-    serviceName: 'posts'
-});
+  serviceName: 'posts'
+})
 
 export {
-    postsService
-};
+  postsService
+}

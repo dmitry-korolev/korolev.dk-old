@@ -1,12 +1,12 @@
-import { crud } from 'utils';
+import { crud } from 'utils'
 
 // Models
-import { IPage } from 'models/pages';
+import { IPage } from 'models/pages'
 
 const pagesService = crud<IPage>({
-    serviceName: 'pages'
-});
+  serviceName: 'pages'
+})
 
 export {
-    pagesService
-};
+  pagesService
+}

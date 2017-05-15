@@ -1,185 +1,185 @@
-import * as debug from 'debug';
-import { Unprocessable } from 'feathers-errors';
-import { Service } from 'feathers-nedb';
+import * as debug from 'debug'
+import { Unprocessable } from 'feathers-errors'
+import { Service } from 'feathers-nedb'
 
 import {
-    assocPath,
-    lens,
-    path,
-    set,
-    T,
-    view
-} from 'utils/server/ramda';
+  assocPath,
+  lens,
+  path,
+  set,
+  T,
+  view
+} from 'utils/server/ramda'
 
 // Models
-import { ValidateFunction } from 'ajv/lib/ajv';
-import { IPaginationOptions } from 'models/pagination';
-import IDebugger = debug.IDebugger;
+import { ValidateFunction } from 'ajv/lib/ajv'
+import { IPaginationOptions } from 'models/pagination'
+import IDebugger = debug.IDebugger
 
-type IMapCache<T> = Map<string, T>;
+type IMapCache<T> = Map<string, T>
 interface ICachedQueries<IType> {
-    find: IMapCache<IType[]>;
-    get: IMapCache<IType>;
+  find: IMapCache<IType[]>
+  get: IMapCache<IType>
 }
 
 interface ICreateServiceOptions {
-    serviceName: string;
-    incremental?: boolean;
-    cacheable?: boolean;
-    validator?: ValidateFunction;
+  serviceName: string
+  incremental?: boolean
+  cacheable?: boolean
+  validator?: ValidateFunction
 
-    Model: any;
-    paginate?: IPaginationOptions;
+  Model: any
+  paginate?: IPaginationOptions
 }
 
-const sortL = lens(path(['query', '$sort']), assocPath(['query', '$sort']));
-const viewSort = view(sortL);
+const sortL = lens(path(['query', '$sort']), assocPath(['query', '$sort']))
+const viewSort = view(sortL)
 const setSort = set(sortL, {
-    _created: -1
-});
-const methods = ['find', 'get'];
+  _created: -1
+})
+const methods = ['find', 'get']
 
 export class BaseService<IType> extends Service {
-    private logInfo: IDebugger;
-    private logError: IDebugger;
-    private serviceName: string;
-    private incremental: boolean;
-    private cacheable: boolean;
-    private optionsService: any;
-    private validator: ValidateFunction;
-    private cachedQueries: ICachedQueries<IType>;
+  private logInfo: IDebugger
+  private logError: IDebugger
+  private serviceName: string
+  private incremental: boolean
+  private cacheable: boolean
+  private optionsService: any
+  private validator: ValidateFunction
+  private cachedQueries: ICachedQueries<IType>
 
-    constructor({
-        serviceName,
-        incremental = false,
-        cacheable = true,
-        validator = T,
-        paginate,
-        Model
-    }: ICreateServiceOptions) {
-        super({ Model, paginate });
+  constructor ({
+                 serviceName,
+                 incremental = false,
+                 cacheable = true,
+                 validator = T,
+                 paginate,
+                 Model
+               }: ICreateServiceOptions) {
+    super({ Model, paginate })
 
-        this.serviceName = serviceName;
-        this.incremental = incremental;
-        this.cacheable = cacheable;
-        this.validator = validator;
+    this.serviceName = serviceName
+    this.incremental = incremental
+    this.cacheable = cacheable
+    this.validator = validator
 
-        this.cachedQueries = {
-            find: new Map(),
-            get: new Map()
-        };
-
-        this.logInfo = debug(`k:db:${serviceName}:info`);
-        this.logError = debug(`k:db:${serviceName}:error`);
+    this.cachedQueries = {
+      find: new Map(),
+      get: new Map()
     }
 
-    private clearCache(): void {
-        methods.forEach((method: string): void => {
-            this.cachedQueries[method].clear();
-        });
+    this.logInfo = debug(`k:db:${serviceName}:info`)
+    this.logError = debug(`k:db:${serviceName}:error`)
+  }
+
+  private clearCache (): void {
+    methods.forEach((method: string): void => {
+      this.cachedQueries[method].clear()
+    })
+  }
+
+  public async find (params?: any): Promise<IType[]> {
+    if (this.incremental && !viewSort(params)) {
+      params = setSort(params)
     }
 
-    public async find(params?: any): Promise<IType[]> {
-        if (this.incremental && !viewSort(params)) {
-            params = setSort(params);
-        }
+    const key = JSON.stringify(params)
 
-        const key = JSON.stringify(params);
-
-        if (this.cacheable && this.cachedQueries.find.has(key)) {
-            this.logInfo('Found cached FIND query', params);
-            return this.cachedQueries.find.get(key);
-        }
-
-        this.logInfo('FIND', params);
-
-        const result = await super.find(params);
-
-        if (this.cacheable) {
-            this.cachedQueries.find.set(key, result);
-        }
-
-        return result;
+    if (this.cacheable && this.cachedQueries.find.has(key)) {
+      this.logInfo('Found cached FIND query', params)
+      return this.cachedQueries.find.get(key)
     }
 
-    public async get(_id: string, params?: any): Promise<IType> {
-        const key = JSON.stringify([_id, params]);
+    this.logInfo('FIND', params)
 
-        if (this.cacheable && this.cachedQueries.get.has(key)) {
-            this.logInfo('Found cached GET query', _id, params);
-            return this.cachedQueries.get.get(key);
-        }
+    const result = await super.find(params)
 
-        this.logInfo('GET', _id, params);
-
-        const result = await super.get(_id, params);
-
-        if (this.cacheable) {
-            this.cachedQueries.get.set(key, result);
-        }
-
-        return result;
+    if (this.cacheable) {
+      this.cachedQueries.find.set(key, result)
     }
 
-    public async create(data: any, params: any): Promise<IType> {
-        const valid = this.validator(data);
+    return result
+  }
 
-        if (!valid) {
-            throw new Unprocessable('Check data!', this.validator.errors);
-        }
+  public async get (_id: string, params?: any): Promise<IType> {
+    const key = JSON.stringify([_id, params])
 
-        data._created = new Date();
-        this.logInfo('POST', data, params);
-
-        const result = await super.create(data, params);
-        this.clearCache();
-
-        return result;
+    if (this.cacheable && this.cachedQueries.get.has(key)) {
+      this.logInfo('Found cached GET query', _id, params)
+      return this.cachedQueries.get.get(key)
     }
 
-    public async update(_id: string, data: any, params: any): Promise<IType> {
-        const entity = await this.get(_id, params);
-        const valid = this.validator(Object.assign({}, entity, data));
+    this.logInfo('GET', _id, params)
 
-        if (!valid) {
-            throw new Unprocessable('Check data!', this.validator.errors);
-        }
+    const result = await super.get(_id, params)
 
-        data._updated = new Date();
-        this.logInfo('PUT', _id, data, params);
-
-        const result = await super.update(_id, data, params);
-        this.clearCache();
-
-        return result;
+    if (this.cacheable) {
+      this.cachedQueries.get.set(key, result)
     }
 
-    public async patch(_id: string, data: any, params: any): Promise<IType> {
-        const entity = await this.get(_id, params);
-        const valid = this.validator(Object.assign({}, entity, data));
+    return result
+  }
 
-        if (!valid) {
-            throw new Unprocessable('Check data!', this.validator.errors);
-        }
+  public async create (data: any, params: any): Promise<IType> {
+    const valid = this.validator(data)
 
-        this.logInfo('PATCH', _id, data, params);
-
-        const result = await super.patch(_id, data, params);
-        this.clearCache();
-
-        return result;
+    if (!valid) {
+      throw new Unprocessable('Check data!', this.validator.errors)
     }
 
-    public async remove(_id: number, params: any): Promise<IType> {
-        this.logInfo('DELETE', _id, params);
+    data._created = new Date()
+    this.logInfo('POST', data, params)
 
-        const result = await super.remove(_id, params);
-        this.clearCache();
+    const result = await super.create(data, params)
+    this.clearCache()
 
-        return result;
+    return result
+  }
+
+  public async update (_id: string, data: any, params: any): Promise<IType> {
+    const entity = await this.get(_id, params)
+    const valid = this.validator(Object.assign({}, entity, data))
+
+    if (!valid) {
+      throw new Unprocessable('Check data!', this.validator.errors)
     }
 
-    public setup(app: any): void {
-        this.optionsService = app.service('/api/options');
+    data._updated = new Date()
+    this.logInfo('PUT', _id, data, params)
+
+    const result = await super.update(_id, data, params)
+    this.clearCache()
+
+    return result
+  }
+
+  public async patch (_id: string, data: any, params: any): Promise<IType> {
+    const entity = await this.get(_id, params)
+    const valid = this.validator(Object.assign({}, entity, data))
+
+    if (!valid) {
+      throw new Unprocessable('Check data!', this.validator.errors)
     }
+
+    this.logInfo('PATCH', _id, data, params)
+
+    const result = await super.patch(_id, data, params)
+    this.clearCache()
+
+    return result
+  }
+
+  public async remove (_id: number, params: any): Promise<IType> {
+    this.logInfo('DELETE', _id, params)
+
+    const result = await super.remove(_id, params)
+    this.clearCache()
+
+    return result
+  }
+
+  public setup (app: any): void {
+    this.optionsService = app.service('/api/options')
+  }
 }

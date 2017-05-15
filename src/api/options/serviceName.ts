@@ -1,1 +1,1 @@
-export const optionsServiceName = 'options';
+export const optionsServiceName = 'options'

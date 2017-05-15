@@ -1,5 +1,5 @@
 .header {
-    &__title {
-        font-variant: small-caps;
-    }
+  &__title {
+    font-variant: small-caps;
+  }
 }

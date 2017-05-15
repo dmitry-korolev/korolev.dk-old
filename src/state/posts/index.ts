@@ -1,2 +1,2 @@
-export { getPosts, getPost } from './actions';
-export { postsService } from './crud';
+export { getPosts, getPost } from './actions'
+export { postsService } from './crud'

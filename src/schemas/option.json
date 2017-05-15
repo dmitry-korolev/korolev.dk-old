@@ -1,17 +1,21 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Option",
-    "additionalProperties": false,
-    "properties": {
-        "_created": {},
-        "_id": { "type": "string" },
-        "_internal": { "type": "boolean" },
-        "_updated": {},
-        "value": {}
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Option",
+  "additionalProperties": false,
+  "properties": {
+    "_created": {},
+    "_id": {
+      "type": "string"
     },
-    "required": [
-        "_id",
-        "value"
-    ],
-    "type": "object"
+    "_internal": {
+      "type": "boolean"
+    },
+    "_updated": {},
+    "value": {}
+  },
+  "required": [
+    "_id",
+    "value"
+  ],
+  "type": "object"
 }

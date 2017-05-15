@@ -1,20 +1,36 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "User",
-    "additionalProperties": false,
-    "properties": {
-        "_created": {},
-        "_id": { "type": "string" },
-        "_updated": {},
-        "email": { "type": "string" },
-        "level": { "enum": [ 0, 50], "type": "integer" },
-        "password": { "type": "string" },
-        "url": { "type": "string" },
-        "username": { "type": "string" }
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "User",
+  "additionalProperties": false,
+  "properties": {
+    "_created": {},
+    "_id": {
+      "type": "string"
     },
-    "required": [
-        "email",
-        "password"
-    ],
-    "type": "object"
+    "_updated": {},
+    "email": {
+      "type": "string"
+    },
+    "level": {
+      "enum": [
+        0,
+        50
+      ],
+      "type": "integer"
+    },
+    "password": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "email",
+    "password"
+  ],
+  "type": "object"
 }

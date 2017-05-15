@@ -1,5 +1,5 @@
-import { randomFromArray } from './randomFromArray';
+import { randomFromArray } from './randomFromArray'
 
-export function randomFromMap<T>(map: Map<string, T>): T {
-    return randomFromArray([...map.values()]);
+export function randomFromMap<T> (map: Map<string, T>): T {
+  return randomFromArray([...map.values()])
 }

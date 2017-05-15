@@ -1,24 +1,24 @@
-import { UserRoles } from 'utils/user';
+import { UserRoles } from 'utils/user'
 
 // Models
-import { ICommonFetch } from 'models/flux';
+import { ICommonFetch } from 'models/flux'
 
 export interface IUserData {
-    _created?: string;
-    _id?: string;
-    _updated?: string;
-    email?: string;
-    level: UserRoles;
-    url?: string;
-    username?: string;
+  _created?: string
+  _id?: string
+  _updated?: string
+  email?: string
+  level: UserRoles
+  url?: string
+  username?: string
 }
 
 export interface IUser extends ICommonFetch {
-    isLoggedIn: boolean;
-    userData: IUserData;
+  isLoggedIn: boolean
+  userData: IUserData
 }
 
 export interface IUserCredentials {
-    email: string;
-    password: string;
+  email: string
+  password: string
 }

@@ -1,7 +1,7 @@
 @import '../../statics/styles/variables.css';
 
 .postlist {
-    &_item {
-        margin-bottom: calc(var(--size__leading) * 2);
-    }
+  &_item {
+    margin-bottom: calc(var(--size__leading) * 2);
+  }
 }

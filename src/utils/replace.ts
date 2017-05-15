@@ -1,19 +1,19 @@
 import {
-    forEachObjIndexed
-} from 'utils/ramda';
+  forEachObjIndexed
+} from 'utils/ramda'
 
 const replace = (formatString: string, data: { [K: string]: string | number }): string => {
-    let result = formatString;
+  let result = formatString
 
-    forEachObjIndexed((value: string, key: string) => {
-        const regExp = new RegExp(`${key}`, 'g');
+  forEachObjIndexed((value: string, key: string) => {
+    const regExp = new RegExp(`${key}`, 'g')
 
-        result = result.replace(regExp, value);
-    }, data);
+    result = result.replace(regExp, value)
+  }, data)
 
-    return result;
-};
+  return result
+}
 
 export {
-    replace
+  replace
 }

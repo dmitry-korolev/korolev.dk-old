@@ -1,1 +1,1 @@
-export const HEADLINES_SET = 'headlines/SET';
+export const HEADLINES_SET = 'headlines/SET'

@@ -1,18 +1,18 @@
-import * as authentication from 'feathers-authentication';
+import * as authentication from 'feathers-authentication'
 
 // Models
-import { IHooks } from 'models/api';
+import { IHooks } from 'models/api'
 
 export const associateUser = (): IHooks => {
-    const commonHooks = [
-        authentication.hooks.associateCurrentUser({
-            as: 'author'
-        })
-    ];
+  const commonHooks = [
+    authentication.hooks.associateCurrentUser({
+      as: 'author'
+    })
+  ]
 
-    return {
-        create: commonHooks,
-        update: commonHooks,
-        patch: commonHooks
-    };
-};
+  return {
+    create: commonHooks,
+    update: commonHooks,
+    patch: commonHooks
+  }
+}

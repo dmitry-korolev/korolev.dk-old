@@ -1,12 +1,12 @@
-import { crud } from 'utils';
+import { crud } from 'utils'
 
 // Models
-import { IHeadline } from 'models/headlines';
+import { IHeadline } from 'models/headlines'
 
 const headlinesService = crud<IHeadline>({
-    serviceName: 'headlines'
-});
+  serviceName: 'headlines'
+})
 
 export {
-    headlinesService
+  headlinesService
 }

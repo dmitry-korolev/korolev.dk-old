@@ -1,13 +1,13 @@
-import { expect } from 'chai';
-import { renderComponent } from 'helpers/TestHelper';
-import { Archive } from './Archive';
+import { expect } from 'chai'
+import { renderComponent } from 'helpers/TestHelper'
+import { Archive } from './Archive'
 
-import * as s from './Archive.css';
+import * as s from './Archive.css'
 
 xdescribe('<Archive />', () => {
-    const component = renderComponent(Archive);
+  const component = renderComponent(Archive)
 
-    xit('Renders with correct style', () => {
-        expect(component.find(s.home)).to.exist;
-    });
-});
+  xit('Renders with correct style', () => {
+    expect(component.find(s.home)).to.exist
+  })
+})

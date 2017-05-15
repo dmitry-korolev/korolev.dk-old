@@ -1,12 +1,12 @@
-import { crud } from 'utils';
+import { crud } from 'utils'
 
 // Models
-import { ITag } from 'models/tags';
+import { ITag } from 'models/tags'
 
 const tagsService = crud<ITag>({
-    serviceName: 'tags'
-});
+  serviceName: 'tags'
+})
 
 export {
-    tagsService
+  tagsService
 }

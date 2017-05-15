@@ -1,23 +1,23 @@
-let app;
+let app
 
 if (process.env.BROWSER) {
-    const feathers = require('feathers/client');
-    const hooks = require('feathers-hooks');
-    const rest = require('feathers-rest/client');
-    const authentication = require('feathers-authentication/client');
+  const feathers = require('feathers/client')
+  const hooks = require('feathers-hooks')
+  const rest = require('feathers-rest/client')
+  const authentication = require('feathers-authentication/client')
 
-    app = feathers();
-    const host = process.env.HOST || 'http://localhost:8889';
+  app = feathers()
+  const host = process.env.HOST || 'http://localhost:8889'
 
-    app
-        .configure(rest(host).fetch(fetch))
-        .configure(hooks())
-        .configure(authentication());
+  app
+    .configure(rest(host).fetch(fetch))
+    .configure(hooks())
+    .configure(authentication())
 } else {
-    const feathers = require('feathers');
-    app = feathers();
+  const feathers = require('feathers')
+  app = feathers()
 }
 
 export {
-    app
-};
+  app
+}

@@ -1,34 +1,40 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "*": [
-                "./src/*",
-                "./src/state/*"
-            ]
-        },
-        "outDir": "build",
-        "module": "commonjs",
-        "target": "es2017",
-        "lib": ["dom", "es5", "es6", "es7", "scripthost"],
-        "sourceMap": true,
-        "inlineSourceMap": false,
-        "inlineSources": false,
-        "experimentalDecorators": true,
-        "noUnusedParameters": true,
-        "noUnusedLocals": true,
-        "jsx": "react",
-        "importHelpers": true,
-        "moduleResolution": "node"
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "./src/*",
+        "./src/state/*"
+      ]
     },
-    "exclude": [
-        "node_modules",
-        "build",
-        "typings/main",
-        "typings/main.d.ts"
+    "outDir": "build",
+    "module": "commonjs",
+    "target": "es2017",
+    "lib": [
+      "dom",
+      "es5",
+      "es6",
+      "es7",
+      "scripthost"
     ],
-    "awesomeTypescriptLoaderOptions": {
-        "useCache": false,
-        "useBabel": false
-    }
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "inlineSources": false,
+    "experimentalDecorators": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "jsx": "react",
+    "importHelpers": true,
+    "moduleResolution": "node"
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "typings/main",
+    "typings/main.d.ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": false,
+    "useBabel": false
+  }
 }

@@ -1,43 +1,43 @@
-import { routerMiddleware } from 'react-router-redux';
-import { Middleware, Store, applyMiddleware, compose, createStore } from 'redux';
-import * as createLogger from 'redux-logger';
-import thunk from 'redux-thunk';
+import { routerMiddleware } from 'react-router-redux'
+import { Middleware, Store, applyMiddleware, compose, createStore } from 'redux'
+import * as createLogger from 'redux-logger'
+import thunk from 'redux-thunk'
 
 // Models
-import { IStore } from 'models/store';
-import rootReducer from './reducers';
+import { IStore } from 'models/store'
+import rootReducer from './reducers'
 
-const appConfig = require('../../config/main');
+const appConfig = require('../../config/main')
 
-export function configureStore(history: any, initialState?: IStore): Store<IStore> {
-    const middlewares: Middleware[] = [
-        routerMiddleware(history),
-        thunk
-    ];
+export function configureStore (history: any, initialState?: IStore): Store<IStore> {
+  const middlewares: Middleware[] = [
+    routerMiddleware(history),
+    thunk
+  ]
 
-    /** Add Only Dev. Middlewares */
-    if (appConfig.env !== 'production' && process.env.BROWSER) {
-        const logger = createLogger({
-            collapsed: true,
-            duration: true,
-            diff: true
-        });
-        middlewares.push(logger);
-    }
+  /** Add Only Dev. Middlewares */
+  if (appConfig.env !== 'production' && process.env.BROWSER) {
+    const logger = createLogger({
+      collapsed: true,
+      duration: true,
+      diff: true
+    })
+    middlewares.push(logger)
+  }
 
-    const composeEnhancers = (appConfig.env !== 'production' &&
-        typeof window === 'object' &&
-        window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']) || compose; // tslint:disable-line no-string-literal
+  const composeEnhancers = (appConfig.env !== 'production' &&
+    typeof window === 'object' && // tslint:disable-line strict-type-predicates
+    window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']) || compose // tslint:disable-line no-string-literal
 
-    const store = createStore(rootReducer, initialState, composeEnhancers(
-        applyMiddleware(...middlewares)
-    ));
+  const store = createStore(rootReducer, initialState, composeEnhancers(
+    applyMiddleware(...middlewares)
+  ))
 
-    if (appConfig.env === 'development' && (module as any).hot) {
-        (module as any).hot.accept('./reducers', () => {
-            store.replaceReducer((require('./reducers')));
-        });
-    }
+  if (appConfig.env === 'development' && (module as any).hot) {
+    (module as any).hot.accept('./reducers', () => {
+      store.replaceReducer((require('./reducers')))
+    })
+  }
 
-    return store;
+  return store
 }

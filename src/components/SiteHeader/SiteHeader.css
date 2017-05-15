@@ -1,11 +1,11 @@
 @import '../../statics/styles/variables.css';
 
 .site_header {
-    height: calc(var(--size__gutter) * 12);
-    margin-bottom: var(--size__leading);
+  height: calc(var(--size__gutter) * 12);
+  margin-bottom: var(--size__leading);
 }
 
 .site_logo {
-    min-width: var(--size__column-width);
-    text-align: center;
+  min-width: var(--size__column-width);
+  text-align: center;
 }

@@ -1,16 +1,16 @@
 import {
-    pipe,
-    sort,
-    descend,
-    prop,
-    map
-} from 'utils/ramda';
+  pipe,
+  sort,
+  descend,
+  prop,
+  map
+} from 'utils/ramda'
 
-const idP = prop('_id');
+const idP = prop('_id')
 export const mapItemsToIds = pipe(
-    sort(descend(pipe(
-        prop('_created'),
-        Date.parse
-    ))),
-    map(idP)
-);
+  sort(descend(pipe(
+    prop('_created'),
+    Date.parse
+  ))),
+  map(idP)
+)

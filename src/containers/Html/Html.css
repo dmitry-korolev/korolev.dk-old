@@ -1,5 +1,5 @@
 @import '../../statics/styles/variables.css';
 
 .main {
-    padding: 0 var(--size__gutter);
+  padding: 0 var(--size__gutter);
 }

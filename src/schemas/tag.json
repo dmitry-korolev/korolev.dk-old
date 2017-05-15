@@ -1,19 +1,33 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Tag",
-    "additionalProperties": false,
-    "properties": {
-        "_created": {},
-        "_id": { "type": "string" },
-        "_updated": {},
-        "author": { "type": "string" },
-        "description": { "type": "string" },
-        "taxonomy": { "enum": [ "categories", "tags" ], "type": "string" },
-        "title": { "type": "string" }
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Tag",
+  "additionalProperties": false,
+  "properties": {
+    "_created": {},
+    "_id": {
+      "type": "string"
     },
-    "required": [
-        "taxonomy",
-        "title"
-    ],
-    "type": "object"
+    "_updated": {},
+    "author": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "taxonomy": {
+      "enum": [
+        "categories",
+        "tags"
+      ],
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "taxonomy",
+    "title"
+  ],
+  "type": "object"
 }

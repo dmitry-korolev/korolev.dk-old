@@ -1,12 +1,41 @@
 @import '../../statics/styles/variables.css';
 
-.size_32 { font-size: 2rem; }
-.size_28 { font-size: 1.75rem; }
-.size_24 { font-size: 1.5rem; }
-.size_20 { font-size: 1.25rem; }
-.size_18 { font-size: 1.125rem; }
-.size_16 { font-size: 1rem; }
-.size_14 { font-size: 0.875rem; }
-.size_12 { font-size: 0.75rem; }
-.size_10 { font-size: 0.625rem; }
-.size_8 { font-size: 0.5rem; }
+.size_32 {
+  font-size: 2rem;
+}
+
+.size_28 {
+  font-size: 1.75rem;
+}
+
+.size_24 {
+  font-size: 1.5rem;
+}
+
+.size_20 {
+  font-size: 1.25rem;
+}
+
+.size_18 {
+  font-size: 1.125rem;
+}
+
+.size_16 {
+  font-size: 1rem;
+}
+
+.size_14 {
+  font-size: 0.875rem;
+}
+
+.size_12 {
+  font-size: 0.75rem;
+}
+
+.size_10 {
+  font-size: 0.625rem;
+}
+
+.size_8 {
+  font-size: 0.5rem;
+}

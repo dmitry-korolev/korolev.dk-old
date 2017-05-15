@@ -1,15 +1,19 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Tag",
-    "additionalProperties": false,
-    "properties": {
-        "_created": {},
-        "_id": { "type": "string" },
-        "_updated": {},
-        "content": { "type": "string" }
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Tag",
+  "additionalProperties": false,
+  "properties": {
+    "_created": {},
+    "_id": {
+      "type": "string"
     },
-    "required": [
-        "content"
-    ],
-    "type": "object"
+    "_updated": {},
+    "content": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "content"
+  ],
+  "type": "object"
 }

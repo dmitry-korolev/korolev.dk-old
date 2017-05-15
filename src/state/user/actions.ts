@@ -1,40 +1,40 @@
-import * as debug from 'debug';
-import { app } from 'services';
-import { createAction } from 'utils';
-import { USER_LOGIN_ERROR, USER_LOGIN_START, USER_LOGIN_SUCCESS } from './types';
+import * as debug from 'debug'
+import { app } from 'services'
+import { createAction } from 'utils'
+import { USER_LOGIN_ERROR, USER_LOGIN_START, USER_LOGIN_SUCCESS } from './types'
 
 // Models
-import { IAsyncAction, IAsyncActionCreator } from 'models/flux';
-import { IStore } from 'models/store';
-import { IUserCredentials, IUserData } from 'models/user';
-import { Dispatch } from 'redux';
+import { IAsyncAction, IAsyncActionCreator } from 'models/flux'
+import { IStore } from 'models/store'
+import { IUserCredentials, IUserData } from 'models/user'
+import { Dispatch } from 'redux'
 
-const logError = debug('k:auth:error');
+const logError = debug('k:auth:error')
 
-const userLoginStart = createAction(USER_LOGIN_START);
-const userLoginSuccess = createAction(USER_LOGIN_SUCCESS);
-const userLoginError = createAction(USER_LOGIN_ERROR);
+const userLoginStart = createAction(USER_LOGIN_START)
+const userLoginSuccess = createAction(USER_LOGIN_SUCCESS)
+const userLoginError = createAction(USER_LOGIN_ERROR)
 
 interface IAuthResult {
-    data: IUserData;
-    token: string;
+  data: IUserData
+  token: string
 }
 
 export const userLogin: IAsyncActionCreator<IUserCredentials> = (credentials: IUserCredentials): IAsyncAction =>
-    async (dispatch: Dispatch<IStore>): Promise<void> => {
-        dispatch(userLoginStart());
+  async (dispatch: Dispatch<IStore>): Promise<void> => {
+    dispatch(userLoginStart())
 
-        try {
-            const result: IAuthResult = await app.authenticate({
-                type: 'local',
-                ...credentials
-            });
-            await dispatch(userLoginSuccess(result.data));
-        } catch (error) {
-            logError(error);
-            await dispatch(userLoginError(error));
-        }
-    };
+    try {
+      const result: IAuthResult = await app.authenticate({
+        type: 'local',
+        ...credentials
+      })
+      await dispatch(userLoginSuccess(result.data))
+    } catch (error) {
+      logError(error)
+      await dispatch(userLoginError(error))
+    }
+  }
 
-userLogin.onlyClient = true;
-userLogin.once = true;
+userLogin.onlyClient = true
+userLogin.once = true
