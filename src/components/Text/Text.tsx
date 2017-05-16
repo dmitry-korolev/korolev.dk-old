@@ -10,14 +10,16 @@ export interface ITextProps extends React.HTMLProps<HTMLElement> {
   size?: TextSize
 }
 
-const Text: React.StatelessComponent<ITextProps> = ({
-                                                      tag: Component = 'div',
-                                                      className,
-                                                      size,
-                                                      children,
-                                                      ...htmlProps
-                                                    }: ITextProps): JSX.Element => (
-  <Component
+const Text: React.StatelessComponent<ITextProps> = (props: ITextProps): JSX.Element => {
+  const {
+    tag: Component = 'div',
+    className,
+    size,
+    children,
+    ...htmlProps
+  } = props
+
+  return <Component
     className={ cn(className, {
       [styles[`size_${size}`]]: !!size
     }) }
@@ -25,7 +27,7 @@ const Text: React.StatelessComponent<ITextProps> = ({
   >
     { children }
   </Component>
-)
+}
 
 Text.displayName = 'Text'
 
