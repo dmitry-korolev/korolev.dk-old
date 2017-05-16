@@ -36,11 +36,13 @@ const config = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'react-hot-loader!babel-loader!awesome-typescript-loader'
+        loader: 'react-hot-loader!babel-loader!awesome-typescript-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.json$/,

@@ -42,7 +42,8 @@ const config = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'babel-loader!awesome-typescript-loader'
+        loader: 'babel-loader!awesome-typescript-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.jsx?$/,
