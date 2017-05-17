@@ -1,11 +1,13 @@
 import * as React from 'react'
 import MDJ from 'mdj'
+import { Title, Text, Link, List } from 'components'
+
+// Models
 import { NodeItem } from 'mdj'
-import { Title, Text, Link } from 'components'
 
 const parser = MDJ()
 
-interface MarkdownProps {
+interface IMarkdownProps {
   source: string
 }
 
@@ -32,6 +34,20 @@ const processToken = (token: NodeItem): JSX.Element => {
     case 'link':
       return <Link to={ token.href } title={ token.title } >{ token.children.map(processToken) }</Link>
 
+    case 'list':
+      return <List start={ token.start } ordered={ token.ordered }>{ token.children.map(processToken) }</List>
+
+    case 'listitem':
+      return <li>{ token.children.map(processToken) }</li>
+
+    case 'table':
+      return <table>
+        <tr>
+          { token.header.map((item) => <th>{ item }</th>) }
+        </tr>
+        { token.cells.map((row) => <tr>{ row.map((cell) => <td>{ cell.map(processToken) }</td>) }</tr>) }
+      </table>
+
     case 'em':
     case 'paragraph':
     case 'strikethrough':
@@ -53,7 +69,7 @@ const processToken = (token: NodeItem): JSX.Element => {
   }
 }
 
-class Markdown extends React.PureComponent<MarkdownProps, {}> {
+class Markdown extends React.PureComponent<IMarkdownProps, {}> {
   public render () {
     return <div>
       { parser.parse(this.props.source).map(processToken) }
