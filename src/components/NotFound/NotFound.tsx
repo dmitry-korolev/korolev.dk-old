@@ -11,7 +11,9 @@ const NotFound: React.StatelessComponent<React.HTMLProps<HTMLElement>> = (): JSX
         <Text
           tag={ 'strong' }
           className={ styles.notFound__404 }
-        >404</Text>
+        >
+          404
+        </Text>
       </div>
       <Text>
         К сожалению, по этому адресу ничего нет. Попробуйте поиск.

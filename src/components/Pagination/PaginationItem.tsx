@@ -23,13 +23,13 @@ const PaginationItem: React.StatelessComponent<IProps> = (props: IProps): JSX.El
         [styles.pagination_active]: isActive
       }) }
     >
-            <Link
-              to={ href }
-              unstyled={ true }
-            >
-                { pageNumber }
-            </Link>
-        </span>
+        <Link
+          to={ href }
+          unstyled={ true }
+        >
+            { pageNumber }
+        </Link>
+    </span>
   )
 }
 

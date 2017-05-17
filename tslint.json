@@ -4,8 +4,8 @@
   ],
   "extends": [
     "tslint:latest",
-    "tslint-react",
-    "tslint-config-standard"
+    "tslint-config-standard",
+    "tslint-react"
   ],
   "rules": {
     "await-promise": false,
