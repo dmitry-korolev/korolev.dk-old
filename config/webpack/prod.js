@@ -7,6 +7,7 @@ const postcssImport = require('postcss-import')
 const stylelint = require('stylelint')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const config = {
   bail: true,
@@ -17,19 +18,7 @@ const config = {
   },
 
   entry: {
-    app: './src/client.tsx',
-    vendor: [
-      './src/vendor.ts',
-      'react',
-      'react-dom',
-      'react-router',
-      'react-helmet',
-      'react-redux',
-      'react-router-redux',
-      'redux',
-      'redux-connect',
-      'redux-thunk'
-    ]
+    app: ['./src/client.tsx', './src/vendor.ts']
   },
 
   output: {
@@ -158,6 +147,15 @@ const config = {
         NODE_ENV: JSON.stringify('production')
       }
     })
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'server',
+    //   analyzerHost: '127.0.0.1',
+    //   analyzerPort: 8888,
+    //   reportFilename: 'report.html',
+    //   defaultSizes: 'parsed',
+    //   openAnalyzer: true,
+    //   logLevel: 'info'
+    // })
   ]
 }
 
