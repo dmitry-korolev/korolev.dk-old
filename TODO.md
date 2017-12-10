@@ -1,4 +1,11 @@
 ## Todo
+- Refactor
+  - css -> styled-components
+  - redux-thunk -> redux-most
+  - react-router -> universal-router
+  - mdj -> any production-ready markdown lib
+  - Rearrange application setup in server.ts, 'cause mother of god, it's so shitty right now
+
 - FIXES
     - API path in production mode
 - Content:
@@ -20,11 +27,8 @@
         - Posts footer
         - Posts content
 - Other
-    - (!) Change react-css-modules to babel-plugin-react-css-modules
-    - Rearrange application setup in server.ts, 'cause mother of god, it's so shitty right now
     - (?) Try to switch ts compiler to native modules (to enable some useful babel plugins)
     - (?) Move shouldRunAction from globalActions.ts to a middleware
-    - (?) Inline all css into head
 - Update
     - (?) react-router. I should probably write my own router.
     - react-helmet
