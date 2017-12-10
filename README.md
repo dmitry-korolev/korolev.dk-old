@@ -1,4 +1,5 @@
-# Work in progress
+# DEPRECATED
+This project was abandoned eventually and I don't really feel enthusiastic about continuing it. More likely I'm gonna start something new, like, with observables and graphql and unicorns and all that stuff. Still, I learned a lot.
 
 # Korolev.dk
 [Korolev.dk](https://korolev.dk) is my personal website and (more likely) my personal playground. It is under construction for now and uses:
