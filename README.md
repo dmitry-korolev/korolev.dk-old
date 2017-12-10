@@ -1,4 +1,5 @@
-# Work in progress
+# DEPRECATED
+I'm too lazy to make it run again
 
 # Korolev.dk
 [Korolev.dk](https://korolev.dk) is my personal website and (more likely) my personal playground. It is under construction for now and uses:
